@@ -1,0 +1,39 @@
+.navbar-nav {
+    a {
+        color: black;
+        font-size: 17px;
+    }
+
+    .register-button {
+        &:hover {
+            color: white !important;
+        }
+    }
+}
+
+.nav-links-buttons {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    .navbar-items-container {
+        margin: auto;
+
+        @media screen and (max-width: 992px) {
+            position: absolute;
+            width: 100%;
+            right: 0px;
+            top: 100%;
+            background-color: white;
+            box-shadow: -2px 0px 6px rgba(0, 0, 0, 0.2), 2px 0px 6px rgba(0, 0, 0, 0.2), 0px 4px 6px rgba(0, 0, 0, 0.2);
+            border-radius: 10px;
+            padding: 10px;
+            z-index: 10;
+        }
+    }
+
+    @media screen and (max-width: 992px) {
+        justify-content: start;
+        width: fit-content;
+        gap: 8px;
+    }
+}
