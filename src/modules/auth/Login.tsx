@@ -1,12 +1,15 @@
 import React, { useEffect, useState } from 'react';
-import { Container, Card, Row, Col, Form, InputGroup, FormCheck, Button } from 'react-bootstrap';
+import { Container, Card, Row, Col, Form, InputGroup, FormCheck, Button, Alert } from 'react-bootstrap';
 import { useLocation, useNavigate, Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faAngleLeft, faEnvelope, faUnlockAlt } from '@fortawesome/free-solid-svg-icons';
+import { faEnvelope, faUnlockAlt } from '@fortawesome/free-solid-svg-icons';
+import { useDispatch, useSelector } from 'react-redux';
 import routes from '../common/routing/routes';
 import { useLoginMutation } from './auth.api';
+import { loginUser } from './authenticationSlice';
 import Loader from '../common/components/Loader';
 import Animate from '../common/components/Animate';
+import { selectAuthentication } from '../../app/store';
 
 interface IdealLocationState {
   from: {
@@ -20,16 +23,17 @@ const Login = () => {
   localStorage.setItem('rememberMe', 'false');
   const navigate = useNavigate();
   const location = useLocation();
-  const [loginUser, { isLoading }] = useLoginMutation();
+  const dispatch = useDispatch();
+  const [loginUserApi, { isLoading }] = useLoginMutation();
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
+  const { accessToken } = useSelector(selectAuthentication);
 
   const previousLocationState = location.state as LocationState;
 
   useEffect(() => {
-    const accessToken = localStorage.getItem('accessToken') || sessionStorage.getItem('accessToken');
     if (accessToken) {
       navigate(routes.Home.relativePath);
     }
@@ -38,8 +42,7 @@ const Login = () => {
   async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
     const rememberMe = localStorage.getItem('rememberMe');
-
-    await loginUser({ email, password })
+    await loginUserApi({ email, password })
       .unwrap()
       .then((payload) => {
         if (rememberMe === 'true') {
@@ -49,6 +52,13 @@ const Login = () => {
           sessionStorage.setItem('accessToken', payload.data.accessToken);
           sessionStorage.setItem('refreshToken', payload.data.refreshToken);
         }
+        dispatch(
+          loginUser({
+            user: payload.data.user,
+            accessToken: payload.data.accessToken,
+            refreshToken: payload.data.refreshToken,
+          })
+        );
         navigate(previousLocationState?.from.pathname || '/', { replace: true });
       })
       .catch((err) => {
@@ -62,19 +72,14 @@ const Login = () => {
       <Animate>
         <section className="d-flex align-items-center my-5 mt-lg-6 mb-lg-5">
           <Container>
-            <p className="text-center">
-              <Card.Link as={Link} to={routes.Home.relativePath} className="text-dark">
-                <FontAwesomeIcon icon={faAngleLeft} className="me-2" /> Back to homepage
-              </Card.Link>
-            </p>
             <Row className="justify-content-center">
               <Col xs={12} className="d-flex align-items-center justify-content-center">
                 <div className="bg-white p-4 p-lg-5 w-lg-50 w-md-100">
                   <div className="text-center text-md-center mb-4 mt-md-0">
-                    <h3 className="mb-0">Sign in</h3>
-                    {error && <p className="text-danger pt-3">{error}</p>}
+                    <h3 className="mb-5">Sign in</h3>
+                    {error && <Alert variant="danger">{error}</Alert>}
                   </div>
-                  <Form className="mt-4" data-testid="login-form" onSubmit={handleSubmit}>
+                  <Form className="mt-4" onSubmit={handleSubmit}>
                     <Form.Group id="email" className="mb-4">
                       <Form.Label>Email address</Form.Label>
                       <InputGroup>
@@ -82,7 +87,6 @@ const Login = () => {
                           <FontAwesomeIcon icon={faEnvelope} />
                         </InputGroup.Text>
                         <Form.Control
-                          data-testid="login-email"
                           name="email"
                           autoFocus
                           required
@@ -99,7 +103,6 @@ const Login = () => {
                             <FontAwesomeIcon icon={faUnlockAlt} />
                           </InputGroup.Text>
                           <Form.Control
-                            data-testid="login-password"
                             name="password"
                             required
                             type="password"
@@ -110,7 +113,6 @@ const Login = () => {
                       <div className="d-flex justify-content-between align-items-center mb-4">
                         <Form.Check type="checkbox">
                           <FormCheck.Input
-                            data-testid="login-rememberMe"
                             id="defaultCheck5"
                             className="me-2"
                             onChange={(e) => {
@@ -122,23 +124,23 @@ const Login = () => {
                             }}
                           />
                           <FormCheck.Label htmlFor="defaultCheck5" className="mb-0">
-                            Remember me
+                            Keep me signed in
                           </FormCheck.Label>
                         </Form.Check>
                         <Card.Link as={Link} to={routes.ForgotPassword.absolutePath} className="small text-end">
-                          Lost password?
+                          Forgot password?
                         </Card.Link>
                       </div>
                     </Form.Group>
-                    <Button variant="primary" type="submit" className="w-100" data-testid="login-submit">
+                    <Button variant="primary" type="submit" className="w-100">
                       Sign in
                     </Button>
                   </Form>
                   <div className="d-flex justify-content-center align-items-center mt-4">
                     <span className="fw-normal">
-                      Not registered?
+                      Dont have an account?
                       <Card.Link as={Link} to={routes.Register.absolutePath} className="fw-bold">
-                        {` Create account `}
+                        {` Register `}
                       </Card.Link>
                     </span>
                   </div>

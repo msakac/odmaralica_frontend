@@ -50,17 +50,16 @@ const Register = () => {
               <Col xs={12} className="d-flex align-items-center justify-content-center">
                 <div className="bg-white border rounded border-light p-4 p-lg-5 w-lg-50 w-md-100">
                   <div className="text-center text-md-center mb-4 mt-md-0">
-                    <h3 className="mb-0">Create an Account</h3>
+                    <h3 className="mb-0">Register</h3>
                   </div>
                   <Form className="mt-4" onSubmit={handleSubmit}>
                     <Form.Group id="name" className="mb-4">
-                      <Form.Label>Your Name</Form.Label>
+                      <Form.Label>Name</Form.Label>
                       <InputGroup>
                         <InputGroup.Text>
                           <FontAwesomeIcon icon={faUser} />
                         </InputGroup.Text>
                         <Form.Control
-                          data-testid="register-name"
                           name="name"
                           autoFocus
                           required
@@ -71,13 +70,12 @@ const Register = () => {
                       </InputGroup>
                     </Form.Group>
                     <Form.Group id="name" className="mb-4">
-                      <Form.Label>Your Surname</Form.Label>
+                      <Form.Label>Surname</Form.Label>
                       <InputGroup>
                         <InputGroup.Text>
                           <FontAwesomeIcon icon={faUser} />
                         </InputGroup.Text>
                         <Form.Control
-                          data-testid="register-surname"
                           name="surname"
                           autoFocus
                           required
@@ -88,13 +86,12 @@ const Register = () => {
                       </InputGroup>
                     </Form.Group>
                     <Form.Group id="email" className="mb-4">
-                      <Form.Label>Your Email</Form.Label>
+                      <Form.Label>Email address</Form.Label>
                       <InputGroup>
                         <InputGroup.Text>
                           <FontAwesomeIcon icon={faEnvelope} />
                         </InputGroup.Text>
                         <Form.Control
-                          data-testid="register-email"
                           name="email"
                           autoFocus
                           required
@@ -105,13 +102,12 @@ const Register = () => {
                       </InputGroup>
                     </Form.Group>
                     <Form.Group id="password" className="mb-4">
-                      <Form.Label>Your Password</Form.Label>
+                      <Form.Label>Password</Form.Label>
                       <InputGroup>
                         <InputGroup.Text>
                           <FontAwesomeIcon icon={faUnlockAlt} />
                         </InputGroup.Text>
                         <Form.Control
-                          data-testid="register-password"
                           name="password"
                           required
                           type="password"
@@ -120,26 +116,7 @@ const Register = () => {
                         />
                       </InputGroup>
                     </Form.Group>
-                    <Form.Group id="remember" className="mb-4">
-                      <Form.Check type="checkbox">
-                        <Form.Check.Input
-                          data-testid="register-rememberMe"
-                          id="rememberMe"
-                          className="me-2"
-                          onChange={(e) => {
-                            if (e.target.checked) {
-                              localStorage.setItem('rememberMe', 'true');
-                            } else {
-                              localStorage.setItem('rememberMe', 'false');
-                            }
-                          }}
-                        />
-                        <Form.Check.Label htmlFor="rememberMe" className="mb-0">
-                          Remember me
-                        </Form.Check.Label>
-                      </Form.Check>
-                    </Form.Group>
-                    <Button variant="primary" type="submit" className="w-100" data-testid="register-submit">
+                    <Button variant="primary" type="submit" className="w-100">
                       Register
                     </Button>
                   </Form>
