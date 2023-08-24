@@ -45,6 +45,7 @@ const Login = () => {
     await loginUserApi({ email, password })
       .unwrap()
       .then((payload) => {
+        console.log(payload);
         if (rememberMe === 'true') {
           localStorage.setItem('accessToken', payload.data.accessToken);
           localStorage.setItem('refreshToken', payload.data.refreshToken);
@@ -76,7 +77,7 @@ const Login = () => {
               <Col xs={12} className="d-flex align-items-center justify-content-center">
                 <div className="bg-white p-4 p-lg-5 w-lg-50 w-md-100">
                   <div className="text-center text-md-center mb-4 mt-md-0">
-                    <h3 className="mb-5">Sign in</h3>
+                    <h3 className={`${error ? 'mb-2' : 'mb-5'}`}>Sign in</h3>
                     {error && <Alert variant="danger">{error}</Alert>}
                   </div>
                   <Form className="mt-4" onSubmit={handleSubmit}>

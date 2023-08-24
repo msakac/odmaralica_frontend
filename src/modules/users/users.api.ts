@@ -11,7 +11,7 @@ import {
   IGetUsersRequestParams,
   IUpdateUserRequest,
   IUser,
-  IUserWithoutPassword,
+  IAuthenticatedUserDTO,
 } from './users.types';
 import IResponse from '../common/definitions/IResponse';
 import IJWT from '../common/definitions/IJWT';
@@ -20,7 +20,7 @@ const apiWithUserTags = api.enhanceEndpoints({ addTagTypes: ['User'] });
 
 const userApi = apiWithUserTags.injectEndpoints({
   endpoints: (builder) => ({
-    createUser: builder.mutation<IUserWithoutPassword, ICreateUserRequest>({
+    createUser: builder.mutation<IAuthenticatedUserDTO, ICreateUserRequest>({
       query: (body) => ({
         url: 'users',
         method: 'POST',
@@ -28,7 +28,7 @@ const userApi = apiWithUserTags.injectEndpoints({
       }),
       invalidatesTags: ['User'],
     }),
-    getUsers: builder.query<IQueryResults<IUserWithoutPassword>, IGetUsersRequestParams>({
+    getUsers: builder.query<IQueryResults<IAuthenticatedUserDTO>, IGetUsersRequestParams>({
       query: (params) => ({
         url: 'users',
         method: 'GET',
@@ -39,14 +39,14 @@ const userApi = apiWithUserTags.injectEndpoints({
           ? [...data.results.map(({ id }) => ({ type: 'User' as const, id })), { type: 'User', id: 'PARTIAL-USER-LIST' }]
           : [{ type: 'User', id: 'PARTIAL-USER-LIST' }],
     }),
-    getSingleUser: builder.query<IResponse<IUserWithoutPassword>, IGetSingleUserRequest>({
+    getSingleUser: builder.query<IResponse<IAuthenticatedUserDTO>, IGetSingleUserRequest>({
       query: ({ id }) => ({
         url: `user/${id}`,
         method: 'GET',
       }),
       providesTags: (result) => (result ? [{ type: 'User', id: result.data.id }] : ['User']),
     }),
-    updateUser: builder.mutation<IUserWithoutPassword, IUpdateUserRequest>({
+    updateUser: builder.mutation<IAuthenticatedUserDTO, IUpdateUserRequest>({
       query: ({ id, body }) => ({
         url: `users/${id}`,
         method: 'PATCH',
@@ -77,8 +77,8 @@ export const selectUserById = (id: IUser['id']) => userApi.endpoints.getSingleUs
 export const selectUserFromList = (id: IUser['id']) =>
   createSelector(selectUsers, (response) => response.data?.results.find((user) => user.id === id));
 
-export const getLoggedInUser = (): IUserWithoutPassword | null => {
-  let user: IUserWithoutPassword | null = null;
+export const getLoggedInUser = (): IAuthenticatedUserDTO | null => {
+  let user: IAuthenticatedUserDTO | null = null;
   const token = sessionStorage.getItem('accessToken') || localStorage.getItem('accessToken');
   let id = '';
   if (token) {
@@ -96,7 +96,7 @@ export const getLoggedInUser = (): IUserWithoutPassword | null => {
   return user;
 };
 
-export const getUserById = (id: IUser['id']): IUserWithoutPassword | undefined => {
+export const getUserById = (id: IUser['id']): IAuthenticatedUserDTO | undefined => {
   const { data } = useSelector(selectUserById(id));
   return data!.data;
 };
@@ -111,7 +111,7 @@ export const {
 export default userApi;
 
 export const useCurrentUser = () => {
-  let user: IUserWithoutPassword | null = null;
+  let user: IAuthenticatedUserDTO | null = null;
   const id = sessionStorage.getItem('userId') || localStorage.getItem('userId');
   if (id) {
     const { data } = useGetSingleUserQuery({ id });

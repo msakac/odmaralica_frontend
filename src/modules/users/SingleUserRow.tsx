@@ -14,11 +14,11 @@ import { Button, ButtonGroup, Card, Dropdown, OverlayTrigger, Tooltip } from 're
 import { toast } from 'react-toastify';
 import { useForgotPasswordMutation, useSendVerificationEmailMutation } from '../auth/auth.api';
 import { useDeleteUserMutation } from './users.api';
-import { IUserWithoutPassword } from './users.types';
+import { IAuthenticatedUserDTO } from './users.types';
 import routes from '../common/routing/routes';
 
 type Props = {
-  user: IUserWithoutPassword;
+  user: IAuthenticatedUserDTO;
 };
 
 const SingleUserRow = ({ user }: Props) => {

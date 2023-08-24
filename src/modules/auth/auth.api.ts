@@ -1,20 +1,23 @@
 import api from '../../app/api';
+import IResponse from '../common/definitions/IResponse';
+import { IAuthenticatedUserDTO } from '../users/users.types';
 import {
   IForgotPasswordRequest,
-  ILoginRequest,
+  ILoginRequestDTO,
   ILogoutRequest,
   IRefreshTokenRequest,
-  IRegisterRequest,
   IResetPasswordRequest,
-  IUserWithTokens,
   IVerifyEmailRequestParams,
+  ILoginResponseDTO,
+  IRegisterResponseDTO,
+  IRegisterRequestDTO,
 } from './auth.types';
 
 const apiWithAuthTags = api.enhanceEndpoints({ addTagTypes: ['Auth'] });
 
 const authApi = apiWithAuthTags.injectEndpoints({
   endpoints: (builder) => ({
-    login: builder.mutation<IUserWithTokens, ILoginRequest>({
+    login: builder.mutation<IResponse<ILoginResponseDTO>, ILoginRequestDTO>({
       query: (body) => ({
         url: 'auth/login',
         method: 'POST',
@@ -23,7 +26,7 @@ const authApi = apiWithAuthTags.injectEndpoints({
       invalidatesTags: ['Auth'],
     }),
 
-    register: builder.mutation<IUserWithTokens, IRegisterRequest>({
+    register: builder.mutation<IResponse<IRegisterResponseDTO>, IRegisterRequestDTO>({
       query: (body) => ({
         url: 'auth/register',
         method: 'POST',
@@ -31,7 +34,7 @@ const authApi = apiWithAuthTags.injectEndpoints({
       }),
       invalidatesTags: ['Auth'],
     }),
-    logout: builder.mutation<void, ILogoutRequest>({
+    logout: builder.mutation<IResponse<IAuthenticatedUserDTO>, ILogoutRequest>({
       query: (body) => ({
         url: 'auth/logout',
         method: 'POST',
@@ -39,7 +42,7 @@ const authApi = apiWithAuthTags.injectEndpoints({
       }),
       invalidatesTags: ['Auth'],
     }),
-    refreshTokens: builder.mutation<IUserWithTokens, IRefreshTokenRequest>({
+    refreshTokens: builder.mutation<IResponse<ILoginResponseDTO>, IRefreshTokenRequest>({
       query: (body) => ({
         url: 'auth/refresh-tokens',
         method: 'POST',

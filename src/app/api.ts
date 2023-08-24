@@ -1,6 +1,6 @@
 import { BaseQueryFn, createApi, FetchArgs, fetchBaseQuery, FetchBaseQueryError } from '@reduxjs/toolkit/query/react';
 import { Mutex } from 'async-mutex';
-import { IUserWithTokens } from '../modules/auth/auth.types';
+import { ILoginResponseDTO } from '../modules/auth/auth.types';
 
 const mutex = new Mutex();
 
@@ -49,13 +49,13 @@ const baseQueryWithReauth: BaseQueryFn<string | FetchArgs, unknown, FetchBaseQue
             extraOptions
           );
           if (refreshResult.data) {
-            const userWithTokens = refreshResult.data as IUserWithTokens;
+            const userWithTokens = refreshResult.data as ILoginResponseDTO;
             if (rememberMe === 'true') {
-              localStorage.setItem('accessToken', userWithTokens.tokens.access.token);
-              localStorage.setItem('refreshToken', userWithTokens.tokens.refresh.token);
+              localStorage.setItem('accessToken', userWithTokens.accessToken);
+              localStorage.setItem('refreshToken', userWithTokens.refreshToken);
             } else {
-              sessionStorage.setItem('accessToken', userWithTokens.tokens.access.token);
-              sessionStorage.setItem('refreshToken', userWithTokens.tokens.refresh.token);
+              sessionStorage.setItem('accessToken', userWithTokens.accessToken);
+              sessionStorage.setItem('refreshToken', userWithTokens.refreshToken);
             }
           } else {
             resetAuth();

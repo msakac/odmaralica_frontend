@@ -12,6 +12,7 @@ import UserList from '../../users/UserList';
 import NewUser from '../../users/NewUser';
 import EditUser from '../../users/EditUser';
 import NotFound from './NotFound';
+import RegisterSuccess from '../../auth/RegisterSuccess';
 
 const Routing = () => {
   return (
@@ -23,6 +24,7 @@ const Routing = () => {
         <Route path={routes.ResetPassword.relativePath} element={<ResetPassword />} />
         <Route path={routes.ForgotPassword.relativePath} element={<ForgotPassword />} />
         <Route path={routes.VerifyEmail.relativePath} element={<VerifyEmail />} />
+        <Route path={routes.RegisterSuccess.relativePath} element={<RegisterSuccess />} />
       </Route>
       <Route element={<SidebarLayout />}>
         <Route path={routes.Dashboard.absolutePath}>

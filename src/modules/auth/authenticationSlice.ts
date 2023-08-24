@@ -1,9 +1,9 @@
 /* eslint-disable no-param-reassign */
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
-import { IUserWithoutPassword } from '../users/users.types';
+import { IAuthenticatedUserDTO } from '../users/users.types';
 
 export interface AuthenticationState {
-  user: IUserWithoutPassword | null;
+  user: IAuthenticatedUserDTO | null;
   accessToken: string | null;
   refreshToken: string | null;
 }
@@ -20,7 +20,7 @@ const authenticationSlice = createSlice({
   reducers: {
     loginUser: (
       state,
-      action: PayloadAction<{ user: IUserWithoutPassword | null; accessToken: string; refreshToken: string }>
+      action: PayloadAction<{ user: IAuthenticatedUserDTO | null; accessToken: string; refreshToken: string }>
     ) => {
       state.user = action.payload.user;
       state.accessToken = action.payload.accessToken;

@@ -1,7 +1,6 @@
-import IDoc from '../common/definitions/IDoc';
 import IQueryFilter from '../common/definitions/IQueryFilter';
 
-export interface IUser extends IDoc {
+export interface IUser {
   id: string;
   name: string;
   surname: string;
@@ -11,10 +10,15 @@ export interface IUser extends IDoc {
     id: string;
     role: string;
   };
+  image?: string;
   activated: boolean;
+  description?: string;
+  phoneNumber?: string;
 }
 
-export type IUserWithoutPassword = Omit<IUser, 'password'>;
+export type IAuthenticatedUserDTO = Omit<IUser, 'password'>;
+
+export type IUserGetDTO = Omit<IUser, 'password' | 'id' | 'activated' | 'role' | 'image' | 'phoneNumber'>;
 
 export type ICreateUserRequest = Omit<IUser, 'id' | 'activated' | 'role'>;
 

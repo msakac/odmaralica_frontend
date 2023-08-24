@@ -1,8 +1,18 @@
-import { IUser } from '../users/users.types';
+import { IAuthenticatedUserDTO, IUser, IUserGetDTO } from '../users/users.types';
 
-export type IRegisterRequest = Omit<IUser, 'id' | 'activated' | 'role'>;
+/* Login */
+export type ILoginRequestDTO = Pick<IUser, 'email' | 'password'>;
+export interface ILoginResponseDTO {
+  accessToken: string;
+  refreshToken: string;
+  user: IAuthenticatedUserDTO;
+}
 
-export type IUserWithoutPassword = Omit<IUser, 'password'>;
+/* Register */
+export type IRegisterRequestDTO = Omit<IUser, 'id' | 'activated' | 'role'>;
+export interface IRegisterResponseDTO {
+  user: IUserGetDTO;
+}
 
 export interface ITokenPayload {
   token: string;
@@ -14,31 +24,13 @@ export interface AccessAndRefreshTokens {
   refresh: ITokenPayload;
 }
 
-export interface ILoginResponse {
-  user: IUserWithoutPassword;
-  tokens: AccessAndRefreshTokens;
-}
-
-export interface IRegisterResponse {
-  user: IUserWithoutPassword;
-  tokens: AccessAndRefreshTokens;
-}
-
-export type ILoginRequest = Pick<IUser, 'email' | 'password'>;
-
 export type AuthState = {
-  user: IUserWithoutPassword | null;
+  user: IAuthenticatedUserDTO | null;
   token: ITokenPayload['token'] | null;
 };
 
 export interface ILogoutRequest {
   refreshToken: ITokenPayload['token'];
-}
-
-export interface IUserWithTokens {
-  data: any;
-  user: IUserWithoutPassword;
-  tokens: AccessAndRefreshTokens;
 }
 
 export interface IRefreshTokenRequest {
