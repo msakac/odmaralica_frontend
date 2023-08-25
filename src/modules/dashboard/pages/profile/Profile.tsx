@@ -1,32 +1,33 @@
-import { faAt, faKey } from '@fortawesome/free-solid-svg-icons';
+import { faAt, faKey, faPhone } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React, { useState } from 'react';
-import { Card, Col, Form, InputGroup, Row, Button } from 'react-bootstrap';
+import { Card, Col, Form, InputGroup, Row, Button, Image } from 'react-bootstrap';
 import { toast } from 'react-toastify';
-import Loader from '../../../common/components/Loader';
-import { getLoggedInUser, useUpdateUserMutation } from '../../../users/users.api';
-import formatNames from '../../../common/utils/formatName';
-import sanitize from '../../../common/utils/sanitize';
-import splitName from '../../../common/utils/splitName';
-import checkOneOf from '../../../common/utils/checkOneOf';
-import Animate from '../../../common/components/Animate';
+import { useSelector } from 'react-redux';
+import { checkOneOf, sanitize } from 'modules/common/utils';
+import { Loader, Animate } from 'modules/common/components';
+import { useUpdateUserMutation } from 'modules/users/users.api';
+import avatar from 'assets/img/avatars/avatar.png';
+import { selectAuthentication } from 'app/store';
 
 const Profile = () => {
-  const user = getLoggedInUser();
   const [updateUser, { isLoading }] = useUpdateUserMutation();
-  const [firstName, setFirstName] = useState<string>('');
-  const [lastName, setLastName] = useState<string>('');
+  const [name, setName] = useState<string>('');
+  const [surname, setSurname] = useState<string>('');
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
+  const [phoneNumber, setPhoneNumber] = useState<string>('');
+  const [description, setDescription] = useState<string>('');
+  const { user } = useSelector(selectAuthentication);
 
   if (!user) return <div>No User Found</div>;
 
   async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    const body = sanitize({ name: formatNames([firstName, lastName]), email, password });
+    const body = sanitize({ name, surname, email, password, phoneNumber, description });
 
     if (!user) toast.error('User is not logged in');
-    else if (checkOneOf([firstName, lastName, email, password])) toast.error('Please fill at least one field');
+    else if (checkOneOf([name, surname, email, password])) toast.error('Please fill at least one field');
     else {
       await updateUser({ id: user.id, body })
         .unwrap()
@@ -40,34 +41,37 @@ const Profile = () => {
     <>
       <Loader show={isLoading} />
       <Animate>
-        <Card border="light" className="bg-white shadow-sm mb-4">
+        <Card className="bg-white shadow-lg mb-4 profile-card mx-auto">
+          <Card.Header>
+            <Row className="flex-row align-items-center">
+              <Image src={user.image || avatar} className="img-fluid profile-image" />
+              <h5 className="m-0 w-auto ">My Profile</h5>
+            </Row>
+          </Card.Header>
           <Card.Body>
-            <h5 className="mb-4">User Details</h5>
             <Form onSubmit={handleSubmit}>
               <Row>
                 <Col md={6} className="mb-3">
-                  <Form.Group id="firstName">
+                  <Form.Group id="name">
                     <Form.Label>First Name</Form.Label>
                     <Form.Control
-                      data-testid="profile-firstName"
                       required={false}
                       type="text"
-                      defaultValue={splitName(user.name)[0]}
+                      defaultValue={user.name}
                       placeholder="Enter your first name"
-                      onChange={(e) => setFirstName(e.target.value)}
+                      onChange={(e) => setName(e.target.value)}
                     />
                   </Form.Group>
                 </Col>
                 <Col md={6} className="mb-3">
-                  <Form.Group id="lastName">
+                  <Form.Group id="surname">
                     <Form.Label>Last Name</Form.Label>
                     <Form.Control
-                      data-testid="profile-lastName"
                       required={false}
                       type="text"
-                      defaultValue={splitName(user.name)[1]}
+                      defaultValue={user.surname}
                       placeholder="Also your last name"
-                      onChange={(e) => setLastName(e.target.value)}
+                      onChange={(e) => setSurname(e.target.value)}
                     />
                   </Form.Group>
                 </Col>
@@ -81,7 +85,6 @@ const Profile = () => {
                         <FontAwesomeIcon icon={faAt} />
                       </InputGroup.Text>
                       <Form.Control
-                        data-testid="profile-email"
                         required={false}
                         type="email"
                         defaultValue={user.email ?? ''}
@@ -92,6 +95,25 @@ const Profile = () => {
                   </Form.Group>
                 </Col>
                 <Col md={6} className="mb-3">
+                  <Form.Group id="phone-number">
+                    <Form.Label>Phone number</Form.Label>
+                    <InputGroup>
+                      <InputGroup.Text>
+                        <FontAwesomeIcon icon={faPhone} />
+                      </InputGroup.Text>
+                      <Form.Control
+                        required={false}
+                        type="text"
+                        placeholder="Phone number"
+                        defaultValue={user.phoneNumber ?? ''}
+                        onChange={(e) => setPhoneNumber(e.target.value)}
+                      />
+                    </InputGroup>
+                  </Form.Group>
+                </Col>
+              </Row>
+              <Row>
+                <Col className="mb-3">
                   <Form.Group id="password">
                     <Form.Label>Password</Form.Label>
                     <InputGroup>
@@ -99,7 +121,6 @@ const Profile = () => {
                         <FontAwesomeIcon icon={faKey} />
                       </InputGroup.Text>
                       <Form.Control
-                        data-testid="profile-password"
                         required={false}
                         type="password"
                         placeholder="Password"
@@ -110,8 +131,23 @@ const Profile = () => {
                 </Col>
               </Row>
               <Row>
-                <Button variant="primary" type="submit" className="w-100" data-testid="profile-submit">
-                  Update
+                <Col className="mb-3">
+                  <Form.Group id="description">
+                    <Form.Label>Description</Form.Label>
+                    <Form.Control
+                      required={false}
+                      as="textarea"
+                      rows={4}
+                      defaultValue={user.description}
+                      placeholder="Description"
+                      onChange={(e) => setDescription(e.target.value)}
+                    />
+                  </Form.Group>
+                </Col>
+              </Row>
+              <Row>
+                <Button variant="primary" type="submit" className="w-50 m-auto">
+                  Update Profile
                 </Button>
               </Row>
             </Form>

@@ -10,7 +10,6 @@ interface IRoutes {
   Lock: IRoutePath;
   Profile: IRoutePath;
   ResetPassword: IRoutePath;
-  VerifyEmail: IRoutePath;
   NotFound: IRoutePath;
   Dashboard: IRoutePath;
   ForgotPassword: IRoutePath;
@@ -18,6 +17,7 @@ interface IRoutes {
   NewUser: IRoutePath;
   EditUser: IRoutePath;
   RegisterSuccess: IRoutePath;
+  ActivateAccount: IRoutePath;
 }
 
 const routes: IRoutes = {
@@ -26,11 +26,11 @@ const routes: IRoutes = {
   Register: { relativePath: 'register', absolutePath: '/register' },
   Lock: { relativePath: 'lock', absolutePath: '/lock' },
   ResetPassword: { relativePath: 'reset-password', absolutePath: '/reset-password' },
-  VerifyEmail: { relativePath: 'verify-email', absolutePath: '/verify-email' },
   NotFound: { relativePath: 'not-found', absolutePath: '/not-found' },
   RegisterSuccess: { relativePath: 'register-success', absolutePath: '/register-success' },
+  ActivateAccount: { relativePath: 'activate-account', absolutePath: '/activate-account' },
   Dashboard: { relativePath: 'dashboard', absolutePath: '/dashboard' },
-  Profile: { relativePath: 'profile', absolutePath: '/dashboard/profile' },
+  Profile: { relativePath: 'profile', absolutePath: '/profile' },
   ForgotPassword: { relativePath: 'forgot-password', absolutePath: '/forgot-password' },
   UserList: { relativePath: 'user-list', absolutePath: '/dashboard/user-list' },
   NewUser: { relativePath: 'new', absolutePath: '/dashboard/user-list/new' },

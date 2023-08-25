@@ -15,13 +15,11 @@ import 'react-bootstrap-range-slider/dist/react-bootstrap-range-slider.css';
 const container = document.getElementById('root');
 const root = createRoot(container!);
 root.render(
-  <React.StrictMode>
-    <Provider store={store}>
-      <PersistGate loading={null} persistor={persistor}>
-        <BrowserRouter>
-          <Routing />
-        </BrowserRouter>
-      </PersistGate>
-    </Provider>
-  </React.StrictMode>
+  <Provider store={store}>
+    <PersistGate loading={null} persistor={persistor}>
+      <BrowserRouter>
+        <Routing />
+      </BrowserRouter>
+    </PersistGate>
+  </Provider>
 );

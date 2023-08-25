@@ -47,5 +47,3 @@ export interface IResetPasswordRequest {
   body: IResetPasswordRequestBody;
   params: IResetPasswordRequestParams;
 }
-
-export type IVerifyEmailRequestParams = Pick<ITokenPayload, 'token'>;

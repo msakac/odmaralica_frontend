@@ -4,12 +4,14 @@ import { faRightToBracket } from '@fortawesome/free-solid-svg-icons';
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useSelector } from 'react-redux';
+import restrictions from '../routing/restrictions';
 import routes from '../routing/routes';
 import { selectAuthentication } from '../../../app/store';
-import UserProfileAvatar from './UserProfileAvatar/UserProfileAvatar';
+import UserProfileAvatar from './UserProfileAvatar';
 
 const PublicNav = () => {
   const { user } = useSelector(selectAuthentication);
+  const roles = restrictions.renter;
   return (
     <Navbar sticky="top" expand="lg" variant="light" bg="white" className="navigation justify-content-between">
       <Navbar.Brand as={Link} to="/" className="d-flex align-items-center text-dark">
@@ -32,6 +34,11 @@ const PublicNav = () => {
             <Nav.Link as={Link} to={routes.Home.relativePath} className="text-center">
               Contact
             </Nav.Link>
+            {user && roles.includes(user.role.role) && (
+              <Nav.Link as={Link} to={routes.Dashboard.relativePath} className="text-center">
+                Dashboard
+              </Nav.Link>
+            )}
           </Nav>
         </Navbar.Collapse>
         <div>

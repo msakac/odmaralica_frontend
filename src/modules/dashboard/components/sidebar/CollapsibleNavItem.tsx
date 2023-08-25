@@ -3,8 +3,9 @@ import React from 'react';
 import { IconDefinition } from '@fortawesome/fontawesome-common-types';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Accordion, Nav } from 'react-bootstrap';
-import { useCurrentUser } from '../../../users/users.api';
+import { useSelector } from 'react-redux';
 import restrictions from '../../../common/routing/restrictions';
+import { selectAuthentication } from '../../../../app/store';
 
 type Props = {
   eventKey: string;
@@ -23,7 +24,7 @@ const CollapsibleNavItem = ({
   children = null,
   restrictedTo = restrictions.none,
 }: Props) => {
-  const user = useCurrentUser();
+  const { user } = useSelector(selectAuthentication);
   const defaultKey = pathname.indexOf(eventKey) !== -1 ? eventKey : '';
 
   if (user && restrictedTo.includes(user.role.role)) {

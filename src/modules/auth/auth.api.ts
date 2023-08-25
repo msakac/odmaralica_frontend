@@ -1,13 +1,12 @@
-import api from '../../app/api';
-import IResponse from '../common/definitions/IResponse';
-import { IAuthenticatedUserDTO } from '../users/users.types';
+import api from 'app/api';
+import IResponse from 'modules/common/definitions/IResponse';
+import { IAuthenticatedUserDTO } from 'modules/users/users.types';
 import {
   IForgotPasswordRequest,
   ILoginRequestDTO,
   ILogoutRequest,
   IRefreshTokenRequest,
   IResetPasswordRequest,
-  IVerifyEmailRequestParams,
   ILoginResponseDTO,
   IRegisterResponseDTO,
   IRegisterRequestDTO,
@@ -31,6 +30,13 @@ const authApi = apiWithAuthTags.injectEndpoints({
         url: 'auth/register',
         method: 'POST',
         body,
+      }),
+      invalidatesTags: ['Auth'],
+    }),
+    activateAccount: builder.mutation<IResponse<null>, { token: string }>({
+      query: ({ token }) => ({
+        url: `auth/activate?token=${token}`,
+        method: 'POST',
       }),
       invalidatesTags: ['Auth'],
     }),
@@ -73,14 +79,6 @@ const authApi = apiWithAuthTags.injectEndpoints({
         method: 'POST',
       }),
     }),
-    verifyEmail: builder.mutation<void, IVerifyEmailRequestParams>({
-      query: (params) => ({
-        url: 'auth/verify-email',
-        method: 'POST',
-        params,
-      }),
-      invalidatesTags: ['Auth'],
-    }),
   }),
 });
 
@@ -92,6 +90,6 @@ export const {
   useForgotPasswordMutation,
   useResetPasswordMutation,
   useSendVerificationEmailMutation,
-  useVerifyEmailMutation,
+  useActivateAccountMutation,
 } = authApi;
 export default authApi;

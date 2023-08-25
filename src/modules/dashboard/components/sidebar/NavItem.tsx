@@ -5,8 +5,9 @@ import { IconDefinition } from '@fortawesome/fontawesome-common-types';
 import { Badge, Nav, Image } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Color } from 'react-bootstrap/esm/types';
-import { useCurrentUser } from '../../../users/users.api';
+import { useSelector } from 'react-redux';
 import restrictions from '../../../common/routing/restrictions';
+import { selectAuthentication } from '../../../../app/store';
 
 type Props = {
   title: string;
@@ -33,7 +34,7 @@ const NavItem = ({
   badgeColor = 'white',
   restrictedTo = restrictions.none,
 }: Props) => {
-  const user = useCurrentUser();
+  const { user } = useSelector(selectAuthentication);
   const classNames = badgeText ? 'd-flex justify-content-between align-items-center text-white' : 'text-white';
   const navItemClassName = link === pathname ? 'nav-item my-2 py-0 active rounded' : 'nav-item my-2 py-1 rounded';
 

@@ -4,12 +4,11 @@ import { useLocation, useNavigate, Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEnvelope, faUnlockAlt } from '@fortawesome/free-solid-svg-icons';
 import { useDispatch, useSelector } from 'react-redux';
-import routes from '../common/routing/routes';
+import { Loader, Animate } from 'modules/common/components';
+import { selectAuthentication } from 'app/store';
+import routes from 'modules/common/routing/routes';
 import { useLoginMutation } from './auth.api';
 import { loginUser } from './authenticationSlice';
-import Loader from '../common/components/Loader';
-import Animate from '../common/components/Animate';
-import { selectAuthentication } from '../../app/store';
 
 interface IdealLocationState {
   from: {
@@ -45,7 +44,6 @@ const Login = () => {
     await loginUserApi({ email, password })
       .unwrap()
       .then((payload) => {
-        console.log(payload);
         if (rememberMe === 'true') {
           localStorage.setItem('accessToken', payload.data.accessToken);
           localStorage.setItem('refreshToken', payload.data.refreshToken);
