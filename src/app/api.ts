@@ -31,6 +31,7 @@ const baseQueryWithReauth: BaseQueryFn<string | FetchArgs, unknown, FetchBaseQue
   let result = await baseQuery(args, api, extraOptions);
   // TODO zbog toga kaj u backendu vraca UserGetDTO ako user nije logirani, baca mi exception u frontu jer nema role
   if (result.error && result.error.status === 401) {
+    console.log('oh no, we are not authenticated');
     if (!mutex.isLocked()) {
       const release = await mutex.acquire();
       try {

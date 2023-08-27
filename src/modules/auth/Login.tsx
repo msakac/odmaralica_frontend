@@ -75,8 +75,8 @@ const Login = () => {
         <section className="d-flex align-items-center my-5 mt-lg-6 mb-lg-5">
           <Container>
             <Row className="justify-content-center">
-              <Col xs={12} className="d-flex align-items-center justify-content-center">
-                <div className="bg-white p-4 p-lg-5 w-lg-50 w-md-100">
+              <Col xs lg={6} className="d-flex align-items-center justify-content-center">
+                <div className="bg-white p-0 p-lg-2 w-100">
                   <div className="text-center text-md-center mb-4 mt-md-0">
                     <h3 className={`${error ? 'mb-2' : 'mb-5'}`}>Sign in</h3>
                     {(error || oauthError) && <Alert variant="danger">{error || oauthError}</Alert>}

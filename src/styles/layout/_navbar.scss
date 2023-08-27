@@ -1,17 +1,13 @@
-.navigation {
-    height: 100px;
-}
-
-.navbar-nav {
-    a {
-        color: black;
-        font-size: 17px;
-    }
-
-    .register-button {
-        &:hover {
-            color: white !important;
+.navigation-wrapper {
+    width: 100%;
+    .navigation {
+        height: 100px;
+        max-width: 1340px;
+        padding: 0 50px !important;
+        @media screen and (max-width: 992px) {
+            padding: 0 25px !important;
         }
+        margin: auto;
     }
 }
 
@@ -28,7 +24,10 @@
             right: 0px;
             top: 100%;
             background-color: white;
-            box-shadow: -2px 0px 6px rgba(0, 0, 0, 0.2), 2px 0px 6px rgba(0, 0, 0, 0.2), 0px 4px 6px rgba(0, 0, 0, 0.2);
+            box-shadow:
+                -2px 0px 6px rgba(0, 0, 0, 0.2),
+                2px 0px 6px rgba(0, 0, 0, 0.2),
+                0px 4px 6px rgba(0, 0, 0, 0.2);
             border-radius: 10px;
             padding: 10px;
             z-index: 10;
@@ -39,5 +38,15 @@
         justify-content: start;
         width: fit-content;
         gap: 8px;
+    }
+    a {
+        color: black;
+        font-size: 17px;
+    }
+
+    .register-button {
+        &:hover {
+            color: white !important;
+        }
     }
 }

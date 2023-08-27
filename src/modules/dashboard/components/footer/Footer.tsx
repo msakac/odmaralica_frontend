@@ -3,8 +3,8 @@ import { Row, Col, Card } from 'react-bootstrap';
 
 const Footer = () => {
   return (
-    <footer className="footer py-5">
-      <Row className="m-0">
+    <div className="footer align-items-center d-flex justify-content-center  ">
+      <Row className="w-100">
         <Col xs={12} lg={6} className="mb-4 mb-lg-0">
           <p className="mb-0 text-center text-xl-left">
             Copyright © 2023
@@ -22,7 +22,7 @@ const Footer = () => {
           </ul>
         </Col>
       </Row>
-    </footer>
+    </div>
   );
 };
 

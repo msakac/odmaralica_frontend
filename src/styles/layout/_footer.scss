@@ -3,7 +3,11 @@
  */
 
 .footer{
-
+    position: relative;
+    margin-top: -180px;
+    /* negative value of footer height */
+    height: 180px;
+    clear: both;
     ul{
         margin-bottom: 0;
         padding: 0;
