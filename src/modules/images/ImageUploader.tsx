@@ -60,31 +60,28 @@ const ImageUploader = () => {
   };
 
   async function addImages() {
-    const imageDataLocal = new FormData();
-    Array.prototype.forEach.call(fileList, function (file) {
-      imageDataLocal.append('data', file);
-    });
+    try {
+      for (let i = 0; i < fileList!.length; i += 1) {
+        console.log(i);
+        const file = fileList![i];
+        const imageDataPost = new FormData();
+        imageDataPost.append('imageFile', file);
+        imageDataPost.append('userId', '1');
+        imageDataPost.append('accommodationUnitId', '4');
+        imageDataPost.append('residenceId', '6');
 
-    /** Kreiranje */
-    const imageDataTest = new FormData();
-    imageDataTest.append('imageFile', fileList![0]);
-    imageDataTest.append('userId', '1');
-    imageDataTest.append('accommodationUnitId', '2');
-    imageDataTest.append('residenceId', '3');
-
-    await uploadImage(imageDataTest)
-      .unwrap()
-      .then(() => {
-        console.log('Uploaded');
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+        // eslint-disable-next-line no-await-in-loop
+        await uploadImage(imageDataPost).unwrap();
+        console.log(`Uploaded image ${i + 1}`);
+      }
+    } catch (error) {
+      console.log(error);
+    }
   }
 
   async function getImage() {
     setIsFetching(true);
-    const imageIds = ['1', '2', '3'];
+    const imageIds = ['1', '2', '3', '4', '5', '27', '28', '29', '35', '36', '37', '38'];
     // const headers = {
     //   'Authorization': 'Bearer YourAccessToken', // Replace with your actual authorization header
     //   'Content-Type': 'multipart/form-data', // Set the content type for the FormData
@@ -142,7 +139,7 @@ const ImageUploader = () => {
             <h6 className="m-0 mt-2">Preview: </h6>
             <Row className="mx-0 mt-3 border-top border-2 border-primary pt-4 w-100 d-flex flex-row flex-wrap justify-content-center align-items-center gap-3 image-uploader__image-container">
               {imagePreview.map((image: string, index: number) => (
-                <Card key={index} className="shadow-xl p-0 overflow-hidden image-uploader__card position-relative">
+                <Card key={index} className="shadow-lg  p-0 overflow-hidden image-uploader__card position-relative">
                   <Button
                     className="text-white position-absolute end-0 rounded-5 p-2 m-1 delete-image-button"
                     onClick={() => deleteImage(index)}
