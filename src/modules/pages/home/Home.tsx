@@ -1,5 +1,5 @@
 import React from 'react';
-import { ImageUploader } from 'modules/common/components/';
+import { ImageUploader } from 'modules/images';
 import Animate from '../../common/components/Animate';
 
 const Home = () => {
