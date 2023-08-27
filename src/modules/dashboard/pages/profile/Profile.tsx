@@ -7,7 +7,7 @@ import { useSelector } from 'react-redux';
 import { checkOneOf, sanitize } from 'modules/common/utils';
 import { Loader, Animate } from 'modules/common/components';
 import { useUpdateUserMutation } from 'modules/users/users.api';
-import avatar from 'assets/img/avatars/avatar.png';
+// import avatar from 'assets/img/avatars/avatar.png';
 import { selectAuthentication } from 'app/store';
 
 const Profile = () => {
@@ -44,7 +44,10 @@ const Profile = () => {
         <Card className="bg-white shadow-lg mb-4 profile-card mx-auto">
           <Card.Header>
             <Row className="flex-row align-items-center">
-              <Image src={user.image || avatar} className="img-fluid profile-image" />
+              <Image
+                src="https://storage.cloud.google.com/odmaralica.appspot.com/jadransko%20more.jpg"
+                className="img-fluid profile-image"
+              />
               <h5 className="m-0 w-auto ">My Profile</h5>
             </Row>
           </Card.Header>

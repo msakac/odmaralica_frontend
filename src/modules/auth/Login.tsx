@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Container, Card, Row, Col, Form, InputGroup, FormCheck, Button, Alert } from 'react-bootstrap';
+import { Container, Card, Row, Col, Form, InputGroup, FormCheck, Button, Alert, Image } from 'react-bootstrap';
 import { useLocation, useNavigate, Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEnvelope, faUnlockAlt } from '@fortawesome/free-solid-svg-icons';
@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Loader, Animate } from 'modules/common/components';
 import { selectAuthentication } from 'app/store';
 import routes from 'modules/common/routing/routes';
+import Google from 'assets/img/illustrations/google.svg';
 import { useLoginMutation } from './auth.api';
 import { loginUser } from './authenticationSlice';
 
@@ -24,6 +25,8 @@ const Login = () => {
   const location = useLocation();
   const dispatch = useDispatch();
   const [loginUserApi, { isLoading }] = useLoginMutation();
+  // Dohvatiti oauthError iz location.state ako postoji
+  const { oauthError } = location.state || '';
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -76,7 +79,7 @@ const Login = () => {
                 <div className="bg-white p-4 p-lg-5 w-lg-50 w-md-100">
                   <div className="text-center text-md-center mb-4 mt-md-0">
                     <h3 className={`${error ? 'mb-2' : 'mb-5'}`}>Sign in</h3>
-                    {error && <Alert variant="danger">{error}</Alert>}
+                    {(error || oauthError) && <Alert variant="danger">{error || oauthError}</Alert>}
                   </div>
                   <Form className="mt-4" onSubmit={handleSubmit}>
                     <Form.Group id="email" className="mb-4">
@@ -135,6 +138,18 @@ const Login = () => {
                       Sign in
                     </Button>
                   </Form>
+                  <div className="text-center text-md-center mt-3">
+                    <h5 className="mb-3">or</h5>
+                  </div>
+                  <Button
+                    variant="outline-primary"
+                    type="submit"
+                    href="http://localhost:8080/oauth2/authorize/google?redirect_uri=http://localhost:3000/oauth2/redirect"
+                    className="w-100 d-flex align-items-center justify-content-center"
+                  >
+                    <Image rounded src={Google} className="img-fluid" style={{ maxHeight: '2.5vh' }} />
+                    <p className="m-0 mx-2">Continue with Google</p>
+                  </Button>
                   <div className="d-flex justify-content-center align-items-center mt-4">
                     <span className="fw-normal">
                       Dont have an account?

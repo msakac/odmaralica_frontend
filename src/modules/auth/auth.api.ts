@@ -10,6 +10,7 @@ import {
   ILoginResponseDTO,
   IRegisterResponseDTO,
   IRegisterRequestDTO,
+  ILoginOpenAuthRequestDTO,
 } from './auth.types';
 
 const apiWithAuthTags = api.enhanceEndpoints({ addTagTypes: ['Auth'] });
@@ -28,6 +29,14 @@ const authApi = apiWithAuthTags.injectEndpoints({
     register: builder.mutation<IResponse<IRegisterResponseDTO>, IRegisterRequestDTO>({
       query: (body) => ({
         url: 'auth/register',
+        method: 'POST',
+        body,
+      }),
+      invalidatesTags: ['Auth'],
+    }),
+    loginOpenAuth: builder.mutation<IResponse<ILoginResponseDTO>, ILoginOpenAuthRequestDTO>({
+      query: (body) => ({
+        url: 'auth/login-open-auth',
         method: 'POST',
         body,
       }),
@@ -85,11 +94,12 @@ const authApi = apiWithAuthTags.injectEndpoints({
 export const {
   useLoginMutation,
   useRegisterMutation,
+  useActivateAccountMutation,
+  useLoginOpenAuthMutation,
   useLogoutMutation,
   useRefreshTokensMutation,
   useForgotPasswordMutation,
   useResetPasswordMutation,
   useSendVerificationEmailMutation,
-  useActivateAccountMutation,
 } = authApi;
 export default authApi;

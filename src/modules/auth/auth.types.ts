@@ -8,6 +8,10 @@ export interface ILoginResponseDTO {
   user: IAuthenticatedUserDTO;
 }
 
+export interface ILoginOpenAuthRequestDTO {
+  token: string;
+}
+
 /* Register */
 export type IRegisterRequestDTO = Omit<IUser, 'id' | 'activated' | 'role'>;
 export interface IRegisterResponseDTO {

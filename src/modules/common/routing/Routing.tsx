@@ -1,5 +1,6 @@
 import React from 'react';
 import { Routes, Route } from 'react-router-dom';
+import OAuth2RedirectHandler from 'modules/auth/OAuth2RedirectHandler';
 import RequireAuth from './RequireAuth';
 import { ForgotPassword, Login, Register, ResetPassword } from '../../auth';
 import { DashboardHome, Profile } from '../../dashboard';
@@ -26,6 +27,7 @@ const Routing = () => {
         <Route path={routes.ForgotPassword.relativePath} element={<ForgotPassword />} />
         <Route path={routes.RegisterSuccess.relativePath} element={<RegisterSuccess />} />
         <Route path={routes.ActivateAccount.relativePath} element={<ActivateAccount />} />
+        <Route path={routes.OAuth2RedirectHandler.relativePath} element={<OAuth2RedirectHandler />} />
         <Route
           path={routes.Profile.relativePath}
           element={<RequireAuth element={<Profile />} restrictedTo={restrictions.user} />}
