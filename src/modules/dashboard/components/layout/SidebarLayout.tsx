@@ -10,15 +10,15 @@ import Sidebar from '../sidebar/Sidebar';
 
 const SidebarLayout = () => {
   return (
-    <Container fluid className="px-0">
+    <Container fluid className="px-0 root-container-dashboard">
       <NotifyContainer />
       <Row className="flex-xl-nowrap px-0 mx-0 sidebar layout">
-        <Col xs={12} md={3} lg={2} className="px-0 mb-2 mb-md-0">
+        <Col xs={12} md={3} lg={2} className="px-0 mb-2 mb-md-0 sidebar-scroll overflow-y-scroll">
           {/* <DrawerNav /> */}
           <Sidebar />
         </Col>
-        <Col xs={12} md={9} lg={10} className="d-flex flex-column justify-content-between">
-          <div>
+        <Col xs={12} md={9} lg={10} className="d-flex flex-column justify-content-between pt-4">
+          <div className="dashboard-content-container">
             <DashNav />
             <Outlet />
           </div>

@@ -21,6 +21,8 @@
         }
     }
     .wrapper {
+        min-width: 240px !important;
+        background-color: #212529;
         @include media-breakpoint-up(md) {
             min-height: 100%;
         }
@@ -48,10 +50,6 @@
         .sidebar-text {
             color: white;
             @include transitions(0.5s, ease);
-    
-            &:hover {
-                color: yellow;
-            }
         }
     
         .sidebar-icon {
@@ -70,20 +68,95 @@
             &.svg-icon {
                 margin-right:14px;
             }
-    
-            &:hover {
-                color: yellow;
-            }
         }
-    
-        .nav-item {
+
+        .nav-link {
             width: 100%;
             border: 0;
+            border: 1px solid transparent;
             @include transitions(0.5s, ease);
-    
+
             &.active {
-                border: 1px solid yellow;
+                border: 1px solid #007BFF;
+                .sidebar-text {
+                    color: #007BFF;
+                    font-weight: bold;
+                }
+                .sidebar-icon {
+                    color: #007BFF !important;
+                }
+                &:hover {
+                    .sidebar-text {
+                        color: #007BFF;
+                    }
+                    .sidebar-icon {
+                        color: #007BFF !important;
+                    }
+                }
+            }
+
+            &:hover {
+                .sidebar-text {
+                    color: #FF8400;
+                }
+                .sidebar-icon {
+                    color: #FF8400 !important;
+                }
+                .dropdown-icon {
+                    color: #FF8400 !important;
+                }
             }
         }
+        .accordion-item-custom {
+            border: 0;
+        }
+
+        .nav-dropdown {
+            .bg-dark {
+                padding: 22px 32px !important;
+                border-bottom: solid 1px white;
+                border-radius: unset !important;
+                transition: none;
+                box-shadow: none !important;
+                &:focus {
+                    outline: 0 !important;
+                }
+            }
+
+            .collapsed {
+                border: 0 !important;
+            }
+
+            .accordion-body {
+                padding: 12px 12px !important;
+            }
+
+            .dropdown-icon {
+                margin-left: .5rem;
+                color: $white;
+
+                @include transitions(0.5s, ease);
+                        span {
+                    min-width: 22px;
+                }
+
+                svg {
+                    min-width: 22px;
+                    transition: transform 300ms ease-in-out;
+                }
+                .svg-open {
+                    transform: rotate(-180deg);
+                    transition: transform 300ms ease-in-out;
+                }
+
+                &.svg-icon {
+                    margin-right:14px;
+                }
+            }
+        }
+    }
+
+    .sidebar-scroll {
+        max-height: 100vh;
     }
 }

@@ -154,7 +154,7 @@ const ImageUploader = () => {
         )}
         <Col>
           <Button variant="primary" type="submit" className="w-100" onClick={getImage}>
-            Get Image
+            Get Images
           </Button>
         </Col>
         {imageData.length > 0 &&

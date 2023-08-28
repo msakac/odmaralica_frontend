@@ -8,6 +8,12 @@
     /* negative value of footer height */
     height: 180px;
     clear: both;
+
+    .footer-content-wrap {
+        max-width: 1340px;
+        width: 100%;
+        padding: 0 50px;
+    }
     ul{
         margin-bottom: 0;
         padding: 0;

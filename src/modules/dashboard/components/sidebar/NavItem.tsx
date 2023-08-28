@@ -36,7 +36,7 @@ const NavItem = ({
 }: Props) => {
   const { user } = useSelector(selectAuthentication);
   const classNames = badgeText ? 'd-flex justify-content-between align-items-center text-white' : 'text-white';
-  const navItemClassName = link === pathname ? 'nav-item my-2 py-0 active rounded' : 'nav-item my-2 py-1 rounded';
+  const navItemClassName = link === pathname ? 'nav-link my-2 py-1 active rounded' : 'nav-link my-2 py-1 rounded';
 
   if (user && restrictedTo.includes(user.role.role)) {
     return (

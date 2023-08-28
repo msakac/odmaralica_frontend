@@ -16,13 +16,101 @@ const Sidebar = () => {
   const handleToggle = () => setOpen(!open);
 
   return (
-    <div className="bg-dark wrapper">
+    <div className="wrapper">
       <Toggle onClick={handleToggle} />
       <Collapse in={open}>
         <Nav className="flex-column navbar w-100 text-white p-3" defaultActiveKey={routes.Dashboard.absolutePath}>
           <NavItem title="Home" link={routes.Home.absolutePath} pathname={location.pathname} icon={faExternalLinkAlt} />
           <NavItem title="Overview" link={routes.Dashboard.absolutePath} pathname={location.pathname} icon={faHome} />
           <NavItem title="Profile" link={routes.Profile.absolutePath} pathname={location.pathname} icon={faCog} />
+          <CollapsibleNavItem
+            title="Users"
+            eventKey="dashboard-users"
+            pathname={location.pathname}
+            icon={faUser}
+            restrictedTo={restrictions.admin}
+          >
+            <NavItem
+              title="Add New"
+              link={routes.NewUser.absolutePath}
+              pathname={location.pathname}
+              icon={faPlus}
+              restrictedTo={restrictions.admin}
+            />
+            <NavItem
+              title="List"
+              link={routes.UserList.absolutePath}
+              pathname={location.pathname}
+              icon={faList}
+              restrictedTo={restrictions.admin}
+            />
+          </CollapsibleNavItem>
+          <CollapsibleNavItem
+            title="Users"
+            eventKey="dashboard-users"
+            pathname={location.pathname}
+            icon={faUser}
+            restrictedTo={restrictions.admin}
+          >
+            <NavItem
+              title="Add New"
+              link={routes.NewUser.absolutePath}
+              pathname={location.pathname}
+              icon={faPlus}
+              restrictedTo={restrictions.admin}
+            />
+            <NavItem
+              title="List"
+              link={routes.UserList.absolutePath}
+              pathname={location.pathname}
+              icon={faList}
+              restrictedTo={restrictions.admin}
+            />
+          </CollapsibleNavItem>
+          <CollapsibleNavItem
+            title="Users"
+            eventKey="dashboard-users"
+            pathname={location.pathname}
+            icon={faUser}
+            restrictedTo={restrictions.admin}
+          >
+            <NavItem
+              title="Add New"
+              link={routes.NewUser.absolutePath}
+              pathname={location.pathname}
+              icon={faPlus}
+              restrictedTo={restrictions.admin}
+            />
+            <NavItem
+              title="List"
+              link={routes.UserList.absolutePath}
+              pathname={location.pathname}
+              icon={faList}
+              restrictedTo={restrictions.admin}
+            />
+          </CollapsibleNavItem>
+          <CollapsibleNavItem
+            title="Users"
+            eventKey="dashboard-users"
+            pathname={location.pathname}
+            icon={faUser}
+            restrictedTo={restrictions.admin}
+          >
+            <NavItem
+              title="Add New"
+              link={routes.NewUser.absolutePath}
+              pathname={location.pathname}
+              icon={faPlus}
+              restrictedTo={restrictions.admin}
+            />
+            <NavItem
+              title="List"
+              link={routes.UserList.absolutePath}
+              pathname={location.pathname}
+              icon={faList}
+              restrictedTo={restrictions.admin}
+            />
+          </CollapsibleNavItem>
           <CollapsibleNavItem
             title="Users"
             eventKey="dashboard-users"
