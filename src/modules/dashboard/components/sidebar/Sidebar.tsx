@@ -1,4 +1,4 @@
-import { faHome, faCog, faUser, faPlus, faList, faExternalLinkAlt } from '@fortawesome/free-solid-svg-icons';
+import { faHome, faUser, faPlus, faList, faExternalLinkAlt, faEarthEurope } from '@fortawesome/free-solid-svg-icons';
 import React, { useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import { isMobile } from 'react-device-detect';
@@ -22,95 +22,12 @@ const Sidebar = () => {
         <Nav className="flex-column navbar w-100 text-white p-3" defaultActiveKey={routes.Dashboard.absolutePath}>
           <NavItem title="Home" link={routes.Home.absolutePath} pathname={location.pathname} icon={faExternalLinkAlt} />
           <NavItem title="Overview" link={routes.Dashboard.absolutePath} pathname={location.pathname} icon={faHome} />
-          <NavItem title="Profile" link={routes.Profile.absolutePath} pathname={location.pathname} icon={faCog} />
-          <CollapsibleNavItem
-            title="Users"
-            eventKey="dashboard-users"
+          <NavItem
+            title="Countries"
+            link={routes.CountryCrud.absolutePath}
             pathname={location.pathname}
-            icon={faUser}
-            restrictedTo={restrictions.admin}
-          >
-            <NavItem
-              title="Add New"
-              link={routes.NewUser.absolutePath}
-              pathname={location.pathname}
-              icon={faPlus}
-              restrictedTo={restrictions.admin}
-            />
-            <NavItem
-              title="List"
-              link={routes.UserList.absolutePath}
-              pathname={location.pathname}
-              icon={faList}
-              restrictedTo={restrictions.admin}
-            />
-          </CollapsibleNavItem>
-          <CollapsibleNavItem
-            title="Users"
-            eventKey="dashboard-users"
-            pathname={location.pathname}
-            icon={faUser}
-            restrictedTo={restrictions.admin}
-          >
-            <NavItem
-              title="Add New"
-              link={routes.NewUser.absolutePath}
-              pathname={location.pathname}
-              icon={faPlus}
-              restrictedTo={restrictions.admin}
-            />
-            <NavItem
-              title="List"
-              link={routes.UserList.absolutePath}
-              pathname={location.pathname}
-              icon={faList}
-              restrictedTo={restrictions.admin}
-            />
-          </CollapsibleNavItem>
-          <CollapsibleNavItem
-            title="Users"
-            eventKey="dashboard-users"
-            pathname={location.pathname}
-            icon={faUser}
-            restrictedTo={restrictions.admin}
-          >
-            <NavItem
-              title="Add New"
-              link={routes.NewUser.absolutePath}
-              pathname={location.pathname}
-              icon={faPlus}
-              restrictedTo={restrictions.admin}
-            />
-            <NavItem
-              title="List"
-              link={routes.UserList.absolutePath}
-              pathname={location.pathname}
-              icon={faList}
-              restrictedTo={restrictions.admin}
-            />
-          </CollapsibleNavItem>
-          <CollapsibleNavItem
-            title="Users"
-            eventKey="dashboard-users"
-            pathname={location.pathname}
-            icon={faUser}
-            restrictedTo={restrictions.admin}
-          >
-            <NavItem
-              title="Add New"
-              link={routes.NewUser.absolutePath}
-              pathname={location.pathname}
-              icon={faPlus}
-              restrictedTo={restrictions.admin}
-            />
-            <NavItem
-              title="List"
-              link={routes.UserList.absolutePath}
-              pathname={location.pathname}
-              icon={faList}
-              restrictedTo={restrictions.admin}
-            />
-          </CollapsibleNavItem>
+            icon={faEarthEurope}
+          />
           <CollapsibleNavItem
             title="Users"
             eventKey="dashboard-users"

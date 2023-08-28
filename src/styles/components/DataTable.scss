@@ -1,0 +1,11 @@
+.MuiDataGrid-root {
+    p {
+        margin: 0 !important;
+    }
+    .MuiDataGrid-columnHeadersInner {
+        background-color: #fab76f;
+        div {
+            font-weight: bold !important;
+        }
+    }
+}

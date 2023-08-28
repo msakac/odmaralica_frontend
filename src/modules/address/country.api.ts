@@ -1,6 +1,6 @@
 import api from 'app/api';
 import IResponse from 'Common/definitions/IResponse';
-import { ICountry, ICountryPostDTO } from './address.types';
+import { ICountry, ICountryPostDTO, ICountryRegionCityResponseDTO } from './address.types';
 
 const countriesApi = api.injectEndpoints({
   endpoints: (builder) => ({
@@ -8,6 +8,14 @@ const countriesApi = api.injectEndpoints({
     getCountries: builder.query<IResponse<ICountry[]>, null>({
       query: () => ({
         url: 'country',
+        method: 'GET',
+      }),
+    }),
+
+    // Get all countries with regions and cities
+    getCountriesRegionsCities: builder.query<IResponse<ICountryRegionCityResponseDTO[]>, null>({
+      query: () => ({
+        url: 'country/with-regions-and-cities',
         method: 'GET',
       }),
     }),
@@ -63,6 +71,7 @@ export const {
   useGetSingleCountryQuery,
   useUpdateCountryMutation,
   useDeleteCountryMutation,
+  useGetCountriesRegionsCitiesQuery,
   useFindCountriesQuery,
 } = countriesApi;
 

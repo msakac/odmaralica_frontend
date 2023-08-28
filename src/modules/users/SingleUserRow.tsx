@@ -68,7 +68,7 @@ const SingleUserRow = ({ user }: Props) => {
         </Card.Link>
       </td>
       <td>
-        <span className="fw-normal">{user.role}</span>
+        <span className="fw-normal">{user.role.role}</span>
       </td>
       <td>
         <span className="fw-normal">

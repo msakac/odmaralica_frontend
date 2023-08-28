@@ -19,6 +19,7 @@ interface IRoutes {
   RegisterSuccess: IRoutePath;
   ActivateAccount: IRoutePath;
   OAuth2RedirectHandler: IRoutePath;
+  CountryCrud: IRoutePath;
 }
 
 const routes: IRoutes = {
@@ -36,8 +37,8 @@ const routes: IRoutes = {
   UserList: { relativePath: 'user-list', absolutePath: '/dashboard/user-list' },
   NewUser: { relativePath: 'new', absolutePath: '/dashboard/user-list/new' },
   EditUser: { relativePath: ':id', absolutePath: '/dashboard/user-list/:id' },
+  CountryCrud: { relativePath: 'countries', absolutePath: '/dashboard/countries' },
   OAuth2RedirectHandler: { relativePath: 'oauth2/redirect', absolutePath: '/oauth2/redirect' },
-  // OAuth2RedirectHandler: { relativePath: 'oauth2/callback/google', absolutePath: '/oauth2/callback/google' },
 };
 
 export default routes;

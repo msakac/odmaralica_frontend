@@ -1,6 +1,7 @@
 import React from 'react';
 import { Routes, Route } from 'react-router-dom';
 import OAuth2RedirectHandler from 'modules/auth/OAuth2RedirectHandler';
+import { CountryCrud } from 'modules/address';
 import RequireAuth from './RequireAuth';
 import { ForgotPassword, Login, Register, ResetPassword } from '../../auth';
 import { DashboardHome, Profile } from '../../dashboard';
@@ -36,6 +37,10 @@ const Routing = () => {
       <Route element={<SidebarLayout />}>
         <Route path={routes.Dashboard.absolutePath}>
           <Route index element={<RequireAuth element={<DashboardHome />} restrictedTo={restrictions.renter} />} />
+          <Route
+            path={routes.CountryCrud.relativePath}
+            element={<RequireAuth element={<CountryCrud />} restrictedTo={restrictions.admin} />}
+          />
           <Route path={routes.UserList.relativePath}>
             <Route index element={<RequireAuth element={<UserList />} restrictedTo={restrictions.admin} />} />
             <Route
