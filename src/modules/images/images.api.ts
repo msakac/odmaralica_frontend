@@ -1,8 +1,6 @@
 import api from 'app/api';
 
-const apiWithAuthTags = api.enhanceEndpoints({ addTagTypes: ['Image'] });
-
-const authApi = apiWithAuthTags.injectEndpoints({
+const imagesApi = api.injectEndpoints({
   endpoints: (builder) => ({
     uploadImage: builder.mutation<any, any>({
       query: (body) => ({
@@ -10,7 +8,6 @@ const authApi = apiWithAuthTags.injectEndpoints({
         method: 'POST',
         body,
       }),
-      invalidatesTags: ['Image'],
     }),
     getImage: builder.query<any, { id: string }>({
       query: ({ id }) => ({
@@ -21,5 +18,5 @@ const authApi = apiWithAuthTags.injectEndpoints({
   }),
 });
 
-export const { useUploadImageMutation, useGetImageQuery } = authApi;
-export default authApi;
+export const { useUploadImageMutation, useGetImageQuery } = imagesApi;
+export default imagesApi;

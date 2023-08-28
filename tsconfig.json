@@ -17,10 +17,6 @@
     "jsx": "react-jsx",
     "baseUrl": "src",   
     "paths": {
-      "@components/*": ["modules/common/components/*"],
-      "@utils/*": ["modules/common/utils/*"],
-      "@assets/*": ["assets/*"],
-      "@app/*": ["app/*"],
       "Common/*": ["modules/common/*"] 
       // Add more aliases as needed
     }
