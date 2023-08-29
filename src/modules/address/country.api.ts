@@ -47,7 +47,7 @@ const countriesApi = api.injectEndpoints({
     }),
 
     // Delete country
-    deleteCountry: builder.mutation<void, { id: string }>({
+    deleteCountry: builder.mutation<IResponse<null>, { id: string }>({
       query: ({ id }) => ({
         url: `country/${id}`,
         method: 'DELETE',

@@ -1,8 +1,9 @@
 import { faHome, faUser, faPlus, faList, faExternalLinkAlt, faEarthEurope } from '@fortawesome/free-solid-svg-icons';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import { isMobile } from 'react-device-detect';
 import { Nav, Collapse } from 'react-bootstrap';
+import useMediaQuery from 'modules/common/hooks/useMediaQuery';
 import routes from '../../../common/routing/routes';
 import NavItem from './NavItem';
 import CollapsibleNavItem from './CollapsibleNavItem';
@@ -12,8 +13,15 @@ import restrictions from '../../../common/routing/restrictions';
 const Sidebar = () => {
   const [open, setOpen] = useState(!isMobile);
   const location = useLocation();
+  const isDesktop = useMediaQuery('(min-width: 768px)');
 
   const handleToggle = () => setOpen(!open);
+
+  useEffect(() => {
+    if (isDesktop) {
+      setOpen(true);
+    }
+  }, [isDesktop]);
 
   return (
     <div className="wrapper">

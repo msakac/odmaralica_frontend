@@ -1,15 +1,28 @@
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import React from 'react';
+import React, { useState } from 'react';
 import { Container, Form, InputGroup, Navbar } from 'react-bootstrap';
 
 import { useSelector } from 'react-redux';
+import useDebounce from 'modules/common/hooks/useDebounce';
 import Loader from '../../../common/components/Loader';
 import UserProfileAvatar from '../../../common/components/UserProfileAvatar';
 import { selectAuthentication } from '../../../../app/store';
 
-const DashNav = () => {
+interface DashNavProps {
+  // eslint-disable-next-line no-unused-vars
+  setSearchTerm: (term: string) => void;
+}
+
+const DashNav = ({ setSearchTerm }: DashNavProps) => {
+  const [searchTerm, setSearchTermLocal] = useState<string>('');
+  useDebounce(() => setSearchTerm(searchTerm), 500, [searchTerm]);
   const { user } = useSelector(selectAuthentication);
+
+  const onSearchInput = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchTermLocal(e.target.value);
+  };
+
   return (
     <>
       <Loader show={false} />
@@ -19,7 +32,7 @@ const DashNav = () => {
             <div className="d-flex align-items-center">
               <Form className="navbar-search">
                 <Form.Group id="topbarSearch">
-                  <InputGroup className="input-group-merge search-bar">
+                  <InputGroup className="input-group-merge search-bar" onChange={onSearchInput}>
                     <InputGroup.Text>
                       <FontAwesomeIcon icon={faSearch} />
                     </InputGroup.Text>
@@ -28,7 +41,7 @@ const DashNav = () => {
                 </Form.Group>
               </Form>
             </div>
-            <UserProfileAvatar name={(user && user.name) || ''} surname={(user && user.name) || ''} avatarSrc="" />
+            <UserProfileAvatar name={(user && user.name) || ''} surname={(user && user.surname) || ''} avatarSrc="" />
           </div>
         </Container>
       </Navbar>

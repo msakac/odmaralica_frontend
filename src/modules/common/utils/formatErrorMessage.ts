@@ -6,6 +6,7 @@ import { IErrorResponse } from '../definitions';
  * @returns {String} error message as string
  */
 const formatErrorMessage = (err: IErrorResponse | IErrorResponse['message'] | any): string => {
+  console.log(err);
   if (typeof err === 'string') {
     return err;
   }

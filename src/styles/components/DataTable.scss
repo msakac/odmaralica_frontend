@@ -1,4 +1,16 @@
+.crud-wrap {
+    width: unset;
+}
+.table-wrap {
+    margin: auto;
+    margin-left: 0; // Ako ocu centar samo meknem ovo
+    overflow: auto;
+    width: fit-content !important;
+}
+
+
 .MuiDataGrid-root {
+    padding: 0;
     p {
         margin: 0 !important;
     }

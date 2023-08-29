@@ -3,11 +3,11 @@
 }
 
 .toggle {
-	padding-top: 5px !important;
-	padding-bottom: 10px !important;
-	box-shadow: none !important;
-	color: #212529 !important;
-	font-size: 2rem !important;
+    padding-top: 5px !important;
+    padding-bottom: 10px !important;
+    box-shadow: none !important;
+    color: #212529 !important;
+    font-size: 2rem !important;
 
     @include media-breakpoint-up(md) {
         display: none;
@@ -21,15 +21,21 @@
         }
     }
     .wrapper {
+        width: 310px;
+        position: fixed;
         min-width: 240px !important;
         background-color: #212529;
         @include media-breakpoint-up(md) {
             min-height: 100%;
         }
+        @media screen and (max-width: 768px) {
+            position: relative;
+            width: 100%;
+        }
 
         .overflow {
             display: block !important;
-		    height: 100% !important;
+            height: 100% !important;
         }
 
         .toc {
@@ -38,7 +44,7 @@
             margin-right: -15px;
             padding-right: calc(15px + 1rem);
         }
-    
+
         .navbar {
             position: relative;
             position: -webkit-sticky;
@@ -46,27 +52,27 @@
             top: 0;
             z-index: 1020;
         }
-    
+
         .sidebar-text {
             color: white;
             @include transitions(0.5s, ease);
         }
-    
+
         .sidebar-icon {
-            margin-right: .5rem;
+            margin-right: 0.5rem;
             color: $white;
             @include transitions(0.5s, ease);
-    
+
             span {
                 min-width: 22px;
             }
-    
+
             svg {
                 min-width: 22px;
             }
-    
+
             &.svg-icon {
-                margin-right:14px;
+                margin-right: 14px;
             }
         }
 
@@ -77,33 +83,33 @@
             @include transitions(0.5s, ease);
 
             &.active {
-                border: 1px solid #007BFF;
+                border: 1px solid #007bff;
                 .sidebar-text {
-                    color: #007BFF;
+                    color: #007bff;
                     font-weight: bold;
                 }
                 .sidebar-icon {
-                    color: #007BFF !important;
+                    color: #007bff !important;
                 }
                 &:hover {
                     .sidebar-text {
-                        color: #007BFF;
+                        color: #007bff;
                     }
                     .sidebar-icon {
-                        color: #007BFF !important;
+                        color: #007bff !important;
                     }
                 }
             }
 
             &:hover {
                 .sidebar-text {
-                    color: #FF8400;
+                    color: #ff8400;
                 }
                 .sidebar-icon {
-                    color: #FF8400 !important;
+                    color: #ff8400 !important;
                 }
                 .dropdown-icon {
-                    color: #FF8400 !important;
+                    color: #ff8400 !important;
                 }
             }
         }
@@ -132,11 +138,11 @@
             }
 
             .dropdown-icon {
-                margin-left: .5rem;
+                margin-left: 0.5rem;
                 color: $white;
 
                 @include transitions(0.5s, ease);
-                        span {
+                span {
                     min-width: 22px;
                 }
 
@@ -150,9 +156,20 @@
                 }
 
                 &.svg-icon {
-                    margin-right:14px;
+                    margin-right: 14px;
                 }
             }
+        }
+    }
+
+    .sidebar-scroll {
+        flex-basis: 310px;
+        max-width: 310px;
+
+        @media screen and (max-width: 768px) {
+            flex-basis: 100%;
+            max-width: unset;
+            width: 100%;
         }
     }
 }

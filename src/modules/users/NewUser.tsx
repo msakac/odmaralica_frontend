@@ -58,18 +58,6 @@ const NewUser = () => {
                 </Col>
               </Row>
               <Row>
-                {/* <Col md={6} className="mb-3">
-                  <Form.Group id="role">
-                    <Form.Label>Role</Form.Label>
-                    <Form.Select data-testid="newUser-role" defaultValue="user" onChange={(e) => setRole(e.target.value)}>
-                      <option>Choose a role</option>
-                      <option value="user" data-testid="newUser-role-user">
-                        User
-                      </option>
-                      <option value="admin">Admin</option>
-                    </Form.Select>
-                  </Form.Group>
-                </Col> */}
                 <Col md={6} className="mb-3">
                   <Form.Group id="email">
                     <Form.Label>Email</Form.Label>
