@@ -13,7 +13,7 @@ const SidebarLayout = () => {
     <Container fluid className="px-0 root-container-dashboard">
       <NotifyContainer />
       <Row className="flex-xl-nowrap px-0 mx-0 sidebar layout">
-        <Col xs={12} md={3} lg={2} className="px-0 mb-2 mb-md-0 sidebar-scroll overflow-y-scroll">
+        <Col xs={12} md={3} lg={2} className="px-0 mb-2 mb-md-0 sidebar-scroll overflow-y-auto">
           {/* <DrawerNav /> */}
           <Sidebar />
         </Col>
