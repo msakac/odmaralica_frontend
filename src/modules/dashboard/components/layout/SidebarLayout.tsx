@@ -1,13 +1,15 @@
 import React, { useState } from 'react';
 import { Container, Row, Col } from 'react-bootstrap';
-import { Outlet } from 'react-router-dom';
+import { Outlet, useOutletContext } from 'react-router-dom';
 import NotifyContainer from '../../../common/components/Notify';
 import Footer from '../footer/Footer';
 import DashNav from '../navbar/DashNav';
 import Sidebar from '../sidebar/Sidebar';
 
+type ContextType = { searchText: string };
+
 const SidebarLayout = () => {
-  const [searchText, setSearchText] = useState('');
+  const [searchText, setSearchText] = useState<string>('');
 
   const setSearchTerm = (term: string) => {
     setSearchText(term);
@@ -23,9 +25,8 @@ const SidebarLayout = () => {
         <Col className="d-flex flex-column content-wrap justify-content-between pt-4">
           <div className="dashboard-content-container">
             <DashNav setSearchTerm={setSearchTerm} />
-            <Outlet />
+            <Outlet context={{ searchText }} />
           </div>
-          <div>{searchText}</div>
           <Footer />
         </Col>
       </Row>
@@ -34,3 +35,7 @@ const SidebarLayout = () => {
 };
 
 export default SidebarLayout;
+
+export function useSearhText() {
+  return useOutletContext<ContextType>();
+}

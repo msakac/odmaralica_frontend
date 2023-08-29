@@ -8,7 +8,6 @@
     width: fit-content !important;
 }
 
-
 .MuiDataGrid-root {
     padding: 0;
     p {
@@ -26,11 +25,21 @@
     border: 1px solid #0e3aea30 !important;
     .close-form-btn {
         box-shadow: unset;
-        transition: all .2s ease-in-out; 
+        transition: all 0.2s ease-in-out;
         &:hover {
             color: #e05349 !important;
             transform: scale(1.2);
-            transition: all .2s ease-in-out; 
+            transition: all 0.2s ease-in-out;
         }
     }
+}
+
+.MuiDataGrid-virtualScrollerContent {
+    max-height: 520px;
+    overflow-y: scroll;
+    &::-webkit-scrollbar {
+        display: none;
+    }
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
 }

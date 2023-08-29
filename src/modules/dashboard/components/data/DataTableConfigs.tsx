@@ -34,8 +34,8 @@ export const getCountryColumns = (
   ];
 };
 
-export const getCountryRows = (data: IResponse<ICountry[]>) =>
-  data?.data.map((country: ICountry) => {
+export const getCountryRows = (data: ICountry[]) =>
+  data?.map((country: ICountry) => {
     return {
       id: country.id,
       name: country.name,

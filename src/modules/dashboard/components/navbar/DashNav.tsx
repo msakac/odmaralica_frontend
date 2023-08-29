@@ -20,7 +20,7 @@ const DashNav = ({ setSearchTerm }: DashNavProps) => {
   const { user } = useSelector(selectAuthentication);
 
   const onSearchInput = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setSearchTermLocal(e.target.value);
+    setSearchTermLocal(e.target.value.toLowerCase());
   };
 
   return (

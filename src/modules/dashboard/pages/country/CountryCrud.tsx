@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { ICountry } from 'modules/address/address.types';
 import {
   useDeleteCountryMutation,
@@ -12,6 +12,7 @@ import { faPlus, faTimesCircle } from '@fortawesome/free-solid-svg-icons';
 import { Button, Card, Col, Form, Row } from 'react-bootstrap';
 import { TextField } from '@mui/material';
 import DeleteModalMessage from 'modules/dashboard/components/data/DeleteModalMessage';
+import { useSearhText } from 'modules/dashboard/components/layout/SidebarLayout';
 import ActionMessages, { Action, ActionMessagesRef, MessageType } from '../../components/data/ActionMessages';
 import DataTable from '../../components/data/DataTable';
 import { getCountryColumns, getCountryRows } from '../../components/data/DataTableConfigs';
@@ -34,6 +35,15 @@ const CountryCrud = () => {
   const containerWrapRef = useRef<HTMLDivElement>(null);
   /* Ref to call ActionMessage function */
   const actionMessagesRef = useRef<ActionMessagesRef>(null);
+  /* Outlet context for searching */
+  const { searchText } = useSearhText();
+  /* Searched data from API */
+  const [searchedData, setSearchedData] = useState<ICountry[]>([]);
+
+  useEffect(() => {
+    const filteredData = data?.data.filter((country: ICountry) => country.name.toLowerCase().includes(searchText));
+    setSearchedData(filteredData || []);
+  }, [searchText, data]);
 
   const resetState = () => {
     setName('');
@@ -76,8 +86,7 @@ const CountryCrud = () => {
         actionMessagesRef.current!.createMessage(err.data.message, MessageType.Error);
       });
   }
-
-  const rows = getCountryRows(data!);
+  const rows = getCountryRows(searchedData);
   const columns = getCountryColumns(onUpdateClick, onDeleteClick);
 
   async function updateRow(event: React.FormEvent<HTMLFormElement>) {
