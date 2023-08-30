@@ -6,6 +6,7 @@ import {
   faExternalLinkAlt,
   faEarthEurope,
   faClipboard,
+  faUsers,
 } from '@fortawesome/free-solid-svg-icons';
 import React, { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
@@ -44,7 +45,8 @@ const Sidebar = () => {
             pathname={location.pathname}
             icon={faEarthEurope}
           />
-          <NavItem title="Log Data" link={routes.Log.absolutePath} pathname={location.pathname} icon={faClipboard} />
+          <NavItem title="Log Data" link={routes.Logs.absolutePath} pathname={location.pathname} icon={faClipboard} />
+          <NavItem title="Users" link={routes.Users.absolutePath} pathname={location.pathname} icon={faUsers} />
           <CollapsibleNavItem
             title="Users"
             eventKey="dashboard-users"

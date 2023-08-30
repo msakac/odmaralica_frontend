@@ -7,7 +7,7 @@ import DataTable from 'components/data/DataTable';
 import { ILogGetDTO } from 'types/log.types';
 import { useGetLogsQuery } from 'api/log.api';
 
-const Log = () => {
+const Logs = () => {
   /* Redux API Hooks */
   const { data, isLoading, isFetching } = useGetLogsQuery(null);
   /* Ref for setting DataTable width */
@@ -44,4 +44,4 @@ const Log = () => {
   );
 };
 
-export default Log;
+export default Logs;

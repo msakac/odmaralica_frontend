@@ -2,17 +2,13 @@ import { faAt, faKey, faPhone } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React, { useState } from 'react';
 import { Card, Col, Form, InputGroup, Row, Button, Image } from 'react-bootstrap';
-import { toast } from 'react-toastify';
 import { useSelector } from 'react-redux';
-import { useUpdateUserMutation } from 'api/users.api';
 // import avatar from 'assets/img/avatars/avatar.png';
 import { selectAuthentication } from 'app/store';
-import Loader from 'components/common/Loader';
 import Animate from 'components/common/Animate';
-import { checkOneOf, sanitize } from 'utils';
+import { sanitize } from 'utils';
 
 const Profile = () => {
-  const [updateUser, { isLoading }] = useUpdateUserMutation();
   const [name, setName] = useState<string>('');
   const [surname, setSurname] = useState<string>('');
   const [email, setEmail] = useState<string>('');
@@ -26,21 +22,12 @@ const Profile = () => {
   async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
     const body = sanitize({ name, surname, email, password, phoneNumber, description });
-
-    if (!user) toast.error('User is not logged in');
-    else if (checkOneOf([name, surname, email, password])) toast.error('Please fill at least one field');
-    else {
-      await updateUser({ id: user.id, body })
-        .unwrap()
-        .then((updatedUser) => {
-          toast.success(`${updatedUser.name} has been successfully updated!`);
-        });
-    }
+    console.log(body);
   }
 
   return (
     <>
-      <Loader show={isLoading} />
+      {/* <Loader show={isLoading} /> */}
       <Animate>
         <Card className="bg-white shadow-lg mb-4 profile-card mx-auto">
           <Card.Header>

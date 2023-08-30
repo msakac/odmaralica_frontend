@@ -17,7 +17,8 @@ interface IRoutes {
   ActivateAccount: IRoutePath;
   OAuth2RedirectHandler: IRoutePath;
   CountryCrud: IRoutePath;
-  Log: IRoutePath;
+  Logs: IRoutePath;
+  Users: IRoutePath;
 }
 
 const routes: IRoutes = {
@@ -34,7 +35,8 @@ const routes: IRoutes = {
   ForgotPassword: { relativePath: 'forgot-password', absolutePath: '/forgot-password' },
   CountryCrud: { relativePath: 'countries', absolutePath: '/dashboard/countries' },
   OAuth2RedirectHandler: { relativePath: 'oauth2/redirect', absolutePath: '/oauth2/redirect' },
-  Log: { relativePath: 'log', absolutePath: '/dashboard/log' },
+  Logs: { relativePath: 'logs', absolutePath: '/dashboard/logs' },
+  Users: { relativePath: 'users', absolutePath: '/dashboard/users' },
 };
 
 export default routes;

@@ -10,11 +10,12 @@ import ActivateAccount from 'pages/ActivateAccount';
 import OAuth2RedirectHandler from 'pages/OAuth2RedirectHandler';
 import Profile from 'pages/Profile';
 import SidebarLayout from 'components/layout/SidebarLayout';
-import CountryCrud from 'pages/CountryCrud';
+import Countries from 'pages/Countries';
 import DashboardHome from 'pages/DashboardHome';
 import NotFound from 'pages/NotFound';
 import Layout from 'components/layout/Layout';
-import Log from 'pages/Log';
+import Logs from 'pages/Logs';
+import Users from 'pages/Users';
 import routes from './routes';
 import restrictions from './restrictions';
 import RequireAuth from './RequireAuth';
@@ -41,11 +42,15 @@ const Routing = () => {
           <Route index element={<RequireAuth element={<DashboardHome />} restrictedTo={restrictions.renter} />} />
           <Route
             path={routes.CountryCrud.relativePath}
-            element={<RequireAuth element={<CountryCrud />} restrictedTo={restrictions.admin} />}
+            element={<RequireAuth element={<Countries />} restrictedTo={restrictions.admin} />}
           />
           <Route
-            path={routes.Log.relativePath}
-            element={<RequireAuth element={<Log />} restrictedTo={restrictions.admin} />}
+            path={routes.Logs.relativePath}
+            element={<RequireAuth element={<Logs />} restrictedTo={restrictions.admin} />}
+          />
+          <Route
+            path={routes.Users.relativePath}
+            element={<RequireAuth element={<Users />} restrictedTo={restrictions.admin} />}
           />
           {/* <Route path={routes.UserList.relativePath}>
             <Route index element={<RequireAuth element={<UserList />} restrictedTo={restrictions.admin} />} />

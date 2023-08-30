@@ -7,6 +7,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { ICountry } from 'types/address.types';
 import { ILogGetDTO } from 'types/log.types';
 import { formatDate } from 'utils';
+import { IUser } from 'types/users.types';
 
 /* Country */
 export const getCountryColumns = (
@@ -75,3 +76,44 @@ export const getLogColumns = (): GridColDef[] => {
     { field: 'logMessage', headerName: 'Message', width: 400 },
   ];
 };
+
+/* User */
+export const getUserColumns = (onUpdateClick: (id: string) => void, onDeleteClick: (id: string) => void): GridColDef[] => {
+  return [
+    { field: 'id', headerName: 'ID', width: 70 },
+    { field: 'name', headerName: 'Name', width: 120 },
+    { field: 'surname', headerName: 'Surname', width: 120 },
+    { field: 'email', headerName: 'E-mail', width: 250 },
+    { field: 'password', headerName: 'Password', width: 70 },
+    { field: 'role', headerName: 'Role', width: 100 },
+    { field: 'activated', headerName: 'Activated', width: 70 },
+    {
+      field: 'actions',
+      headerName: 'Actions',
+      width: 120,
+      renderCell: (params) => (
+        <>
+          <Button variant="primary" onClick={() => onUpdateClick(params.row.id)}>
+            <FontAwesomeIcon icon={faGear} />
+          </Button>
+          <Button variant="danger" className="mx-3" onClick={() => onDeleteClick(params.row.id)}>
+            <FontAwesomeIcon icon={faTrash} />
+          </Button>
+        </>
+      ),
+    },
+  ];
+};
+
+export const getUserRows = (data: IUser[]) =>
+  data?.map((user: IUser) => {
+    return {
+      id: user.id,
+      name: user.name,
+      surname: user.surname,
+      email: user.email,
+      password: user.password,
+      role: (user.role && user.role.role) || '',
+      activated: user.activated ? 'Yes' : 'No',
+    };
+  }) || [];

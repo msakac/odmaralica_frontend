@@ -1,105 +1,49 @@
-import { useSelector } from 'react-redux';
-import { createSelector } from '@reduxjs/toolkit';
-// eslint-disable-next-line import/no-extraneous-dependencies
-import jwtDecode from 'jwt-decode';
-import {
-  IAuthenticatedUserDTO,
-  ICreateUserRequest,
-  IDeleteUserRequest,
-  IGetSingleUserRequest,
-  IGetUsersRequestParams,
-  IUpdateUserRequest,
-  IUser,
-} from 'types/users.types';
+import { IAuthenticatedUserDTO, IGetSingleUserRequest, IUser, IUserPostDTO } from 'types/users.types';
 import IResponse from 'types/IResponse';
-import IJWT from 'types/IJWT';
-import IQueryResults from 'types/IQueryResults';
 import api from '../app/api';
 
-const apiWithUserTags = api.enhanceEndpoints({ addTagTypes: ['User'] });
-
-const userApi = apiWithUserTags.injectEndpoints({
+const userApi = api.injectEndpoints({
   endpoints: (builder) => ({
-    createUser: builder.mutation<IAuthenticatedUserDTO, ICreateUserRequest>({
+    // Create user
+    createUser: builder.mutation<IResponse<IUser>, IUserPostDTO>({
       query: (body) => ({
-        url: 'users',
+        url: 'user',
         method: 'POST',
         body,
       }),
-      invalidatesTags: ['User'],
     }),
-    getUsers: builder.query<IQueryResults<IAuthenticatedUserDTO>, IGetUsersRequestParams>({
-      query: (params) => ({
-        url: 'users',
+    // Get all users
+    getUsers: builder.query<IResponse<IUser[]>, null>({
+      query: () => ({
+        url: 'user',
         method: 'GET',
-        params,
       }),
-      providesTags: (data) =>
-        data && data.results
-          ? [...data.results.map(({ id }) => ({ type: 'User' as const, id })), { type: 'User', id: 'PARTIAL-USER-LIST' }]
-          : [{ type: 'User', id: 'PARTIAL-USER-LIST' }],
     }),
+    // Get single user
     getSingleUser: builder.query<IResponse<IAuthenticatedUserDTO>, IGetSingleUserRequest>({
       query: ({ id }) => ({
         url: `user/${id}`,
         method: 'GET',
       }),
-      providesTags: (result) => (result ? [{ type: 'User', id: result.data.id }] : ['User']),
     }),
-    updateUser: builder.mutation<IAuthenticatedUserDTO, IUpdateUserRequest>({
+    // Update user
+    updateUser: builder.mutation<IResponse<IUser>, { id: string; body: IUser }>({
       query: ({ id, body }) => ({
-        url: `users/${id}`,
-        method: 'PATCH',
+        url: `user/${id}`,
+        method: 'PUT',
         body,
       }),
-      invalidatesTags: (result, error, arg) => [
-        { type: 'User', id: arg.id },
-        { type: 'User', id: 'PARTIAL-USER-LIST' },
-      ],
     }),
-    deleteUser: builder.mutation<void, IDeleteUserRequest>({
+    // Delete user
+    deleteUser: builder.mutation<IResponse<null>, { id: string }>({
       query: ({ id }) => ({
-        url: `users/${id}`,
+        url: `user/${id}`,
         method: 'DELETE',
       }),
-      invalidatesTags: (result, error, arg) => [
-        { type: 'User', id: arg.id },
-        { type: 'User', id: 'PARTIAL-USER-LIST' },
-      ],
     }),
   }),
+  // Update country
 });
-
-// Selectors
-// TODO: fix selectUsers > always returns undefined
-export const selectUsers = userApi.endpoints.getUsers.select({});
-export const selectUserById = (id: IUser['id']) => userApi.endpoints.getSingleUser.select({ id });
-export const selectUserFromList = (id: IUser['id']) =>
-  createSelector(selectUsers, (response) => response.data?.results.find((user) => user.id === id));
-
-export const getLoggedInUser = (): IAuthenticatedUserDTO | null => {
-  let user: IAuthenticatedUserDTO | null = null;
-  const token = sessionStorage.getItem('accessToken') || localStorage.getItem('accessToken');
-  let id = '';
-  if (token) {
-    const decodedToken = jwtDecode<IJWT>(token);
-    id = decodedToken.sub;
-  }
-
-  if (id) {
-    const { data } = useSelector(selectUserById(id));
-    if (data) {
-      user = data.data;
-    }
-  }
-
-  return user;
-};
-
-export const getUserById = (id: IUser['id']): IAuthenticatedUserDTO | undefined => {
-  const { data } = useSelector(selectUserById(id));
-  return data!.data;
-};
 
 export const {
   useCreateUserMutation,
@@ -109,15 +53,3 @@ export const {
   useDeleteUserMutation,
 } = userApi;
 export default userApi;
-
-export const useCurrentUser = () => {
-  let user: IAuthenticatedUserDTO | null = null;
-  const id = sessionStorage.getItem('userId') || localStorage.getItem('userId');
-  if (id) {
-    const { data } = useGetSingleUserQuery({ id });
-    if (data) {
-      user = data.data;
-    }
-  }
-  return user;
-};

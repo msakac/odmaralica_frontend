@@ -18,7 +18,7 @@ import DataTable from 'components/data/DataTable';
 import DeleteModalMessage from 'components/data/DeleteModalMessage';
 import { ICountry } from 'types/address.types';
 
-const CountryCrud = () => {
+const Countries = () => {
   /* Redux API Hooks */
   const { data, isLoading, isFetching, refetch } = useGetCountriesQuery(null);
   const [createCountry, { isLoading: isLoadingPost }] = useCreateCountryMutation();
@@ -192,4 +192,4 @@ const CountryCrud = () => {
   );
 };
 
-export default CountryCrud;
+export default Countries;
