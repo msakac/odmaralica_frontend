@@ -1,4 +1,4 @@
-import { IActivityTypeGetDTO } from './activity_types.types';
+import { IActivityTypeGetDTO } from './activityTypes.types';
 import { IUserGetDTO } from './users.types';
 
 export interface ILogGetDTO {

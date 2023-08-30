@@ -1,12 +1,13 @@
 import {
   faHome,
-  faUser,
-  faPlus,
-  faList,
   faExternalLinkAlt,
   faEarthEurope,
   faClipboard,
   faUsers,
+  faLandmark,
+  faCity,
+  faLocationDot,
+  faHotel,
 } from '@fortawesome/free-solid-svg-icons';
 import React, { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
@@ -40,34 +41,42 @@ const Sidebar = () => {
           <NavItem title="Home" link={routes.Home.absolutePath} pathname={location.pathname} icon={faExternalLinkAlt} />
           <NavItem title="Overview" link={routes.Dashboard.absolutePath} pathname={location.pathname} icon={faHome} />
           <NavItem
-            title="Countries"
-            link={routes.CountryCrud.absolutePath}
+            title="My Residences"
+            link={routes.RenterResidences.absolutePath}
             pathname={location.pathname}
-            icon={faEarthEurope}
+            icon={faHotel}
           />
-          <NavItem title="Log Data" link={routes.Logs.absolutePath} pathname={location.pathname} icon={faClipboard} />
-          <NavItem title="Users" link={routes.Users.absolutePath} pathname={location.pathname} icon={faUsers} />
-          <CollapsibleNavItem
-            title="Users"
-            eventKey="dashboard-users"
+
+          <NavItem
+            title="Log History"
+            link={routes.Logs.absolutePath}
             pathname={location.pathname}
-            icon={faUser}
+            icon={faClipboard}
+            restrictedTo={restrictions.admin}
+          />
+          <NavItem
+            title="Users"
+            link={routes.Users.absolutePath}
+            pathname={location.pathname}
+            icon={faUsers}
+            restrictedTo={restrictions.admin}
+          />
+
+          <CollapsibleNavItem
+            title="Location"
+            pathname={location.pathname}
+            eventKey="dashboard-location"
+            icon={faLocationDot}
             restrictedTo={restrictions.admin}
           >
             <NavItem
-              title="Add New"
-              link={routes.Home.absolutePath}
+              title="Countries"
+              link={routes.CountryCrud.absolutePath}
               pathname={location.pathname}
-              icon={faPlus}
-              restrictedTo={restrictions.admin}
+              icon={faEarthEurope}
             />
-            <NavItem
-              title="List"
-              link={routes.Home.absolutePath}
-              pathname={location.pathname}
-              icon={faList}
-              restrictedTo={restrictions.admin}
-            />
+            <NavItem title="Regions" link={routes.Regions.absolutePath} pathname={location.pathname} icon={faLandmark} />
+            <NavItem title="Cities" link={routes.Cities.absolutePath} pathname={location.pathname} icon={faCity} />
           </CollapsibleNavItem>
         </Nav>
       </Collapse>

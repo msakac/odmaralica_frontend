@@ -36,7 +36,7 @@ const Logs = () => {
     <>
       <Loader show={isLoading || isFetching} />
       <Row className="crud-wrap flex-column gap-2 mt-4" ref={containerWrapRef}>
-        <h3>Log Data</h3>
+        <h3>Log History</h3>
         <hr />
         <DataTable rows={rows} columns={columns} parentContainerRef={containerWrapRef} />
       </Row>

@@ -11,10 +11,10 @@
     z-index: 9999;
     background-color: white;
     opacity: 1;
-    @include transitions(1s, linear);
+    @include transitions(300ms, linear);
 
     .loader-element {
-        @include transitions(1s, linear);
+        @include transitions(300ms, linear);
     }
 
     &.hide {

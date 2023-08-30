@@ -4,10 +4,12 @@ import { faGear, faTrash } from '@fortawesome/free-solid-svg-icons';
 import { GridColDef } from '@mui/x-data-grid';
 import { Button } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { ICountry } from 'types/address.types';
+import { ICountry } from 'types/country.types';
 import { ILogGetDTO } from 'types/log.types';
 import { formatDate } from 'utils';
 import { IUser } from 'types/users.types';
+import { ICity } from 'types/city.types';
+import { IRegion } from 'types/region.types';
 
 /* Country */
 export const getCountryColumns = (
@@ -115,5 +117,73 @@ export const getUserRows = (data: IUser[]) =>
       password: user.password,
       role: (user.role && user.role.role) || '',
       activated: user.activated ? 'Yes' : 'No',
+    };
+  }) || [];
+
+/* City */
+export const getCityColumns = (onUpdateClick: (id: string) => void, onDeleteClick: (id: string) => void): GridColDef[] => {
+  return [
+    { field: 'id', headerName: 'ID', width: 70 },
+    { field: 'name', headerName: 'City Name', width: 250 },
+    { field: 'zip', headerName: 'ZIP', width: 100 },
+    { field: 'region', headerName: 'Region', width: 250 },
+    {
+      field: 'actions',
+      headerName: 'Actions',
+      width: 120,
+      renderCell: (params) => (
+        <>
+          <Button variant="primary" onClick={() => onUpdateClick(params.row.id)}>
+            <FontAwesomeIcon icon={faGear} />
+          </Button>
+          <Button variant="danger" className="mx-3" onClick={() => onDeleteClick(params.row.id)}>
+            <FontAwesomeIcon icon={faTrash} />
+          </Button>
+        </>
+      ),
+    },
+  ];
+};
+
+export const getCityRows = (data: ICity[]) =>
+  data?.map((city: ICity) => {
+    return {
+      id: city.id,
+      name: city.name,
+      zip: city.zip,
+      region: city.region.name,
+    };
+  }) || [];
+
+/* Region */
+export const getRegionColumns = (onUpdateClick: (id: string) => void, onDeleteClick: (id: string) => void): GridColDef[] => {
+  return [
+    { field: 'id', headerName: 'ID', width: 70 },
+    { field: 'name', headerName: 'Region', width: 250 },
+    { field: 'country', headerName: 'Country', width: 250 },
+    {
+      field: 'actions',
+      headerName: 'Actions',
+      width: 120,
+      renderCell: (params) => (
+        <>
+          <Button variant="primary" onClick={() => onUpdateClick(params.row.id)}>
+            <FontAwesomeIcon icon={faGear} />
+          </Button>
+          <Button variant="danger" className="mx-3" onClick={() => onDeleteClick(params.row.id)}>
+            <FontAwesomeIcon icon={faTrash} />
+          </Button>
+        </>
+      ),
+    },
+  ];
+};
+
+export const getRegionRows = (data: IRegion[]) =>
+  data?.map((row: IRegion) => {
+    return {
+      id: row.id,
+      name: row.name,
+      country: row.country.name,
     };
   }) || [];

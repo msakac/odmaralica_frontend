@@ -27,9 +27,9 @@ const userApi = api.injectEndpoints({
       }),
     }),
     // Update user
-    updateUser: builder.mutation<IResponse<IUser>, { id: string; body: IUser }>({
-      query: ({ id, body }) => ({
-        url: `user/${id}`,
+    updateUser: builder.mutation<IResponse<IUser>, IUser>({
+      query: (body) => ({
+        url: 'user',
         method: 'PUT',
         body,
       }),

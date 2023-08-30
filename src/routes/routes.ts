@@ -19,6 +19,9 @@ interface IRoutes {
   CountryCrud: IRoutePath;
   Logs: IRoutePath;
   Users: IRoutePath;
+  Cities: IRoutePath;
+  Regions: IRoutePath;
+  RenterResidences: IRoutePath;
 }
 
 const routes: IRoutes = {
@@ -37,6 +40,9 @@ const routes: IRoutes = {
   OAuth2RedirectHandler: { relativePath: 'oauth2/redirect', absolutePath: '/oauth2/redirect' },
   Logs: { relativePath: 'logs', absolutePath: '/dashboard/logs' },
   Users: { relativePath: 'users', absolutePath: '/dashboard/users' },
+  Cities: { relativePath: 'cities', absolutePath: '/dashboard/cities' },
+  Regions: { relativePath: 'regions', absolutePath: '/dashboard/regions' },
+  RenterResidences: { relativePath: 'renter-residences', absolutePath: '/dashboard/renter-residences' },
 };
 
 export default routes;

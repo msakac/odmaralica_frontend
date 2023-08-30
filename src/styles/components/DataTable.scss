@@ -38,6 +38,10 @@
     }
 }
 
+.MuiDataGrid-virtualScroller {
+    min-height: 50px;
+}
+
 .MuiDataGrid-virtualScrollerContent {
     max-height: 520px;
     overflow-y: scroll;

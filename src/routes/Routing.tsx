@@ -16,6 +16,9 @@ import NotFound from 'pages/NotFound';
 import Layout from 'components/layout/Layout';
 import Logs from 'pages/Logs';
 import Users from 'pages/Users';
+import Regions from 'pages/Regions';
+import Cities from 'pages/Cities';
+import RenterResidences from 'pages/RenterResidences';
 import routes from './routes';
 import restrictions from './restrictions';
 import RequireAuth from './RequireAuth';
@@ -51,6 +54,18 @@ const Routing = () => {
           <Route
             path={routes.Users.relativePath}
             element={<RequireAuth element={<Users />} restrictedTo={restrictions.admin} />}
+          />
+          <Route
+            path={routes.Regions.relativePath}
+            element={<RequireAuth element={<Regions />} restrictedTo={restrictions.admin} />}
+          />
+          <Route
+            path={routes.Cities.relativePath}
+            element={<RequireAuth element={<Cities />} restrictedTo={restrictions.admin} />}
+          />
+          <Route
+            path={routes.RenterResidences.relativePath}
+            element={<RequireAuth element={<RenterResidences />} restrictedTo={restrictions.renter} />}
           />
           {/* <Route path={routes.UserList.relativePath}>
             <Route index element={<RequireAuth element={<UserList />} restrictedTo={restrictions.admin} />} />

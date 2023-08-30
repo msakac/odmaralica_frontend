@@ -2,7 +2,6 @@ import React, { useEffect, useRef, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus, faTimesCircle } from '@fortawesome/free-solid-svg-icons';
 import { Button, Card, Col, Form, Row } from 'react-bootstrap';
-import { Checkbox, FormControl, FormControlLabel, InputLabel, MenuItem, Select, TextField } from '@mui/material';
 import { useSearhText } from 'components/layout/SidebarLayout';
 import { getUserColumns, getUserRows } from 'components/data/DataTableConfigs';
 import Animate from 'components/common/Animate';
@@ -14,6 +13,9 @@ import { IUser } from 'types/users.types';
 import { useCreateUserMutation, useDeleteUserMutation, useGetUsersQuery, useUpdateUserMutation } from 'api/users.api';
 import { useGetRolesQuery } from 'api/roles.api';
 import { IRole } from 'types/role.types';
+import Dropdown from 'components/common/Dropdown';
+import Input from 'components/common/Input';
+import CustomCheckbox from 'components/common/CustomCheckbox';
 
 const Users = () => {
   /* Redux API Hooks */
@@ -44,7 +46,13 @@ const Users = () => {
   const [searchedData, setSearchedData] = useState<IUser[]>([]);
 
   useEffect(() => {
-    const filteredData = data?.data.filter((user: IUser) => user.name.toLowerCase().includes(searchText));
+    const filteredData = data?.data.filter(
+      (user: IUser) =>
+        user.name.toLowerCase().includes(searchText) ||
+        user.surname.toLowerCase().includes(searchText) ||
+        user.role.role.toLowerCase().includes(searchText) ||
+        user.email.toLowerCase().includes(searchText)
+    );
     setSearchedData(filteredData || []);
   }, [searchText, data]);
 
@@ -100,23 +108,32 @@ const Users = () => {
 
   async function updateRow(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    console.log(update.length);
-    // await update({ id: dataId, body: { name, countryCode } })
-    //   .unwrap()
-    //   .then((dataUpdate) => {
-    //     const message = `[${dataUpdate.status}] Updated row with ID: ${dataUpdate.data.id}`;
-    //     actionMessagesRef.current!.createMessage(message, MessageType.Ok);
-    //     refetch();
-    //     resetState();
-    //   })
-    //   .catch((err) => {
-    //     actionMessagesRef.current!.createMessage(err.data.message, MessageType.Error);
-    //   });
+    const updatedUser = data?.data.find((user: IUser) => user.id === dataId);
+    const updatedFields = {
+      ...updatedUser,
+      id: dataId.toString(),
+      name,
+      surname,
+      email,
+      password,
+      activated,
+      role: roles!.data.find((r: IRole) => r.id === role) as IRole,
+    };
+    await update(updatedFields)
+      .unwrap()
+      .then((dataUpdate) => {
+        const message = `[${dataUpdate.status}] Updated row with ID: ${dataUpdate.data.id}`;
+        actionMessagesRef.current!.createMessage(message, MessageType.Ok);
+        refetch();
+        resetState();
+      })
+      .catch((err) => {
+        actionMessagesRef.current!.createMessage(err.data.message, MessageType.Error);
+      });
   }
 
   async function addRow(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    console.log(role);
     await create({ name, surname, email, password, roleId: role, activated })
       .unwrap()
       .then((dataCreate) => {
@@ -132,6 +149,9 @@ const Users = () => {
 
   const rows = getUserRows(searchedData);
   const columns = getUserColumns(onUpdateClick, onDeleteClick);
+  const dropdownOptions = roles?.data.map((r: IRole) => {
+    return { id: r.id, name: r.role };
+  });
 
   return (
     <>
@@ -148,7 +168,6 @@ const Users = () => {
                     variant="danger"
                     type="submit"
                     className="text-danger bg-transparent border-0 position-absolute top-0 end-0 close-form-btn"
-                    data-testid="newUser-submit"
                     onClick={resetState}
                   >
                     <FontAwesomeIcon icon={faTimesCircle} size="2xl" />
@@ -158,74 +177,32 @@ const Users = () => {
                     <Row className="gap-4">
                       <Row>
                         <Col md={6} className="mb-3">
-                          <TextField
-                            required
-                            className="w-100"
-                            onChange={(e) => setName(e.target.value)}
-                            value={name}
-                            label="Name"
-                            size="small"
-                          />
+                          <Input value={name} setValue={setName} label="Name" />
                         </Col>
                         <Col md={6} className="mb-3">
-                          <TextField
-                            required
-                            label="Surname"
-                            className="w-100"
-                            size="small"
-                            value={surname}
-                            onChange={(e) => setSurname(e.target.value)}
-                          />
+                          <Input value={surname} setValue={setSurname} label="Surname" />
                         </Col>
                       </Row>
                       <Row>
                         <Col md={6} className="mb-3">
-                          <TextField
-                            required
-                            className="w-100"
-                            onChange={(e) => setEmail(e.target.value)}
-                            value={email}
-                            label="Email"
-                            size="small"
-                          />
+                          <Input value={email} setValue={setEmail} label="Email" />
                         </Col>
                         <Col md={6} className="mb-3">
-                          <TextField
-                            required
-                            label="Password"
-                            className="w-100"
-                            size="small"
-                            value={password}
-                            onChange={(e) => setPassword(e.target.value)}
-                          />
+                          <Input value={password} setValue={setPassword} label="Password" type="password" />
                         </Col>
                       </Row>
                       <Row>
                         <Col md={6} className="mb-3">
-                          <FormControlLabel
-                            control={<Checkbox checked={activated} onChange={() => setActivated(!activated)} />}
-                            label="Activated"
-                          />
+                          <CustomCheckbox value={activated} setValue={setActivated} label="Activated" />
                         </Col>
                         <Col md={6} className="mb-3">
-                          <FormControl fullWidth>
-                            <InputLabel id="demo-simple-select-label">Age</InputLabel>
-                            <Select
-                              labelId="demo-simple-select-label"
-                              id="demo-simple-select"
-                              value={role}
-                              label="Age"
-                              onChange={(e) => setRole(e.target.value as string)}
-                            >
-                              {roles && roles.data.map((r: IRole) => <MenuItem value={r.id}>{r.role}</MenuItem>)}
-                            </Select>
-                          </FormControl>
+                          <Dropdown value={role} setValue={setRole} label="Role" options={dropdownOptions} />
                         </Col>
                       </Row>
                     </Row>
                     <Row className="d-flex flex-row gap-3 justify-content-center ">
                       <Col lg={4}>
-                        <Button variant="success" type="submit" className="w-100" data-testid="newUser-submit">
+                        <Button variant="success" type="submit" className="w-100">
                           {action === Action.Create ? 'Create' : 'Update'}
                         </Button>
                       </Col>

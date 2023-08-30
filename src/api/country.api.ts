@@ -1,6 +1,6 @@
 import api from 'app/api';
 import IResponse from 'types/IResponse';
-import { ICountry, ICountryPostDTO, ICountryRegionCityResponseDTO } from 'types/address.types';
+import { ICountry, ICountryPostDTO, ICountryRegionCityResponseDTO } from 'types/country.types';
 
 const countriesApi = api.injectEndpoints({
   endpoints: (builder) => ({

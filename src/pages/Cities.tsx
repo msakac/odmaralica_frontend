@@ -1,33 +1,33 @@
 import React, { useEffect, useRef, useState } from 'react';
-import {
-  useDeleteCountryMutation,
-  useGetCountriesQuery,
-  useCreateCountryMutation,
-  useUpdateCountryMutation,
-} from 'api/country.api';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus, faTimesCircle } from '@fortawesome/free-solid-svg-icons';
 import { Button, Card, Col, Form, Row } from 'react-bootstrap';
-import { TextField } from '@mui/material';
 import { useSearhText } from 'components/layout/SidebarLayout';
-import { getCountryColumns, getCountryRows } from 'components/data/DataTableConfigs';
+import { getCityColumns, getCityRows } from 'components/data/DataTableConfigs';
 import Animate from 'components/common/Animate';
 import Loader from 'components/common/Loader';
 import ActionMessages, { Action, ActionMessagesRef, MessageType } from 'components/data/ActionMessages';
 import DataTable from 'components/data/DataTable';
 import DeleteModalMessage from 'components/data/DeleteModalMessage';
-import { ICountry } from 'types/country.types';
+import Dropdown from 'components/common/Dropdown';
+import Input from 'components/common/Input';
+import { useCreateCityMutation, useDeleteCityMutation, useGetCitiesQuery, useUpdateCityMutation } from 'api/city.api';
+import { useGetRegionsQuery } from 'api/region.api';
+import { ICity } from 'types/city.types';
+import { IRegion } from 'types/region.types';
 
-const Countries = () => {
+const Cities = () => {
   /* Redux API Hooks */
-  const { data, isLoading, isFetching, refetch } = useGetCountriesQuery(null);
-  const [createCountry, { isLoading: isLoadingPost }] = useCreateCountryMutation();
-  const [updateCountry, { isLoading: isLoadingPut }] = useUpdateCountryMutation();
-  const [deleteCountry] = useDeleteCountryMutation();
+  const { data, isLoading, isFetching, refetch } = useGetCitiesQuery(null);
+  const { data: regions } = useGetRegionsQuery(null);
+  const [create, { isLoading: isLoadingPost }] = useCreateCityMutation();
+  const [update, { isLoading: isLoadingPut }] = useUpdateCityMutation();
+  const [deleteUser] = useDeleteCityMutation();
   /* Model prop states */
-  const [name, setName] = useState('');
-  const [countryCode, setCountryCode] = useState('');
   const [dataId, setDataId] = useState<string>('');
+  const [name, setName] = useState('');
+  const [zip, setZip] = useState('');
+  const [region, setRegion] = useState('');
   const [action, setAction] = useState<Action>(Action.None);
   /* Action states */
   const [isFormOpen, setIsFormOpen] = useState<boolean>(false);
@@ -39,17 +39,23 @@ const Countries = () => {
   /* Outlet context for searching */
   const { searchText } = useSearhText();
   /* Searched data from API */
-  const [searchedData, setSearchedData] = useState<ICountry[]>([]);
+  const [searchedData, setSearchedData] = useState<ICity[]>([]);
 
   useEffect(() => {
-    const filteredData = data?.data.filter((country: ICountry) => country.name.toLowerCase().includes(searchText));
+    const filteredData = data?.data.filter(
+      (c: ICity) =>
+        c.name.toLowerCase().includes(searchText) ||
+        c.zip.includes(searchText) ||
+        c.region.name.toLowerCase().includes(searchText)
+    );
     setSearchedData(filteredData || []);
   }, [searchText, data]);
 
   const resetState = () => {
     setName('');
-    setCountryCode('');
     setDataId('');
+    setRegion('');
+    setZip('');
     setIsFormOpen(false);
     setAction(Action.None);
     setShowDeleteModal(false);
@@ -61,10 +67,11 @@ const Countries = () => {
   };
 
   const onUpdateClick = (id: string) => {
-    const selectedRow = data?.data.find((country: ICountry) => country.id === id);
-    setCountryCode(selectedRow?.countryCode || '');
+    const selectedRow = data?.data.find((row: ICity) => row.id === id);
     setName(selectedRow?.name || '');
     setDataId(selectedRow?.id || '');
+    setRegion(selectedRow?.region.id || '');
+    setZip(selectedRow?.zip || '');
     setIsFormOpen(true);
     setAction(Action.Update);
   };
@@ -77,7 +84,7 @@ const Countries = () => {
   /* API Calls */
   async function deleteRow() {
     setShowDeleteModal(false);
-    await deleteCountry({ id: dataId })
+    await deleteUser({ id: dataId })
       .unwrap()
       .then((dataDelete) => {
         actionMessagesRef.current!.createMessage(dataDelete.message, MessageType.Ok);
@@ -87,12 +94,16 @@ const Countries = () => {
         actionMessagesRef.current!.createMessage(err.data.message, MessageType.Error);
       });
   }
-  const rows = getCountryRows(searchedData);
-  const columns = getCountryColumns(onUpdateClick, onDeleteClick);
 
   async function updateRow(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    await updateCountry({ id: dataId, body: { name, countryCode } })
+    const updatedFields = {
+      id: dataId.toString(),
+      name,
+      zip,
+      regionId: region,
+    };
+    await update(updatedFields)
       .unwrap()
       .then((dataUpdate) => {
         const message = `[${dataUpdate.status}] Updated row with ID: ${dataUpdate.data.id}`;
@@ -107,7 +118,7 @@ const Countries = () => {
 
   async function addRow(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    await createCountry({ name, countryCode })
+    await create({ name, zip, regionId: region })
       .unwrap()
       .then((dataCreate) => {
         const message = `[${dataCreate.status}] Created new row with ID: ${dataCreate.data.id}`;
@@ -120,11 +131,17 @@ const Countries = () => {
       });
   }
 
+  const rows = getCityRows(searchedData);
+  const columns = getCityColumns(onUpdateClick, onDeleteClick);
+  const dropdownOptions = regions?.data.map((r: IRegion) => {
+    return { id: r.id, name: r.name };
+  });
+
   return (
     <>
       <Loader show={isLoading || isFetching || isLoadingPost || isLoadingPut} />
       <Row className="crud-wrap flex-column gap-2 mt-4" ref={containerWrapRef}>
-        <h3>Countries</h3>
+        <h3>Cities</h3>
         <hr />
         <Row className="actions-wrap flex-column gap-2 align-items-start">
           {isFormOpen && (
@@ -141,27 +158,20 @@ const Countries = () => {
                   </Button>
                   <h5 className="mb-4">{action === Action.Create ? 'Add New Country' : `Update Row ID: ${dataId}`}</h5>
                   <Form onSubmit={action === Action.Create ? addRow : updateRow}>
-                    <Row>
-                      <Col md={6} className="mb-3">
-                        <TextField
-                          required
-                          className="w-100"
-                          onChange={(e) => setName(e.target.value)}
-                          value={name}
-                          label="Country name"
-                          size="small"
-                        />
-                      </Col>
-                      <Col md={6} className="mb-3">
-                        <TextField
-                          required
-                          label="Country code"
-                          className="w-100"
-                          size="small"
-                          value={countryCode}
-                          onChange={(e) => setCountryCode(e.target.value)}
-                        />
-                      </Col>
+                    <Row className="gap-4">
+                      <Row>
+                        <Col md={6} className="mb-3">
+                          <Input value={name} setValue={setName} label="Name" />
+                        </Col>
+                        <Col md={6} className="mb-3">
+                          <Input value={zip} setValue={setZip} label="ZIP" />
+                        </Col>
+                      </Row>
+                      <Row>
+                        <Col md={6} className="mb-3">
+                          <Dropdown value={region} setValue={setRegion} label="Region" options={dropdownOptions} />{' '}
+                        </Col>
+                      </Row>
                     </Row>
                     <Row className="d-flex flex-row gap-3 justify-content-center ">
                       <Col lg={4}>
@@ -191,4 +201,4 @@ const Countries = () => {
   );
 };
 
-export default Countries;
+export default Cities;
