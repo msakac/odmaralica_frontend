@@ -1,7 +1,7 @@
 import { Middleware, isRejectedWithValue } from '@reduxjs/toolkit';
 import { toast } from 'react-toastify';
-import { IErrorResponse } from '../modules/common/definitions';
-import formatErrorMessage from '../modules/common/utils/formatErrorMessage';
+import IErrorResponse from 'types/IErrorResponse';
+import formatErrorMessage from 'utils/formatErrorMessage';
 
 // eslint-disable-next-line import/prefer-default-export
 export const rtkQueryErrorLogger: Middleware = () => (next) => (action) => {

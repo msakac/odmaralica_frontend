@@ -1,6 +1,6 @@
 import { BaseQueryFn, createApi, FetchArgs, fetchBaseQuery, FetchBaseQueryError } from '@reduxjs/toolkit/query/react';
 import { Mutex } from 'async-mutex';
-import { ILoginResponseDTO } from '../modules/auth/auth.types';
+import { ILoginResponseDTO } from 'types/auth.types';
 
 const mutex = new Mutex();
 

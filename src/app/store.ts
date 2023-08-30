@@ -4,7 +4,7 @@ import { setupListeners } from '@reduxjs/toolkit/dist/query/react';
 import { persistStore, persistReducer, FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER } from 'redux-persist';
 import storage from 'redux-persist/lib/storage'; // Use local storage as the storage engine
 import api from './api';
-import authenticationReducer, { logoutUser } from '../modules/auth/authenticationSlice';
+import authenticationReducer, { logoutUser } from './authenticationSlice';
 import { rtkQueryErrorLogger } from './middleware';
 
 const persistConfig = {

@@ -19,6 +19,10 @@
             font-weight: bold !important;
         }
     }
+
+    .MuiDataGrid-cell {
+        white-space: break-spaces !important;
+    }
 }
 .create-form {
     border-radius: 20px;
