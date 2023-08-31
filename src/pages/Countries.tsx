@@ -13,9 +13,9 @@ import { useSearhText } from 'components/layout/SidebarLayout';
 import { getCountryColumns, getCountryRows } from 'components/data/DataTableConfigs';
 import Animate from 'components/common/Animate';
 import Loader from 'components/common/Loader';
-import ActionMessages, { Action, ActionMessagesRef, MessageType } from 'components/data/ActionMessages';
+import ActionMessages, { Action, ActionMessagesRef, MessageType } from 'components/common/ActionMessages';
 import DataTable from 'components/data/DataTable';
-import DeleteModalMessage from 'components/data/DeleteModalMessage';
+import DeleteModalMessage from 'components/common/DeleteModalMessage';
 import { ICountry } from 'types/country.types';
 
 const Countries = () => {

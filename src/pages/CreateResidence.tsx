@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 /* eslint-disable func-names */
 /* eslint-disable react/no-array-index-key */
 import React, { useEffect, useRef, useState } from 'react';
@@ -5,7 +6,7 @@ import { faCircleXmark } from '@fortawesome/free-solid-svg-icons';
 import { Button, Card, Col, Form, Row, Image } from 'react-bootstrap';
 import Animate from 'components/common/Animate';
 import Loader from 'components/common/Loader';
-import ActionMessages, { ActionMessagesRef } from 'components/data/ActionMessages';
+import ActionMessages, { ActionMessagesRef } from 'components/common/ActionMessages';
 import Dropdown from 'components/common/Dropdown';
 import Input from 'components/common/Input';
 import { useGetCountriesRegionsCitiesQuery } from 'api/country.api';
@@ -99,12 +100,7 @@ const CreateResidence = () => {
   };
 
   async function addAddress(residenceId: string) {
-    await createAddress({ residenceId, street, additional: additionalInfo, cityId: city })
-      .unwrap()
-      .then((addressData) => {
-        console.log(addressData);
-        console.log('Address created');
-      });
+    await createAddress({ residenceId, street, additional: additionalInfo, cityId: city });
   }
 
   async function addImages(residenceId: string) {
@@ -126,8 +122,7 @@ const CreateResidence = () => {
         const residenceId = residenceData.data.id;
         addAddress(residenceId);
         addImages(residenceId);
-        // Navigiiraj z novim podacima da neku poruku tam pokazem
-        navigate(routes.RenterResidences.absolutePath, { replace: true });
+        navigate(routes.RenterResidences.absolutePath, { state: { newResidence: residenceData.data.name } });
       })
       .catch((error) => {
         console.error('Error creating residence:', error);

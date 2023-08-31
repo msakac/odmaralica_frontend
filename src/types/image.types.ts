@@ -9,3 +9,5 @@ export interface IImage {
   createdBy: IUser;
   createdDate: string;
 }
+
+export type ImageType = 'accommodationUnit' | 'residence' | 'user';

@@ -47,7 +47,7 @@ const residenceApi = api.injectEndpoints({
     }),
 
     // Get List of residence on endpoint residence/find with request parameter q
-    findCities: builder.query<IResponse<IResidence[]>, { q: string }>({
+    findResidence: builder.query<IResponse<IResidence[]>, { q: string }>({
       query: ({ q }) => ({
         url: `residence/find`,
         method: 'GET',
@@ -63,7 +63,7 @@ export const {
   useGetSingleResidenceQuery,
   useUpdateResidenceMutation,
   useDeleteResidenceMutation,
-  useFindCitiesQuery,
+  useFindResidenceQuery,
 } = residenceApi;
 
 export default residenceApi;

@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
 import React from 'react';
-import { faGear, faTrash } from '@fortawesome/free-solid-svg-icons';
+import { faPenToSquare, faTrash } from '@fortawesome/free-solid-svg-icons';
 import { GridColDef } from '@mui/x-data-grid';
 import { Button } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -10,6 +10,9 @@ import { formatDate } from 'utils';
 import { IUser } from 'types/users.types';
 import { ICity } from 'types/city.types';
 import { IRegion } from 'types/region.types';
+import { IResidenceGetDTO } from 'types/residence.types';
+import routes from 'routes/routes';
+import { encryptData } from 'utils/urlSafety';
 
 /* Country */
 export const getCountryColumns = (
@@ -27,7 +30,7 @@ export const getCountryColumns = (
       renderCell: (params) => (
         <>
           <Button variant="primary" onClick={() => onUpdateClick(params.row.id)}>
-            <FontAwesomeIcon icon={faGear} />
+            <FontAwesomeIcon icon={faPenToSquare} />
           </Button>
           <Button variant="danger" className="mx-3" onClick={() => onDeleteClick(params.row.id)}>
             <FontAwesomeIcon icon={faTrash} />
@@ -50,7 +53,6 @@ export const getCountryRows = (data: ICountry[]) =>
 /* Log */
 export const getLogRows = (data: ILogGetDTO[]) =>
   data?.map((log: ILogGetDTO) => {
-    console.log();
     return {
       id: log.id,
       user: (log.user && log.user.email) || '',
@@ -96,7 +98,7 @@ export const getUserColumns = (onUpdateClick: (id: string) => void, onDeleteClic
       renderCell: (params) => (
         <>
           <Button variant="primary" onClick={() => onUpdateClick(params.row.id)}>
-            <FontAwesomeIcon icon={faGear} />
+            <FontAwesomeIcon icon={faPenToSquare} />
           </Button>
           <Button variant="danger" className="mx-3" onClick={() => onDeleteClick(params.row.id)}>
             <FontAwesomeIcon icon={faTrash} />
@@ -134,7 +136,7 @@ export const getCityColumns = (onUpdateClick: (id: string) => void, onDeleteClic
       renderCell: (params) => (
         <>
           <Button variant="primary" onClick={() => onUpdateClick(params.row.id)}>
-            <FontAwesomeIcon icon={faGear} />
+            <FontAwesomeIcon icon={faPenToSquare} />
           </Button>
           <Button variant="danger" className="mx-3" onClick={() => onDeleteClick(params.row.id)}>
             <FontAwesomeIcon icon={faTrash} />
@@ -168,7 +170,7 @@ export const getRegionColumns = (onUpdateClick: (id: string) => void, onDeleteCl
       renderCell: (params) => (
         <>
           <Button variant="primary" onClick={() => onUpdateClick(params.row.id)}>
-            <FontAwesomeIcon icon={faGear} />
+            <FontAwesomeIcon icon={faPenToSquare} />
           </Button>
           <Button variant="danger" className="mx-3" onClick={() => onDeleteClick(params.row.id)}>
             <FontAwesomeIcon icon={faTrash} />
@@ -187,3 +189,40 @@ export const getRegionRows = (data: IRegion[]) =>
       country: row.country.name,
     };
   }) || [];
+
+/* Residence */
+export const getResidenceRows = (data: IResidenceGetDTO[]) =>
+  data?.map((row: IResidenceGetDTO) => {
+    return {
+      id: row.id,
+      name: row.name,
+      type: row.type.name,
+      isPublished: row.isPublished ? 'Yes' : 'No',
+    };
+  }) || [];
+
+export const getResidenceColumns = (onDeleteClick: (id: string) => void): GridColDef[] => {
+  return [
+    { field: 'name', headerName: 'Name', width: 250 },
+    { field: 'type', headerName: 'Residence Type', width: 250 },
+    { field: 'isPublished', headerName: 'Is published', width: 250 },
+    {
+      field: 'actions',
+      headerName: 'Actions',
+      width: 200,
+      renderCell: (params) => (
+        <>
+          <Button
+            variant="primary"
+            href={routes.EditResidence.absolutePath.replace(':id', encodeURIComponent(encryptData(params.row.id)))}
+          >
+            <FontAwesomeIcon icon={faPenToSquare} />
+          </Button>
+          <Button variant="danger" className="mx-3" onClick={() => onDeleteClick(params.row.id)}>
+            <FontAwesomeIcon icon={faTrash} />
+          </Button>
+        </>
+      ),
+    },
+  ];
+};

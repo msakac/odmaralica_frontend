@@ -47,7 +47,7 @@ const addressApi = api.injectEndpoints({
     }),
 
     // Get List of address on endpoint address/find with request parameter q
-    findCities: builder.query<IResponse<IAddress[]>, { q: string }>({
+    findAddress: builder.query<IResponse<IAddress[]>, { q: string }>({
       query: ({ q }) => ({
         url: `address/find`,
         method: 'GET',
@@ -63,7 +63,7 @@ export const {
   useGetSingleAddressQuery,
   useUpdateAddressMutation,
   useDeleteAddressMutation,
-  useFindCitiesQuery,
+  useFindAddressQuery,
 } = addressApi;
 
 export default addressApi;
