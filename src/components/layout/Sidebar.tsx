@@ -8,6 +8,8 @@ import {
   faCity,
   faLocationDot,
   faHotel,
+  faHouseChimneyUser,
+  faCirclePlus,
 } from '@fortawesome/free-solid-svg-icons';
 import React, { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
@@ -40,12 +42,26 @@ const Sidebar = () => {
         <Nav className="flex-column navbar w-100 text-white p-3" defaultActiveKey={routes.Dashboard.absolutePath}>
           <NavItem title="Home" link={routes.Home.absolutePath} pathname={location.pathname} icon={faExternalLinkAlt} />
           <NavItem title="Overview" link={routes.Dashboard.absolutePath} pathname={location.pathname} icon={faHome} />
-          <NavItem
-            title="My Residences"
-            link={routes.RenterResidences.absolutePath}
+          <CollapsibleNavItem
+            title="Residences"
             pathname={location.pathname}
+            eventKey="dashboard-residence"
             icon={faHotel}
-          />
+            restrictedTo={restrictions.renter}
+          >
+            <NavItem
+              title="My Residences"
+              link={routes.RenterResidences.absolutePath}
+              pathname={location.pathname}
+              icon={faHouseChimneyUser}
+            />
+            <NavItem
+              title="New Residence"
+              link={routes.CreateResidence.absolutePath}
+              pathname={location.pathname}
+              icon={faCirclePlus}
+            />
+          </CollapsibleNavItem>
 
           <NavItem
             title="Log History"

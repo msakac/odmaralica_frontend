@@ -6,13 +6,13 @@ export interface ICountry {
 
 export type ICountryPostDTO = Omit<ICountry, 'id'>;
 
-interface ICustomCityDTO {
+export interface ICustomCityDTO {
   id: string;
   name: string;
   zip: string;
 }
 
-interface ICustomRegionDTO {
+export interface ICustomRegionDTO {
   id: string;
   name: string;
   cities: ICustomCityDTO[];

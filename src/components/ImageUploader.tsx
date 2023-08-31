@@ -8,7 +8,7 @@ import { faCircleXmark } from '@fortawesome/free-solid-svg-icons';
 import { Card, Container, Form, Row, Image, Button, Col } from 'react-bootstrap';
 import { useSelector } from 'react-redux';
 import { selectAuthentication } from 'app/store';
-import { useGetImageQuery, useUploadImageMutation } from 'api/images.api';
+import { useUploadImageMutation } from 'api/images.api';
 import { skipToken } from '@reduxjs/toolkit/dist/query';
 import axios from 'axios';
 import Loader from './common/Loader';
@@ -136,8 +136,8 @@ const ImageUploader = () => {
         </Row>
         {imagePreview.length > 0 && (
           <Container fluid className="p-0">
-            <h6 className="m-0 mt-2">Preview: </h6>
-            <Row className="mx-0 mt-3 border-top border-2 border-primary pt-4 w-100 d-flex flex-row flex-wrap justify-content-center align-items-center gap-3 image-uploader__image-container">
+            <span className="m-0 mt-2">Preview images: </span>
+            <Row className="mx-0 mt-3 border-top border-2 border-dark-subtle  pt-4 w-100 d-flex flex-row flex-wrap justify-content-center align-items-center gap-3 image-uploader__image-container">
               {imagePreview.map((image: string, index: number) => (
                 <Card key={index} className="shadow-lg  p-0 overflow-hidden image-uploader__card position-relative">
                   <Button

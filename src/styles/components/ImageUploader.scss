@@ -1,16 +1,17 @@
 .image-uploader__image-container {
     .image-uploader__card{
-        width: 402px;
+        max-width: 600px;
 
         .delete-image-button {
+            color: #ff8400 !important;
             background-color: transparent;
             border: 0;
             &:hover {
-                background-color: #0275d8 ;
+                background-color: black ;
             }
         }
         .image-uploader__image {
-            height: 250px;
+            height: 240px;
         }
     }
 }

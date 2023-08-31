@@ -1,5 +1,12 @@
 .crud-wrap {
     width: unset;
+    @media screen and (max-width: 768px) {
+        align-items: center;
+        div.gap-4.row {
+            justify-content: center;
+        }
+    }
+
 }
 .table-wrap {
     margin: auto;
@@ -35,6 +42,10 @@
             transform: scale(1.2);
             transition: all 0.2s ease-in-out;
         }
+    }
+
+    @media screen and (max-width: 768px) {
+        padding: 10px;
     }
 }
 

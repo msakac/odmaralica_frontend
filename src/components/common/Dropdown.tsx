@@ -13,9 +13,10 @@ interface IDropdownProps {
   setValue: (value: string) => void;
   options?: IDropdownOption[];
   label: string;
+  disabled?: boolean;
 }
 
-const Dropdown = ({ value, setValue, options, label }: IDropdownProps) => {
+const Dropdown = ({ value, setValue, options, label, disabled = false }: IDropdownProps) => {
   return (
     <FormControl fullWidth size="small">
       <InputLabel id="demo-simple-select-label">{label}</InputLabel>
@@ -23,6 +24,7 @@ const Dropdown = ({ value, setValue, options, label }: IDropdownProps) => {
         labelId="demo-simple-select-label"
         id="demo-simple-select"
         value={value}
+        disabled={disabled}
         label={label}
         onChange={(e) => setValue(e.target.value as string)}
       >

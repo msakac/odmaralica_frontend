@@ -2,6 +2,7 @@ import api from 'app/api';
 
 const imagesApi = api.injectEndpoints({
   endpoints: (builder) => ({
+    // Endpoint za upload slike
     uploadImage: builder.mutation<any, any>({
       query: (body) => ({
         url: 'image',
@@ -9,14 +10,8 @@ const imagesApi = api.injectEndpoints({
         body,
       }),
     }),
-    getImage: builder.query<any, { id: string }>({
-      query: ({ id }) => ({
-        url: `image/${id}`,
-        method: 'GET',
-      }),
-    }),
   }),
 });
 
-export const { useUploadImageMutation, useGetImageQuery } = imagesApi;
+export const { useUploadImageMutation } = imagesApi;
 export default imagesApi;
