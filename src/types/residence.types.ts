@@ -14,6 +14,13 @@ export interface IResidence {
   type: IResidenceType;
   isPublished: boolean;
   owner: IUser;
+  isParkingFree?: boolean;
+  isWifiFree?: boolean;
+  isAirConFree?: boolean;
+  distanceSea?: string;
+  distanceStore?: string;
+  distanceBeach?: string;
+  distanceCenter?: string;
 }
 
 export interface IResidenceGetDTO {
@@ -23,6 +30,13 @@ export interface IResidenceGetDTO {
   type: IResidenceType;
   isPublished: boolean;
   owner: IUserGetDTO;
+  isParkingFree?: boolean;
+  isWifiFree?: boolean;
+  isAirConFree?: boolean;
+  distanceSea?: string;
+  distanceStore?: string;
+  distanceBeach?: string;
+  distanceCenter?: string;
 }
 
 export interface IResidencePostDTO {
@@ -39,4 +53,11 @@ export interface IResidencePutDTO {
   typeId: string;
   isPublished: boolean;
   ownerId: string;
+  isParkingFree?: boolean;
+  isWifiFree?: boolean;
+  isAirConFree?: boolean;
+  distanceSea?: string;
+  distanceStore?: string;
+  distanceBeach?: string;
+  distanceCenter?: string;
 }

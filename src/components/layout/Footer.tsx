@@ -5,7 +5,7 @@ const Footer = () => {
   return (
     <div className="footer align-items-center d-flex justify-content-center">
       <div className="footer-content-wrap">
-        <Row className="w-100">
+        <Row className="w-100 footer-row">
           <Col xs={12} lg={6} className="mb-4 mb-lg-0">
             <p className="mb-0 text-left text-center text-xl-start">
               Copyright © 2023

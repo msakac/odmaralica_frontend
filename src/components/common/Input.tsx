@@ -8,11 +8,13 @@ interface IInputProps {
   label: string;
   type?: string;
   required?: boolean;
+  name?: string;
 }
 
-const Input = ({ value, setValue, label, type = 'text', required = true }: IInputProps) => {
+const Input = ({ value, setValue, label, type = 'text', required = true, name = '' }: IInputProps) => {
   return (
     <TextField
+      name={name}
       required={required}
       label={label}
       type={type}

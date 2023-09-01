@@ -1,0 +1,23 @@
+.edit-residence-wrap {
+    @media screen and (max-width: 768px) {
+        padding: 0 !important;
+        gap: 20px;
+        .row {
+            padding: 0 !important;
+            width: 100%;
+            margin: 0 !important;
+        }
+    }
+}
+
+.card-body {
+    @media screen and (max-width: 768px) {
+        padding: 0 !important;
+    }
+}
+
+.fade-enter-done {
+    @media screen and (max-width: 768px) {
+        padding: 0 !important;
+    }
+}

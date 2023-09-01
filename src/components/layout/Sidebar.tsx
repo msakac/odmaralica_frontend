@@ -10,6 +10,7 @@ import {
   faHotel,
   faHouseChimneyUser,
   faCirclePlus,
+  faHouseLock,
 } from '@fortawesome/free-solid-svg-icons';
 import React, { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
@@ -49,6 +50,13 @@ const Sidebar = () => {
             icon={faHotel}
             restrictedTo={restrictions.renter}
           >
+            <NavItem
+              title="Residences"
+              link={routes.AdminResidences.absolutePath}
+              pathname={location.pathname}
+              icon={faHouseLock}
+              restrictedTo={restrictions.moderator}
+            />
             <NavItem
               title="My Residences"
               link={routes.RenterResidences.absolutePath}

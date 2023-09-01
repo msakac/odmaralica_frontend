@@ -93,9 +93,9 @@ const EditResidenceAddress = ({ residenceId, actionMessageRef }: IEditResidenceA
             <Row className="gap-4">
               <Row className="justify-content-between ">
                 <Col md={6} className="mb-3">
-                  <h5 className="mb-4">Address</h5>
+                  <h5 className="mb-0 mb-lg-4">Address</h5>
                 </Col>
-                <Col sm={12} md={4} className="mb-3">
+                <Col md={12} lg={4} className="mb-3">
                   <Button variant="warning" type="submit" className="w-100">
                     Update Address
                   </Button>

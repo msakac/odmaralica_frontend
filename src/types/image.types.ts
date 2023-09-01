@@ -11,3 +11,8 @@ export interface IImage {
 }
 
 export type ImageType = 'accommodationUnit' | 'residence' | 'user';
+
+export interface IImageData {
+  image: string;
+  id: string;
+}

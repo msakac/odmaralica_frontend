@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
 import React from 'react';
-import { faPenToSquare, faTrash } from '@fortawesome/free-solid-svg-icons';
+import { faPenToSquare, faTrash, faUpload } from '@fortawesome/free-solid-svg-icons';
 import { GridColDef } from '@mui/x-data-grid';
 import { Button } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -218,8 +218,43 @@ export const getResidenceColumns = (onDeleteClick: (id: string) => void): GridCo
           >
             <FontAwesomeIcon icon={faPenToSquare} />
           </Button>
-          <Button variant="danger" className="mx-3" onClick={() => onDeleteClick(params.row.id)}>
+          <Button className="mx-3" variant="danger" onClick={() => onDeleteClick(params.row.id)}>
             <FontAwesomeIcon icon={faTrash} />
+          </Button>
+        </>
+      ),
+    },
+  ];
+};
+
+export const getAdminResidenceColumns = (
+  onDeleteClick: (id: string) => void,
+  onPublishClick: (id: string) => void
+): GridColDef[] => {
+  return [
+    { field: 'name', headerName: 'Name', width: 250 },
+    { field: 'type', headerName: 'Residence Type', width: 250 },
+    { field: 'isPublished', headerName: 'Is published', width: 250 },
+    {
+      field: 'actions',
+      headerName: 'Actions',
+      width: 200,
+      renderCell: (params) => (
+        <>
+          <Button
+            variant="primary"
+            href={routes.EditResidence.absolutePath.replace(':id', encodeURIComponent(encryptData(params.row.id)))}
+          >
+            <FontAwesomeIcon icon={faPenToSquare} />
+          </Button>
+          <Button className="mx-3" variant="danger" onClick={() => onDeleteClick(params.row.id)}>
+            <FontAwesomeIcon icon={faTrash} />
+          </Button>
+          <Button
+            variant={params.row.isPublished === 'Yes' ? 'warning' : 'success'}
+            onClick={() => onPublishClick(params.row.id)}
+          >
+            <FontAwesomeIcon icon={faUpload} rotation={params.row.isPublished === 'Yes' ? 180 : undefined} />
           </Button>
         </>
       ),

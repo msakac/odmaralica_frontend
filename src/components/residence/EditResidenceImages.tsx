@@ -10,15 +10,12 @@ import Animate from 'components/common/Animate';
 import { ActionMessagesRef, MessageType } from 'components/common/ActionMessages';
 import axios from 'axios';
 import DeleteModalMessage from 'components/common/DeleteModalMessage';
+import { IImageData } from 'types/image.types';
+import Carousel from 'components/common/Carousel';
 
 interface IEditResidenceImagesProps {
   residenceId: string;
   actionMessageRef: RefObject<ActionMessagesRef>;
-}
-
-interface IImageData {
-  image: string;
-  id: string;
 }
 
 const EditResidenceImages = ({ residenceId, actionMessageRef }: IEditResidenceImagesProps) => {
@@ -135,11 +132,11 @@ const EditResidenceImages = ({ residenceId, actionMessageRef }: IEditResidenceIm
         <Card.Body>
           <Row className="gap-4">
             <Row className="justify-content-between ">
-              <Col md={6} className="mb-3">
+              <Col md={12} lg={8} className="mb-3">
                 <h5>Images</h5>
               </Col>
               {!isAddingImages && (
-                <Col sm={12} md={2}>
+                <Col md={12} lg={4}>
                   <Button variant="primary" className="w-100" onClick={() => setIsAddingImages(!isAddingImages)}>
                     Add More Images
                   </Button>
@@ -151,8 +148,8 @@ const EditResidenceImages = ({ residenceId, actionMessageRef }: IEditResidenceIm
                 <Form.Label className="fw-bold ">
                   {imagePreview.length > 0 ? `Selected images (${imagePreview.length} selected)` : 'Select images'}
                 </Form.Label>
-                <Row className="w-100">
-                  <Col lg={imagePreview.length > 0 ? 8 : 10}>
+                <Row className="w-100 gap-sm-3 gap-xl-0">
+                  <Col xl={imagePreview.length > 0 ? 8 : 10}>
                     <Form.Control
                       type="file"
                       className="text-primary mb-2"
@@ -162,13 +159,13 @@ const EditResidenceImages = ({ residenceId, actionMessageRef }: IEditResidenceIm
                     />
                   </Col>
                   {imagePreview.length > 0 && (
-                    <Col lg={2}>
+                    <Col xl={2}>
                       <Button variant="primary" type="submit" className="w-100" onClick={addImages}>
                         Save
                       </Button>
                     </Col>
                   )}
-                  <Col sm={12} md={2}>
+                  <Col xl={2}>
                     <Button variant="danger" className="w-100" onClick={() => setIsAddingImages(!isAddingImages)}>
                       Cancel
                     </Button>
@@ -195,6 +192,7 @@ const EditResidenceImages = ({ residenceId, actionMessageRef }: IEditResidenceIm
                       ))}
                     </>
                   )}
+                  <hr className="w-100" />
                 </Row>
               </>
             )}
@@ -219,6 +217,9 @@ const EditResidenceImages = ({ residenceId, actionMessageRef }: IEditResidenceIm
                   ))}
                 </>
               )}
+            </Row>
+            <Row>
+              <Carousel images={imageData} />
             </Row>
           </Row>
         </Card.Body>

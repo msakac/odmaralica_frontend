@@ -21,6 +21,7 @@ import Cities from 'pages/Cities';
 import RenterResidences from 'pages/RenterResidences';
 import CreateResidence from 'pages/CreateResidence';
 import EditResidence from 'pages/EditResidence';
+import AdminResidences from 'pages/AdminResidences';
 import routes from './routes';
 import restrictions from './restrictions';
 import RequireAuth from './RequireAuth';
@@ -64,6 +65,10 @@ const Routing = () => {
           <Route
             path={routes.Cities.relativePath}
             element={<RequireAuth element={<Cities />} restrictedTo={restrictions.admin} />}
+          />
+          <Route
+            path={routes.AdminResidences.relativePath}
+            element={<RequireAuth element={<AdminResidences />} restrictedTo={restrictions.moderator} />}
           />
           <Route
             path={routes.RenterResidences.relativePath}
