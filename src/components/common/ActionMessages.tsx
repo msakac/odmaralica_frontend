@@ -54,11 +54,13 @@ const ActionMessages = forwardRef((props, ref: Ref<ActionMessagesRef>) => {
   return (
     <Col xs={12} lg={4}>
       {messages.map((message: IMessage, index: number) => (
-        <Animate key={index}>
-          <Alert variant={message.type === MessageType.Ok ? 'success' : 'danger'} className="w-fit">
-            {message.message}
-          </Alert>
-        </Animate>
+        <div className="pb-1">
+          <Animate key={index}>
+            <Alert variant={message.type === MessageType.Ok ? 'success' : 'danger'} className="w-fit m-0">
+              {message.message}
+            </Alert>
+          </Animate>
+        </div>
       ))}
     </Col>
   );

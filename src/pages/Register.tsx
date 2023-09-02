@@ -7,6 +7,7 @@ import { getStatusCode } from 'http-status-codes';
 import { useRegisterMutation } from 'api/auth.api';
 import Loader from 'components/common/Loader';
 import Animate from 'components/common/Animate';
+import { IErrorResponse } from 'types';
 
 const Register = () => {
   const [name, setName] = useState('');
@@ -32,7 +33,7 @@ const Register = () => {
           navigate('/register-success', { state: { email, name, surname } });
         }
       })
-      .catch((err) => {
+      .catch((err: IErrorResponse) => {
         setError(err.data.message);
       });
   }

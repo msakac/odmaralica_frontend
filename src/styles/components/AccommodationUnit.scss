@@ -1,0 +1,25 @@
+.accommodation-unit-wrap {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    @media screen and (max-width: 1300px) {
+        flex-direction: column;
+        justify-content: center;
+        gap: 20px;
+    }
+
+    .table-wrap {
+        @media screen and (min-width: 1300px) {
+            max-width: fit-content;
+        }
+        flex-basis: 50%;
+        margin: 0;
+    }
+
+    .accommodation-unit-create-form {
+        flex-basis: 50%;
+        .mb-sm-4 {
+            width: 100%;
+        }
+    }
+}

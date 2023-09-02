@@ -7,14 +7,15 @@ import Loader from 'components/common/Loader';
 import React, { RefObject, useEffect, useState } from 'react';
 import { Button, Card, Col, Form, Row } from 'react-bootstrap';
 import { IDropdown } from 'types/IDropdown.types';
+import IErrorResponse from 'types/IErrorResponse';
 import { ICountryRegionCityResponseDTO, ICustomCityDTO, ICustomRegionDTO } from 'types/country.types';
 
-interface IEditResidenceAddressProps {
+interface ITabEditResidenceAddressProps {
   residenceId: string;
   actionMessageRef: RefObject<ActionMessagesRef>;
 }
 
-const EditResidenceAddress = ({ residenceId, actionMessageRef }: IEditResidenceAddressProps) => {
+const TabEditResidenceAddress = ({ residenceId, actionMessageRef }: ITabEditResidenceAddressProps) => {
   const {
     data: countryRegionCities,
     isLoading: isLoadingDropdownData,
@@ -75,11 +76,11 @@ const EditResidenceAddress = ({ residenceId, actionMessageRef }: IEditResidenceA
     await updateAddress(updatedFields)
       .unwrap()
       .then((dataUpdate) => {
-        const message = `[${dataUpdate.status}] Updated row with ID: ${dataUpdate.data.id}`;
+        const message = `[${dataUpdate.status}] Updated Address for this residence`;
         actionMessageRef.current!.createMessage(message, MessageType.Ok);
         refetch();
       })
-      .catch((err) => {
+      .catch((err: IErrorResponse) => {
         actionMessageRef.current!.createMessage(err.data.message, MessageType.Error);
       });
   }
@@ -129,4 +130,4 @@ const EditResidenceAddress = ({ residenceId, actionMessageRef }: IEditResidenceA
     </>
   );
 };
-export default EditResidenceAddress;
+export default TabEditResidenceAddress;

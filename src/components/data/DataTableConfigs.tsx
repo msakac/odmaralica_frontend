@@ -13,6 +13,11 @@ import { IRegion } from 'types/region.types';
 import { IResidenceGetDTO } from 'types/residence.types';
 import routes from 'routes/routes';
 import { encryptData } from 'utils/urlSafety';
+import { IAccommodationUnitGetDTO } from 'types/accommodationUnit.types';
+import formatDateToTimestamp from 'utils/formatDateToTimestamp';
+import parseFormattedDate from 'utils/parseFormatedDate';
+import compareDates from 'utils/compareDates';
+import compareNumbers from 'utils/compareNumbers';
 
 /* Country */
 export const getCountryColumns = (
@@ -59,6 +64,7 @@ export const getLogRows = (data: ILogGetDTO[]) =>
       activityType: log.activityType.name,
       logMessage: log.logMessage,
       createdAt: formatDate(log.createdAt),
+      timestamp: formatDateToTimestamp(log.createdAt),
       httpMethod: log.httpMethod,
       endpoint: log.endpoint,
       statusCode: log.statusCode,
@@ -72,11 +78,16 @@ export const getLogColumns = (): GridColDef[] => {
     { field: 'activityType', headerName: 'Type', width: 150 },
     { field: 'user', headerName: 'User', width: 150 },
     { field: 'ipAddress', headerName: 'IP Address', width: 120 },
-    { field: 'createdAt', headerName: 'Created at', width: 200 },
+    {
+      field: 'createdAt',
+      headerName: 'Created at',
+      width: 200,
+      sortComparator: compareDates,
+    },
     { field: 'endpoint', headerName: 'Endpoint', width: 150 },
     { field: 'httpMethod', headerName: 'Method', width: 80 },
     { field: 'statusCode', headerName: 'Status', width: 150 },
-    { field: 'responseTime', headerName: 'Response', width: 90 },
+    { field: 'responseTime', headerName: 'Response', width: 90, sortComparator: compareNumbers },
     { field: 'logMessage', headerName: 'Message', width: 400 },
   ];
 };
@@ -255,6 +266,41 @@ export const getAdminResidenceColumns = (
             onClick={() => onPublishClick(params.row.id)}
           >
             <FontAwesomeIcon icon={faUpload} rotation={params.row.isPublished === 'Yes' ? 180 : undefined} />
+          </Button>
+        </>
+      ),
+    },
+  ];
+};
+
+/* Accommodation Unit */
+export const getAccommodationUnitRows = (data: IAccommodationUnitGetDTO[]) =>
+  data?.map((row: IAccommodationUnitGetDTO) => {
+    return {
+      id: row.id,
+      name: row.name,
+      residenceId: row.residence.id,
+    };
+  }) || [];
+
+export const getAccommodationUnitColumns = (
+  onUpdateClick: (id: string) => void,
+  onDeleteClick: (id: string) => void
+): GridColDef[] => {
+  return [
+    { field: 'id', headerName: 'ID', width: 100 },
+    { field: 'name', headerName: 'Name', width: 250 },
+    {
+      field: 'actions',
+      headerName: 'Actions',
+      width: 200,
+      renderCell: (params) => (
+        <>
+          <Button variant="primary" onClick={() => onUpdateClick(params.row.id)}>
+            <FontAwesomeIcon icon={faPenToSquare} />
+          </Button>
+          <Button className="mx-3" variant="danger" onClick={() => onDeleteClick(params.row.id)}>
+            <FontAwesomeIcon icon={faTrash} />
           </Button>
         </>
       ),

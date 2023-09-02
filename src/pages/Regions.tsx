@@ -20,6 +20,7 @@ import {
 import { useGetCountriesQuery } from 'api/country.api';
 import { IRegion } from 'types/region.types';
 import { ICountry } from 'types/country.types';
+import { IErrorResponse } from 'types';
 
 const Regions = () => {
   /* Redux API Hooks */
@@ -90,7 +91,7 @@ const Regions = () => {
         actionMessagesRef.current!.createMessage(dataDelete.message, MessageType.Ok);
         refetch();
       })
-      .catch((err) => {
+      .catch((err: IErrorResponse) => {
         actionMessagesRef.current!.createMessage(err.data.message, MessageType.Error);
       });
   }
@@ -110,7 +111,7 @@ const Regions = () => {
         refetch();
         resetState();
       })
-      .catch((err) => {
+      .catch((err: IErrorResponse) => {
         actionMessagesRef.current!.createMessage(err.data.message, MessageType.Error);
       });
   }
@@ -125,7 +126,7 @@ const Regions = () => {
         refetch();
         resetState();
       })
-      .catch((err) => {
+      .catch((err: IErrorResponse) => {
         actionMessagesRef.current!.createMessage(err.data.message, MessageType.Error);
       });
   }

@@ -1,4 +1,6 @@
+import IResponse from './IResponse';
+
 export default interface IErrorResponse {
-  code: number;
-  message: string;
+  status: string;
+  data: IResponse<Object>;
 }

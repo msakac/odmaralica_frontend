@@ -1,10 +1,9 @@
-import { faQuestion } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+// import { faQuestion } from '@fortawesome/free-solid-svg-icons';
+// import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { DataGrid } from '@mui/x-data-grid';
-import Animate from 'components/common/Animate';
 import useDebounce from 'hooks/useDebounce';
 import React, { RefObject, useEffect, useRef, useState } from 'react';
-import { Button, Col } from 'react-bootstrap';
+import { Col } from 'react-bootstrap';
 
 interface IDataTableProps {
   rows: any;
@@ -46,12 +45,12 @@ const DataTable = ({ rows, columns, parentContainerRef }: IDataTableProps) => {
 
   return (
     <Col className="table-wrap" ref={tableWrapRef}>
-      <Animate>
-        <div className="d-flex justify-content-end mb-2">
+      <div>
+        {/* <div className="d-flex justify-content-end mb-2">
           <Button className="align-self-start" variant="info">
             <FontAwesomeIcon icon={faQuestion} />
           </Button>
-        </div>
+        </div> */}
         <DataGrid
           rows={rows}
           columns={columns}
@@ -63,7 +62,7 @@ const DataTable = ({ rows, columns, parentContainerRef }: IDataTableProps) => {
           pageSizeOptions={[10, 25, 50, 100]}
           getRowClassName={getRowClassName}
         />
-      </Animate>
+      </div>
     </Col>
   );
 };

@@ -20,14 +20,7 @@ const Dropdown = ({ value, setValue, options, label, disabled = false }: IDropdo
   return (
     <FormControl fullWidth size="small">
       <InputLabel id="demo-simple-select-label">{label}</InputLabel>
-      <Select
-        labelId="demo-simple-select-label"
-        id="demo-simple-select"
-        value={value}
-        disabled={disabled}
-        label={label}
-        onChange={(e) => setValue(e.target.value as string)}
-      >
+      <Select value={value} disabled={disabled} label={label} onChange={(e) => setValue(e.target.value as string)}>
         {options &&
           options.map((option: IDropdownOption, index: number) => (
             <MenuItem key={index} value={option.id}>

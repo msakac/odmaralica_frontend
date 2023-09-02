@@ -11,6 +11,7 @@
 }
 
 .card-body {
+    padding-top: 0;
     @media screen and (max-width: 768px) {
         padding: 0 !important;
     }
@@ -19,5 +20,18 @@
 .fade-enter-done {
     @media screen and (max-width: 768px) {
         padding: 0 !important;
+    }
+}
+
+.residence-tabs {
+    .MuiTab-root {
+        font-weight: bold;
+        font-size: 16px;
+    }
+    .Mui-selected {
+        color: #ff8400 !important;
+    }
+    .MuiTabs-indicator {
+        background-color: #ff8400 !important;
     }
 }

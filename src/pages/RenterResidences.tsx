@@ -14,6 +14,7 @@ import { useSelector } from 'react-redux';
 import { IResidenceGetDTO } from 'types/residence.types';
 import { useDeleteByTypeAndIdMutation } from 'api/images.api';
 import { useLocation } from 'react-router-dom';
+import { IErrorResponse } from 'types';
 
 const RenterResidences = () => {
   const { user } = useSelector(selectAuthentication);
@@ -74,11 +75,11 @@ const RenterResidences = () => {
               actionMessagesRef.current!.createMessage('Residence deleted!', MessageType.Ok);
               refetch();
             })
-            .catch((err) => {
+            .catch((err: IErrorResponse) => {
               actionMessagesRef.current!.createMessage(err.data.message, MessageType.Error);
             });
         })
-        .catch((err) => {
+        .catch((err: IErrorResponse) => {
           actionMessagesRef.current!.createMessage(err.data.message, MessageType.Error);
         });
     } catch (error) {

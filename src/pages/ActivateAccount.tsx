@@ -8,6 +8,7 @@ import { useActivateAccountMutation } from 'api/auth.api';
 import Loader from 'components/common/Loader';
 import Animate from 'components/common/Animate';
 import routes from 'routes/routes';
+import { IErrorResponse } from 'types';
 
 const ActivateAccount = () => {
   const [searchParams] = useSearchParams();
@@ -26,7 +27,7 @@ const ActivateAccount = () => {
       await activateAccount({ token })
         .unwrap()
         .then()
-        .catch((err) => {
+        .catch((err: IErrorResponse) => {
           setError(err.data.message);
         });
       setIsLoading(false);

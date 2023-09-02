@@ -5,15 +5,15 @@ import IErrorResponse from 'types/IErrorResponse';
  * @param {any} err error response from server
  * @returns {String} error message as string
  */
-const formatErrorMessage = (err: IErrorResponse | IErrorResponse['message'] | any): string => {
-  console.log(err);
+const formatErrorMessage = (err: IErrorResponse | IErrorResponse['data']['message'] | any): string => {
   if (typeof err === 'string') {
     return err;
   }
   if (typeof err?.message === 'string') {
     return err?.message;
   }
-  return 'Unknownd server error';
+  console.error('Unknown server error:', err);
+  return 'Unknown server error, check console for more details';
 };
 
 export default formatErrorMessage;

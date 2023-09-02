@@ -15,6 +15,7 @@ import { useCreateCityMutation, useDeleteCityMutation, useGetCitiesQuery, useUpd
 import { useGetRegionsQuery } from 'api/region.api';
 import { ICity } from 'types/city.types';
 import { IRegion } from 'types/region.types';
+import { IErrorResponse } from 'types';
 
 const Cities = () => {
   /* Redux API Hooks */
@@ -90,7 +91,7 @@ const Cities = () => {
         actionMessagesRef.current!.createMessage(dataDelete.message, MessageType.Ok);
         refetch();
       })
-      .catch((err) => {
+      .catch((err: IErrorResponse) => {
         actionMessagesRef.current!.createMessage(err.data.message, MessageType.Error);
       });
   }
@@ -111,7 +112,7 @@ const Cities = () => {
         refetch();
         resetState();
       })
-      .catch((err) => {
+      .catch((err: IErrorResponse) => {
         actionMessagesRef.current!.createMessage(err.data.message, MessageType.Error);
       });
   }
@@ -126,7 +127,7 @@ const Cities = () => {
         refetch();
         resetState();
       })
-      .catch((err) => {
+      .catch((err: IErrorResponse) => {
         actionMessagesRef.current!.createMessage(err.data.message, MessageType.Error);
       });
   }

@@ -25,6 +25,7 @@ interface IRoutes {
   CreateResidence: IRoutePath;
   EditResidence: IRoutePath;
   AdminResidences: IRoutePath;
+  EditAccommodationUnit: IRoutePath;
 }
 
 const routes: IRoutes = {
@@ -49,6 +50,10 @@ const routes: IRoutes = {
   RenterResidences: { relativePath: 'renter-residences', absolutePath: '/dashboard/renter-residences' },
   CreateResidence: { relativePath: 'renter-residences/create', absolutePath: '/dashboard/renter-residences/create' },
   EditResidence: { relativePath: 'renter-residences/edit/:id', absolutePath: '/dashboard/renter-residences/edit/:id' },
+  EditAccommodationUnit: {
+    relativePath: 'renter-residences/edit/:id/accommodation-unit/:accommodationUnitId',
+    absolutePath: '/dashboard/renter-residences/edit/:id/accommodation-unit/:accommodationUnitId',
+  },
 };
 
 export default routes;

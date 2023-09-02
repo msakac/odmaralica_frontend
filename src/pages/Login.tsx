@@ -11,6 +11,7 @@ import { loginUser } from 'app/authenticationSlice';
 import Loader from 'components/common/Loader';
 import Animate from 'components/common/Animate';
 import routes from 'routes/routes';
+import { IErrorResponse } from 'types';
 
 interface IdealLocationState {
   from: {
@@ -64,7 +65,7 @@ const Login = () => {
         );
         navigate(previousLocationState?.from.pathname || '/', { replace: true });
       })
-      .catch((err) => {
+      .catch((err: IErrorResponse) => {
         setError(err.data.message);
       });
   }
