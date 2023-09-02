@@ -16,7 +16,6 @@ import { IRole } from 'types/role.types';
 import Dropdown from 'components/common/Dropdown';
 import Input from 'components/common/Input';
 import CustomCheckbox from 'components/common/CustomCheckbox';
-import { IErrorResponse } from 'types';
 
 const Users = () => {
   /* Redux API Hooks */
@@ -102,7 +101,7 @@ const Users = () => {
         actionMessagesRef.current!.createMessage(dataDelete.message, MessageType.Ok);
         refetch();
       })
-      .catch((err: IErrorResponse) => {
+      .catch((err) => {
         actionMessagesRef.current!.createMessage(err.data.message, MessageType.Error);
       });
   }
@@ -128,7 +127,7 @@ const Users = () => {
         refetch();
         resetState();
       })
-      .catch((err: IErrorResponse) => {
+      .catch((err) => {
         actionMessagesRef.current!.createMessage(err.data.message, MessageType.Error);
       });
   }
@@ -143,7 +142,7 @@ const Users = () => {
         refetch();
         resetState();
       })
-      .catch((err: IErrorResponse) => {
+      .catch((err) => {
         actionMessagesRef.current!.createMessage(err.data.message, MessageType.Error);
       });
   }

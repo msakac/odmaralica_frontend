@@ -41,7 +41,11 @@ const DashNav = ({ setSearchTerm }: DashNavProps) => {
                 </Form.Group>
               </Form>
             </div>
-            <UserProfileAvatar name={(user && user.name) || ''} surname={(user && user.surname) || ''} avatarSrc="" />
+            <UserProfileAvatar
+              name={(user && user.name) || ''}
+              surname={(user && user.surname) || ''}
+              avatarSrc={user?.image?.image || ''}
+            />
           </div>
         </Container>
       </Navbar>

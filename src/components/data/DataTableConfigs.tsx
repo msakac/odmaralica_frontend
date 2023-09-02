@@ -18,6 +18,7 @@ import formatDateToTimestamp from 'utils/formatDateToTimestamp';
 import parseFormattedDate from 'utils/parseFormatedDate';
 import compareDates from 'utils/compareDates';
 import compareNumbers from 'utils/compareNumbers';
+import { IPricePeriod } from 'types/pricePeriod.types';
 
 /* Country */
 export const getCountryColumns = (
@@ -307,3 +308,44 @@ export const getAccommodationUnitColumns = (
     },
   ];
 };
+
+/* Price Period */
+
+export const getPricePeriodColumns = (
+  onUpdateClick: (id: string) => void,
+  onDeleteClick: (id: string) => void
+): GridColDef[] => {
+  return [
+    { field: 'id', headerName: 'ID', width: 200 },
+    { field: 'startAt', headerName: 'Start At', width: 200 },
+    { field: 'endAt', headerName: 'End At', width: 200 },
+    { field: 'amount', headerName: 'Amount', width: 100 },
+    { field: 'currency', headerName: 'Currency', width: 100 },
+    {
+      field: 'actions',
+      headerName: 'Actions',
+      width: 120,
+      renderCell: (params) => (
+        <>
+          <Button variant="primary" onClick={() => onUpdateClick(params.row.id)}>
+            <FontAwesomeIcon icon={faPenToSquare} />
+          </Button>
+          <Button variant="danger" className="mx-3" onClick={() => onDeleteClick(params.row.id)}>
+            <FontAwesomeIcon icon={faTrash} />
+          </Button>
+        </>
+      ),
+    },
+  ];
+};
+
+export const getPricePeriodRows = (data: IPricePeriod[]) =>
+  data?.map((p: IPricePeriod) => {
+    return {
+      id: p.id,
+      startAt: p.startAt,
+      endAt: p.endAt,
+      amount: p.amount.amount,
+      currency: p.amount.currency,
+    };
+  }) || [];

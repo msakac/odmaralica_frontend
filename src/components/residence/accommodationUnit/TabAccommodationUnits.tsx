@@ -14,7 +14,6 @@ import IResponse from 'types/IResponse';
 import { useCreateAccommodationUnitMutation, useDeleteAccommodationUnitMutation } from 'api/accommodationUnit.api';
 import AccommodationUnitForm from 'components/residence/accommodationUnit/AccommodationUnitForm';
 import Loader from 'components/common/Loader';
-import IErrorResponse from 'types/IErrorResponse';
 
 interface ITabAccommodationUnitsProps {
   data: IAccommodationUnitGetDTO[];
@@ -81,7 +80,7 @@ const TabAccommodationUnits = ({
         refetch();
         actionMessagesRef.current!.createMessage(message, MessageType.Ok);
       })
-      .catch((err: IErrorResponse) => {
+      .catch((err) => {
         console.log('Err:', err);
         actionMessagesRef.current!.createMessage(err.data.message, MessageType.Error);
       });
@@ -102,7 +101,7 @@ const TabAccommodationUnits = ({
           refetch();
           actionMessagesRef.current!.createMessage('Accommodation unit deleted!', MessageType.Ok);
         })
-        .catch((err: IErrorResponse) => {
+        .catch((err) => {
           actionMessagesRef.current!.createMessage(err.data.message, MessageType.Error);
         });
     } catch (error) {

@@ -14,18 +14,17 @@ import CustomCheckbox from 'components/common/CustomCheckbox';
 import { Tab, Tabs } from '@mui/material';
 import { useFindImagesQuery } from 'api/images.api';
 import axios from 'axios';
-import { IImageData } from 'types/image.types';
 import { useFindAccommodationUnitsQuery } from 'api/accommodationUnit.api';
 import { useSearhText } from 'components/layout/SidebarLayout';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowRight } from '@fortawesome/free-solid-svg-icons';
-import { IErrorResponse } from 'types';
 import { selectAuthentication } from 'app/store';
 import { useSelector } from 'react-redux';
 import TabEditResidenceImages from 'components/residence/TabEditImages';
 import TabEditResidenceAddress from 'components/residence/TabEditResidenceAddress';
 import EditAccommodationUnit from 'components/residence/accommodationUnit/EditAccommodationUnit';
 import { IAccommodationUnitGetDTO } from 'types/accommodationUnit.types';
+import { IImageData } from 'types/IImageData';
 import AccommodationUnits from '../components/residence/accommodationUnit/TabAccommodationUnits';
 
 const initialResidenceData: IResidencePutDTO = {
@@ -151,7 +150,7 @@ const EditResidence = () => {
         actionMessagesRef.current!.createMessage(message, MessageType.Ok);
         refetch();
       })
-      .catch((err: IErrorResponse) => {
+      .catch((err) => {
         actionMessagesRef.current!.createMessage(err.data.message, MessageType.Error);
       });
   }

@@ -5,7 +5,7 @@ import IErrorResponse from 'types/IErrorResponse';
  * @param {any} err error response from server
  * @returns {String} error message as string
  */
-const formatErrorMessage = (err: IErrorResponse | IErrorResponse['data']['message'] | any): string => {
+const formatErrorMessage = (err: IErrorResponse | IErrorResponse['message'] | any): string => {
   if (typeof err === 'string') {
     return err;
   }

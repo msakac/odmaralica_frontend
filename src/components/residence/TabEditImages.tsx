@@ -7,12 +7,11 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Card, Col, Form, Row, Image, Button } from 'react-bootstrap';
 import { ActionMessagesRef, MessageType } from 'components/common/ActionMessages';
 import DeleteModalMessage from 'components/common/DeleteModalMessage';
-import { IImageData } from 'types/image.types';
 import Carousel from 'components/common/Carousel';
 import { QueryActionCreatorResult } from '@reduxjs/toolkit/dist/query/core/buildInitiate';
 import { BaseQueryFn, FetchArgs, FetchBaseQueryError, QueryDefinition } from '@reduxjs/toolkit/dist/query';
 import IResponse from 'types/IResponse';
-import IErrorResponse from 'types/IErrorResponse';
+import { IImageData } from 'types/IImageData';
 
 interface ITabEditResidenceImagesProps {
   foreignKeyId: string;
@@ -87,7 +86,7 @@ const TabEditResidenceImages = ({
         actionMessageRef.current!.createMessage('Image deleted', MessageType.Ok);
         refetch();
       })
-      .catch((err: IErrorResponse) => {
+      .catch((err) => {
         actionMessageRef.current!.createMessage(err.data.message, MessageType.Error);
         refetch();
       });

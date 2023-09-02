@@ -6,18 +6,18 @@ import ActionMessages, { ActionMessagesRef, MessageType } from 'components/commo
 import { Tab, Tabs } from '@mui/material';
 import { useFindImagesQuery } from 'api/images.api';
 import axios from 'axios';
-import { IImageData } from 'types/image.types';
 import { useSearhText } from 'components/layout/SidebarLayout';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowRight } from '@fortawesome/free-solid-svg-icons';
-import { IErrorResponse } from 'types';
 import { IAccommodationUnitGetDTO, IAccommodationUnitOmited } from 'types/accommodationUnit.types';
 import { useUpdateAccommodationUnitMutation } from 'api/accommodationUnit.api';
 import { BaseQueryFn, FetchArgs, FetchBaseQueryError, QueryDefinition } from '@reduxjs/toolkit/dist/query';
 import { QueryActionCreatorResult } from '@reduxjs/toolkit/dist/query/core/buildInitiate';
 import IResponse from 'types/IResponse';
 import TabEditImages from 'components/residence/TabEditImages';
+import { IImageData } from 'types/IImageData';
 import AccommodationUnitForm from './AccommodationUnitForm';
+import PricePeriod from './PricePeriod';
 
 interface IEditAccommodationUnitProps {
   object: IAccommodationUnitGetDTO;
@@ -91,7 +91,7 @@ const EditAccommodationUnit = ({ object, actionMessagesRef, refetch }: IEditAcco
         actionMessagesRef.current!.createMessage(message, MessageType.Ok);
         refetch();
       })
-      .catch((err: IErrorResponse) => {
+      .catch((err) => {
         actionMessagesRef.current!.createMessage(err.data.message, MessageType.Error);
       });
   }
@@ -143,7 +143,10 @@ const EditAccommodationUnit = ({ object, actionMessagesRef, refetch }: IEditAcco
                   imageForeignKey="accommodationUnitId"
                 />
               )}
-              {currentTab === 'acc_unit_price_period' && <div>Reviews</div>}
+              {/** accUnitId, actionMessageRef */}
+              {currentTab === 'acc_unit_price_period' && (
+                <PricePeriod accUnitId={object.id} actionMessageRef={actionMessagesRef} />
+              )}
               {currentTab === 'acc_unit_reservations' && <div>Reservations</div>}
             </Row>
           </Row>

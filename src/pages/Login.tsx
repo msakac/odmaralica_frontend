@@ -11,7 +11,11 @@ import { loginUser } from 'app/authenticationSlice';
 import Loader from 'components/common/Loader';
 import Animate from 'components/common/Animate';
 import routes from 'routes/routes';
-import { IErrorResponse } from 'types';
+import { useLazyFindImagesQuery } from 'api/images.api';
+import axios from 'axios';
+import { IImageData } from 'types/IImageData';
+import IResponse from 'types/IResponse';
+import { ILoginResponseDTO } from 'types/auth.types';
 
 interface IdealLocationState {
   from: {
@@ -27,7 +31,8 @@ const Login = () => {
   const location = useLocation();
   const dispatch = useDispatch();
   const [loginUserApi, { isLoading }] = useLoginMutation();
-  // Dohvatiti oauthError iz location.state ako postoji
+  const [fetchImage] = useLazyFindImagesQuery();
+  const [isFetchingImages, setIsFetchingImage] = useState<boolean>(false);
   const { oauthError } = location.state || '';
 
   const [email, setEmail] = useState('');
@@ -43,36 +48,57 @@ const Login = () => {
     }
   }, [navigate]);
 
+  const setStorageAndNavigate = (payload: IResponse<ILoginResponseDTO>, image?: IImageData) => {
+    const rememberMe = localStorage.getItem('rememberMe');
+    if (rememberMe === 'true') {
+      localStorage.setItem('accessToken', payload.data.accessToken);
+      localStorage.setItem('refreshToken', payload.data.refreshToken);
+    } else {
+      sessionStorage.setItem('accessToken', payload.data.accessToken);
+      sessionStorage.setItem('refreshToken', payload.data.refreshToken);
+    }
+    dispatch(
+      loginUser({
+        user: { ...payload.data.user, image },
+        accessToken: payload.data.accessToken,
+        refreshToken: payload.data.refreshToken,
+      })
+    );
+    navigate(previousLocationState?.from.pathname || '/', { replace: true });
+  };
+
   async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    const rememberMe = localStorage.getItem('rememberMe');
+
     await loginUserApi({ email, password })
       .unwrap()
       .then((payload) => {
-        if (rememberMe === 'true') {
-          localStorage.setItem('accessToken', payload.data.accessToken);
-          localStorage.setItem('refreshToken', payload.data.refreshToken);
-        } else {
-          sessionStorage.setItem('accessToken', payload.data.accessToken);
-          sessionStorage.setItem('refreshToken', payload.data.refreshToken);
-        }
-        dispatch(
-          loginUser({
-            user: payload.data.user,
-            accessToken: payload.data.accessToken,
-            refreshToken: payload.data.refreshToken,
-          })
-        );
-        navigate(previousLocationState?.from.pathname || '/', { replace: true });
+        fetchImage({ q: `user.id=${payload.data.user.id}` })
+          .unwrap()
+          .then((data) => {
+            if (data.data.length === 0) {
+              setStorageAndNavigate(payload, {} as IImageData);
+            } else {
+              const imageUrl = `http://localhost:8080/image/${data.data[0]}`;
+              setIsFetchingImage(true);
+              axios.get(imageUrl, { responseType: 'arraybuffer' }).then((response) => {
+                const base64Image = btoa(
+                  new Uint8Array(response.data).reduce((dta, byte) => dta + String.fromCharCode(byte), '')
+                );
+                const imageData: IImageData = { image: `data:image/png;base64,${base64Image}`, id: data.data[0] };
+                setStorageAndNavigate(payload, imageData);
+              });
+            }
+          });
       })
-      .catch((err: IErrorResponse) => {
+      .catch((err) => {
         setError(err.data.message);
       });
   }
 
   return (
     <main>
-      <Loader show={isLoading} />
+      <Loader show={isLoading || isFetchingImages} />
       <Animate>
         <section className="d-flex align-items-center my-5 mt-lg-6 mb-lg-5">
           <Container>

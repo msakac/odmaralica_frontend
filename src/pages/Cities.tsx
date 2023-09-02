@@ -15,7 +15,6 @@ import { useCreateCityMutation, useDeleteCityMutation, useGetCitiesQuery, useUpd
 import { useGetRegionsQuery } from 'api/region.api';
 import { ICity } from 'types/city.types';
 import { IRegion } from 'types/region.types';
-import { IErrorResponse } from 'types';
 
 const Cities = () => {
   /* Redux API Hooks */
@@ -91,7 +90,7 @@ const Cities = () => {
         actionMessagesRef.current!.createMessage(dataDelete.message, MessageType.Ok);
         refetch();
       })
-      .catch((err: IErrorResponse) => {
+      .catch((err) => {
         actionMessagesRef.current!.createMessage(err.data.message, MessageType.Error);
       });
   }
@@ -112,7 +111,7 @@ const Cities = () => {
         refetch();
         resetState();
       })
-      .catch((err: IErrorResponse) => {
+      .catch((err) => {
         actionMessagesRef.current!.createMessage(err.data.message, MessageType.Error);
       });
   }
@@ -127,7 +126,7 @@ const Cities = () => {
         refetch();
         resetState();
       })
-      .catch((err: IErrorResponse) => {
+      .catch((err) => {
         actionMessagesRef.current!.createMessage(err.data.message, MessageType.Error);
       });
   }
@@ -157,7 +156,7 @@ const Cities = () => {
                   >
                     <FontAwesomeIcon icon={faTimesCircle} size="2xl" />
                   </Button>
-                  <h5 className="mb-4">{action === Action.Create ? 'Add New Country' : `Update Row ID: ${dataId}`}</h5>
+                  <h5 className="mb-4">{action === Action.Create ? 'Add New City' : `Update Row ID: ${dataId}`}</h5>
                   <Form onSubmit={action === Action.Create ? addRow : updateRow}>
                     <Row className="gap-4">
                       <Row>
@@ -165,7 +164,7 @@ const Cities = () => {
                           <Input value={name} setValue={setName} label="Name" />
                         </Col>
                         <Col md={6} className="mb-3">
-                          <Input value={zip} setValue={setZip} label="ZIP" />
+                          <Input value={zip} setValue={setZip} label="ZIP" type="number" />
                         </Col>
                       </Row>
                       <Row>

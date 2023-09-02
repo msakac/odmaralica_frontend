@@ -22,7 +22,6 @@ import { useSelector } from 'react-redux';
 import { selectAuthentication } from 'app/store';
 import { useNavigate } from 'react-router';
 import routes from 'routes/routes';
-import { IErrorResponse } from 'types';
 
 const CreateResidence = () => {
   /* Redux API Hooks */
@@ -125,7 +124,7 @@ const CreateResidence = () => {
         addImages(residenceId);
         navigate(routes.RenterResidences.absolutePath, { state: { newResidence: residenceData.data.name } });
       })
-      .catch((error: IErrorResponse) => {
+      .catch((error) => {
         console.error('Error creating residence:', error);
       });
   }

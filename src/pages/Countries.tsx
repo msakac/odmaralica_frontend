@@ -17,7 +17,6 @@ import ActionMessages, { Action, ActionMessagesRef, MessageType } from 'componen
 import DataTable from 'components/data/DataTable';
 import DeleteModalMessage from 'components/common/DeleteModalMessage';
 import { ICountry } from 'types/country.types';
-import { IErrorResponse } from 'types';
 
 const Countries = () => {
   /* Redux API Hooks */
@@ -84,7 +83,7 @@ const Countries = () => {
         actionMessagesRef.current!.createMessage(dataDelete.message, MessageType.Ok);
         refetch();
       })
-      .catch((err: IErrorResponse) => {
+      .catch((err) => {
         actionMessagesRef.current!.createMessage(err.data.message, MessageType.Error);
       });
   }
@@ -101,7 +100,7 @@ const Countries = () => {
         refetch();
         resetState();
       })
-      .catch((err: IErrorResponse) => {
+      .catch((err) => {
         actionMessagesRef.current!.createMessage(err.data.message, MessageType.Error);
       });
   }
@@ -116,7 +115,7 @@ const Countries = () => {
         refetch();
         resetState();
       })
-      .catch((err: IErrorResponse) => {
+      .catch((err) => {
         actionMessagesRef.current!.createMessage(err.data.message, MessageType.Error);
       });
   }

@@ -28,7 +28,7 @@ const UserProfileAvatar = ({ name, surname, avatarSrc }: UserProfileAvatarProps)
       </Dropdown.Toggle>
       <Dropdown.Menu className="dropdown-menu">
         <div className="username">{`${name} ${surname}`}</div>
-        <Dropdown.Item href={routes.Profile.relativePath}>
+        <Dropdown.Item href={routes.Profile.absolutePath}>
           <FontAwesomeIcon icon={faUserCircle} className="me-2" /> My Profile
         </Dropdown.Item>
         <Dropdown.Item href="#my-trips">

@@ -7,7 +7,6 @@ import Loader from 'components/common/Loader';
 import React, { RefObject, useEffect, useState } from 'react';
 import { Button, Card, Col, Form, Row } from 'react-bootstrap';
 import { IDropdown } from 'types/IDropdown.types';
-import IErrorResponse from 'types/IErrorResponse';
 import { ICountryRegionCityResponseDTO, ICustomCityDTO, ICustomRegionDTO } from 'types/country.types';
 
 interface ITabEditResidenceAddressProps {
@@ -80,7 +79,7 @@ const TabEditResidenceAddress = ({ residenceId, actionMessageRef }: ITabEditResi
         actionMessageRef.current!.createMessage(message, MessageType.Ok);
         refetch();
       })
-      .catch((err: IErrorResponse) => {
+      .catch((err) => {
         actionMessageRef.current!.createMessage(err.data.message, MessageType.Error);
       });
   }

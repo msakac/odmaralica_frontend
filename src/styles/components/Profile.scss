@@ -2,12 +2,46 @@
     background-color: green;
     width: 75%;
     .profile-image {
-        width: 15%;
+        width: 150px;
+        height: 150px;
+        border-radius: 50%;
+        object-fit: cover;
     }
     @media screen and (max-width: 992px) {
         width: 100%;
-        .profile-image {
-            width: 25%;
+    }
+
+    .profile-avatar {
+        display: flex;
+        gap: 30px;
+        align-items: center;
+        width: fit-content;
+        position: relative;
+        @media screen and (max-width: 992px) {
+            align-items: center;
+            margin: auto;
+            flex-direction: column;
+            gap: 10px;
+        }
+        
+        .upload-button {
+            transition: all 0.2s ease-in-out;
+            position: absolute;
+            top: 0;
+            left: 0;
+            background-color: #403e3e29;
+            border: 0;
+            box-shadow: unset;
+            &:hover {
+                svg {
+                    transition: all 0.2s ease-in-out;
+                    transform: scale(1.1);
+                }
+            }
+            svg {
+                transition: all 0.3s ease-in-out;
+                color: #ff8400 !important;
+            }
         }
     }
 }

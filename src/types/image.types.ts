@@ -1,3 +1,4 @@
+/* eslint-disable import/no-cycle */
 import { IResidence } from './residence.types';
 import { IUser } from './users.types';
 
@@ -11,8 +12,3 @@ export interface IImage {
 }
 
 export type ImageType = 'accommodationUnit' | 'residence' | 'user';
-
-export interface IImageData {
-  image: string;
-  id: string;
-}

@@ -1,3 +1,4 @@
+import { IImageData } from './IImageData';
 import { IRole } from './role.types';
 
 export interface IUser {
@@ -7,7 +8,6 @@ export interface IUser {
   email: string;
   password: string;
   role: IRole;
-  image?: string;
   activated: boolean;
   description?: string;
   phoneNumber?: string;
@@ -21,8 +21,17 @@ export interface IUserPostDTO {
   roleId: string;
   activated: boolean;
 }
-
-export type IAuthenticatedUserDTO = Omit<IUser, 'password'>;
+export interface IAuthenticatedUserDTO {
+  id: string;
+  name: string;
+  surname: string;
+  email: string;
+  role: IRole;
+  activated: boolean;
+  description?: string;
+  phoneNumber?: string;
+  image?: IImageData;
+}
 
 export type IUserGetDTO = Omit<IUser, 'password' | 'id' | 'activated' | 'role' | 'image'>;
 

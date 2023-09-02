@@ -13,7 +13,6 @@ import { IResidence } from 'types/residence.types';
 import { useDeleteByTypeAndIdMutation } from 'api/images.api';
 import { useLocation } from 'react-router-dom';
 import { useGetUsersQuery } from 'api/users.api';
-import { IErrorResponse } from 'types';
 
 const AdminResidences = () => {
   /* Redux API Hooks */
@@ -98,7 +97,7 @@ const AdminResidences = () => {
         refetch();
         actionMessagesRef.current!.createMessage(message, MessageType.Ok);
       })
-      .catch((err: IErrorResponse) => {
+      .catch((err) => {
         actionMessagesRef.current!.createMessage(err.data.message, MessageType.Error);
       });
   }
@@ -117,11 +116,11 @@ const AdminResidences = () => {
               actionMessagesRef.current!.createMessage('Residence deleted!', MessageType.Ok);
               refetch();
             })
-            .catch((err: IErrorResponse) => {
+            .catch((err) => {
               actionMessagesRef.current!.createMessage(err.data.message, MessageType.Error);
             });
         })
-        .catch((err: IErrorResponse) => {
+        .catch((err) => {
           actionMessagesRef.current!.createMessage(err.data.message, MessageType.Error);
         });
     } catch (error) {

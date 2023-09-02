@@ -58,7 +58,7 @@ const PublicNav = () => {
                 </Button>
               </>
             ) : (
-              <UserProfileAvatar name={user.name} surname={user.surname} avatarSrc="" />
+              <UserProfileAvatar name={user.name} surname={user.surname} avatarSrc={user?.image?.image || ''} />
             )}
           </div>
         </div>

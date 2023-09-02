@@ -7,7 +7,6 @@ import { useLoginOpenAuthMutation } from 'api/auth.api';
 import routes from 'routes/routes';
 import { loginUser } from 'app/authenticationSlice';
 import Loader from 'components/common/Loader';
-import { IErrorResponse } from 'types';
 
 function getUrlParameter(name: string) {
   const idk = name.replace(/[[]/, '\\[').replace(/[\]]/, '\\]');
@@ -51,7 +50,7 @@ const OAuth2RedirectHandler = () => {
             })
           );
         })
-        .catch((err: IErrorResponse) => {
+        .catch((err) => {
           setError(err.data.message);
         });
       setIsLoading(false);

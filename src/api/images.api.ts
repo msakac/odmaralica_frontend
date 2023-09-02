@@ -34,6 +34,11 @@ const imagesApi = api.injectEndpoints({
   }),
 });
 
-export const { useUploadImageMutation, useDeleteByTypeAndIdMutation, useFindImagesQuery, useDeleteImageMutation } =
-  imagesApi;
+export const {
+  useUploadImageMutation,
+  useDeleteByTypeAndIdMutation,
+  useFindImagesQuery,
+  useDeleteImageMutation,
+  useLazyFindImagesQuery,
+} = imagesApi;
 export default imagesApi;
