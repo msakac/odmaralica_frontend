@@ -14,11 +14,12 @@ interface IDropdownProps {
   options?: IDropdownOption[];
   label: string;
   disabled?: boolean;
+  size?: 'small' | 'medium';
 }
 
-const Dropdown = ({ value, setValue, options, label, disabled = false }: IDropdownProps) => {
+const Dropdown = ({ value, setValue, options, label, disabled = false, size = 'small' }: IDropdownProps) => {
   return (
-    <FormControl fullWidth size="small">
+    <FormControl fullWidth size={size}>
       <InputLabel id="demo-simple-select-label">{label}</InputLabel>
       <Select value={value} disabled={disabled} label={label} onChange={(e) => setValue(e.target.value as string)}>
         {options &&

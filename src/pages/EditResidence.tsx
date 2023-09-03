@@ -283,7 +283,7 @@ const EditResidence = () => {
                               </Col>
 
                               <Col md={6}>
-                                <Row className="flex-col gap-3">
+                                <Row className="flex-col gap-4">
                                   <Input
                                     value={residenceData!.distanceCenter || ''}
                                     type="number"
@@ -291,6 +291,7 @@ const EditResidence = () => {
                                       setResidenceData({ ...residenceData!, distanceCenter: e });
                                     }}
                                     label="Distance from Center"
+                                    help="All distances are in meters"
                                   />
                                   <Input
                                     value={residenceData!.distanceBeach || ''}

@@ -22,6 +22,8 @@ import RenterResidences from 'pages/RenterResidences';
 import CreateResidence from 'pages/CreateResidence';
 import EditResidence from 'pages/EditResidence';
 import AdminResidences from 'pages/AdminResidences';
+import Explore from 'pages/Explore';
+import Residence from 'pages/Residence';
 import routes from './routes';
 import restrictions from './restrictions';
 import RequireAuth from './RequireAuth';
@@ -38,6 +40,8 @@ const Routing = () => {
         <Route path={routes.RegisterSuccess.relativePath} element={<RegisterSuccess />} />
         <Route path={routes.ActivateAccount.relativePath} element={<ActivateAccount />} />
         <Route path={routes.OAuth2RedirectHandler.relativePath} element={<OAuth2RedirectHandler />} />
+        <Route path={routes.Explore.relativePath} element={<Explore />} />
+        <Route path={routes.Residence.relativePath} element={<Residence />} />
         <Route
           path={routes.Profile.relativePath}
           element={<RequireAuth element={<Profile />} restrictedTo={restrictions.user} />}

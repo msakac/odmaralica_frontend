@@ -1,3 +1,4 @@
+// eslint-disable-next-line import/no-cycle
 import { IAccommodationUnit } from './accommodationUnit.types';
 import { IAmount } from './amount.types';
 

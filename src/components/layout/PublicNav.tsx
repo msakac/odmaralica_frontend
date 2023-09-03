@@ -1,7 +1,7 @@
 import React from 'react';
 import { Navbar, Nav, Button } from 'react-bootstrap';
-import { faRightToBracket } from '@fortawesome/free-solid-svg-icons';
-import { Link } from 'react-router-dom';
+import { faRightToBracket, faUmbrellaBeach } from '@fortawesome/free-solid-svg-icons';
+import { Link, useLocation } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useSelector } from 'react-redux';
 import { selectAuthentication } from 'app/store';
@@ -12,11 +12,13 @@ import UserProfileAvatar from 'components/UserProfileAvatar';
 const PublicNav = () => {
   const { user } = useSelector(selectAuthentication);
   const roles = restrictions.renter;
+  const location = useLocation();
+  const navigationClassName = location.pathname !== '/' ? 'navigation-wrapper-not-homepage' : '';
   return (
-    <div className="navigation-wrapper">
+    <div className={`navigation-wrapper ${navigationClassName}`}>
       <Navbar sticky="top" expand="lg" variant="light" bg="white" className="navigation justify-content-between">
         <Navbar.Brand as={Link} to="/" className="d-flex align-items-center text-dark">
-          {/* <FontAwesomeIcon icon={faSuitcase} className="me-2" /> */}
+          <FontAwesomeIcon icon={faUmbrellaBeach} className="me-2" />
           Odmaralica
         </Navbar.Brand>
         <div className="nav-links-buttons">
@@ -26,8 +28,8 @@ const PublicNav = () => {
               <Nav.Link as={Link} to={routes.Home.relativePath} className="text-center">
                 Home
               </Nav.Link>
-              <Nav.Link as={Link} to={routes.Home.relativePath} className="text-center">
-                Discover
+              <Nav.Link as={Link} to={routes.Explore.relativePath} className="text-center">
+                Explore
               </Nav.Link>
               <Nav.Link as={Link} to={routes.Home.relativePath} className="text-center">
                 About
@@ -52,7 +54,7 @@ const PublicNav = () => {
                 >
                   Register
                 </Button>
-                <Button href={routes.Login.relativePath} variant="primary" className="text-white">
+                <Button href={routes.Login.relativePath} variant="primary" className="text-white sign-in-button">
                   <FontAwesomeIcon icon={faRightToBracket} className="me-2" size="lg" />
                   Sign In
                 </Button>

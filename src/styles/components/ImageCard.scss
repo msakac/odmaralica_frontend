@@ -1,0 +1,40 @@
+/**
+    Image Card
+**/
+
+.card {
+    &-container {
+        width: 295px;
+        transition: transform 0.2s;
+        border: 1px solid #e0e0e0;
+        border-radius: 8px;
+
+        &:hover {
+            transform: scale(1.05);
+        }
+
+        @media screen and (max-width: 767px) {
+            width: 100%;
+        }
+    }
+
+    &-image-container {
+        img {
+            width: 100%;
+        }
+    }
+
+    &-content-container {
+        padding: 16px 8px;
+
+        .card-name {
+            font-size: 20px;
+            margin-bottom: 6px;
+        }
+
+        p {
+            color: black;
+            margin: 0;
+        }
+    }
+}

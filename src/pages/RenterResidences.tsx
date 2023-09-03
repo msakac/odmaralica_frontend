@@ -15,6 +15,8 @@ import { IResidenceGetDTO } from 'types/residence.types';
 import { useDeleteByTypeAndIdMutation } from 'api/images.api';
 import { useLocation } from 'react-router-dom';
 
+/* TODO: Dodati ownera na tablicu */
+
 const RenterResidences = () => {
   const { user } = useSelector(selectAuthentication);
   /* Redux API Hooks */

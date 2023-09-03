@@ -1,4 +1,3 @@
-import ImageUploader from 'components/ImageUploader';
 import ResidenceCard from 'components/ResidenceCard';
 import Animate from 'components/common/Animate';
 import React from 'react';
@@ -14,10 +13,6 @@ const Home = () => {
       {/* <Loader show={isLoading || isFetching} /> */}
       <Animate>
         <div className="d-flex justify-content-center align-items-center">Homepage</div>
-        <ImageUploader />
-        {/* {data?.data.map((country: ICountry) => (
-          <div key={country.id}>{country.name}</div>
-        ))} */}
         <ResidenceCard />
       </Animate>
     </>

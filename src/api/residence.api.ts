@@ -1,6 +1,6 @@
 import api from 'app/api';
 import IResponse from 'types/IResponse';
-import { IResidence, IResidencePostDTO, IResidencePutDTO } from 'types/residence.types';
+import { IResidence, IResidenceAggregateDTO, IResidencePostDTO, IResidencePutDTO } from 'types/residence.types';
 
 const residenceApi = api.injectEndpoints({
   endpoints: (builder) => ({
@@ -54,6 +54,12 @@ const residenceApi = api.injectEndpoints({
         params: { q },
       }),
     }),
+    getAggregateResidencees: builder.query<IResponse<IResidenceAggregateDTO[]>, null>({
+      query: () => ({
+        url: 'residence/aggregate',
+        method: 'GET',
+      }),
+    }),
   }),
 });
 
@@ -64,6 +70,7 @@ export const {
   useUpdateResidenceMutation,
   useDeleteResidenceMutation,
   useFindResidenceQuery,
+  useGetAggregateResidenceesQuery,
 } = residenceApi;
 
 export default residenceApi;

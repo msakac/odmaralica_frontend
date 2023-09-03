@@ -1,3 +1,6 @@
+/* eslint-disable import/no-cycle */
+import { ICustomAccommodationUnitDTO } from './accommodationUnit.types';
+import { ICustomAddressDTO } from './address.types';
 import { IUser, IUserGetDTO } from './users.types';
 
 export interface IResidenceType {
@@ -60,4 +63,23 @@ export interface IResidencePutDTO {
   distanceStore?: string;
   distanceBeach?: string;
   distanceCenter?: string;
+}
+
+export interface IResidenceAggregateDTO {
+  id: string;
+  name: string;
+  type: IResidenceType;
+  description: string;
+  owner: IUserGetDTO;
+  isPublished: boolean;
+  isParkingFree: boolean;
+  isWifiFree: boolean;
+  isAirConFree: boolean;
+  distanceSea: string;
+  distanceStore: string;
+  distanceBeach: string;
+  distanceCenter: string;
+  imageIds: string[];
+  address: ICustomAddressDTO;
+  units: ICustomAccommodationUnitDTO[];
 }

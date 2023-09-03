@@ -1,13 +1,12 @@
 .user-profile-dropdown {
-    width: 50px;
-    height: 50px;
     position: relative;
     .avatar-container {
+        box-shadow: unset;
         padding: 0;
         background-color: transparent !important;
         border: 0;
         &::after {
-            color: black;
+            display:none;
         }
         img {
             vertical-align: middle;
@@ -15,6 +14,13 @@
             height: 50px;
             border-radius: 50%;
             object-fit: cover;
+        }
+        svg {
+            transition: transform 300ms ease-in-out;
+        }
+        .svg-open {
+            transform: rotate(180deg);
+            transition: transform 300ms ease-in-out;
         }
     }
 

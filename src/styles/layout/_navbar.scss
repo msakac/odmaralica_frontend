@@ -4,10 +4,17 @@
         height: 100px;
         max-width: 1340px;
         padding: 0 50px !important;
+        background-color: transparent !important;
         @media screen and (max-width: 992px) {
             padding: 0 25px !important;
         }
         margin: auto;
+    }
+    svg.svg-inline--fa {
+        color: black;
+    }
+    .sign-in-button svg.svg-inline--fa {
+        color: white;
     }
 }
 
@@ -48,5 +55,34 @@
         &:hover {
             color: white !important;
         }
+    }
+}
+.navigation-wrapper-not-homepage {
+    height: 200px;
+    background: linear-gradient(180deg, #2969bf 0%, #144e9d 100%);
+    .navbar-brand {
+        color: white !important;
+    }
+    .nav-link {
+        color: white !important;
+    }
+    .navbar-toggler-icon {
+        background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 32 32' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgba(255,255,255, 1)' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 8h24M4 16h24M4 24h24'/%3E%3C/svg%3E");
+    }
+    svg.svg-inline--fa {
+        color: white;
+    }
+    .navbar-items-container {
+        @media screen and (max-width: 992px) {
+            box-shadow: unset;
+            background: #1f5cae;
+        }
+    }
+    .dropdown-menu svg.svg-inline--fa {
+        color: black;
+    }
+    .register-button {
+        color: white !important;
+        border-color: white;
     }
 }

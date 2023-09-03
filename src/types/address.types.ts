@@ -31,3 +31,10 @@ export interface IAddressPostDTO {
   cityId: string;
   additional: string;
 }
+
+export interface ICustomAddressDTO {
+  id: string;
+  street: string;
+  city: ICity;
+  additional: string;
+}
