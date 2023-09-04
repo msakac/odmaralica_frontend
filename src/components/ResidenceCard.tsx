@@ -49,7 +49,7 @@ const ResidenceCard = ({
       }
     }
     getImages();
-  }, []);
+  }, [imageId]);
   return (
     <>
       <Loader show={isFetchingImage} />

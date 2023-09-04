@@ -1,22 +1,128 @@
-.residence-search-outer-wrap {
-    border-radius: 8px;
-    background: #fff;
-    box-shadow: 0px 4px 37px 0px rgba(0, 0, 0, 0.15);
-    gap: 20px;
-    .residence-search-inner-wrap {
-        gap: 10px;
-        @media screen and (max-width: 768px) {
-            flex-direction: column;
-            gap: 20px;
+.explore-wrap {
+    display: flex;
+    gap: 30px;
+    margin-top: 50px;
+    @media (max-width: 992px) {
+        flex-direction: column;
+        margin-top: 20px;
+    }
+    .filter-wrap {
+        flex-shrink: 0;
+        width: 295px;
+        @media (max-width: 992px) {
+            width: 100%;
+            padding: 0;
+            flex-basis: 100%;
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            align-items: center;
+            border-radius: 6px;
+            border: 1px solid #e0e0e0;
+            background: #f2f2f2;
         }
-        flex-wrap: wrap;
 
-        .col {
-            min-width: 150px;
+        h6 {
+            color: #080809b0;
+            font-size: 16px;
+            font-style: normal;
+            font-weight: bold;
+            line-height: normal;
+            letter-spacing: 0.16px;
+            margin-bottom: 16px;
+        }
+        .search-input-wrap {
+            border-radius: 6px;
+            border: 1px solid #e0e0e0;
+            background: #f2f2f2;
+            padding: 20px 18px;
+            @media screen and (max-width: 992px) {
+                width: 100%;
+                border: unset;
+            }
+            .MuiOutlinedInput-root {
+                height: 44px;
+                font-size: 14px;
+                line-height: 20px;
 
-            .search-button {
-                height: 56px;
+                .MuiOutlinedInput-input {
+                    padding-left: 10px;
+                    color: #4f4f4f;
+                }
+            }
+            @media screen and (max-width: 992px) {
+                margin-bottom: 20px;
             }
         }
+
+        .drawer-button-wrap {
+            button {
+                border-color: rgb(79, 79, 79);
+                color: rgb(79, 79, 79);
+                &:hover {
+                    color: white;
+                }
+            }
+            @media screen and (min-width: 992px) {
+                display: none;
+            }
+        }
+
+        .filters {
+            @media screen and (max-width: 992px) {
+                display: none;
+            }
+        }
+    }
+
+    .content-wrap {
+        width: 100%;
+        overflow: hidden;
+        .residence-types-group {
+            display: flex;
+            margin-top: 24px;
+            margin-bottom: 28px;
+            overflow-x: scroll;
+            box-sizing: content-box;
+            padding-right: 20px;
+            &::-webkit-scrollbar {
+                display: none;
+            }
+            -ms-overflow-style: none; /* IE and Edge */
+            scrollbar-width: none; /* Firefox */
+            .MuiButtonBase-root {
+                line-height: 20px;
+                text-transform: none;
+                flex-shrink: 0;
+                font-size: 15px;
+                border: 1px solid #2f80ed;
+                color: #4f4f4f;
+                padding: 10px 18px;
+                min-width: 50px;
+                white-space: nowrap;
+            }
+            .Mui-selected {
+                color: #2f80ed;
+                background: rgba(47, 129, 237, 0.2);
+            }
+        }
+
+        .no-result-wrapper {
+            img {
+                max-width: 50%;
+                @media (max-width: 768px) {
+                    max-width: 75%;
+                }
+            }
+            h4 {
+                color: #4f4f4f;
+            }
+        }
+    }
+}
+.drawer-filter-box {
+    display: flex;
+    @media screen and (min-width: 992px) {
+        display: none;
     }
 }

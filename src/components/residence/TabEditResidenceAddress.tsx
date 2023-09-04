@@ -95,7 +95,7 @@ const TabEditResidenceAddress = ({ residenceId, actionMessageRef }: ITabEditResi
                 <Col md={6} className="mb-3">
                   <h5 className="mb-0 mb-lg-4">Address</h5>
                 </Col>
-                <Col md={12} lg={4} className="mb-3">
+                <Col md={12} lg={6} className="mb-3">
                   <Button variant="warning" type="submit" className="w-100">
                     Update Address
                   </Button>

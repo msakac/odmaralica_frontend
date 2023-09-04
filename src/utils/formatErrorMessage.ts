@@ -13,6 +13,7 @@ const formatErrorMessage = (err: IErrorResponse | IErrorResponse['message'] | an
     return err?.message;
   }
   console.error('Unknown server error:', err);
+  // TODO dodai slikicu za erro 500 https://storyset.com/illustration/500-internal-server-error/cuate
   return 'Unknown server error, check console for more details';
 };
 

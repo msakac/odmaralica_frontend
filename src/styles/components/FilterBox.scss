@@ -1,0 +1,50 @@
+.filters {
+    display: flex;
+    gap: 20px;
+    flex-direction: column;
+    h5 {
+        margin-top: 20px;
+        padding-left: 18px;
+        color: rgba(8, 8, 9, 0.6901960784) !important;
+    }
+    color: rgba(8, 8, 9, 0.6901960784) !important;
+    .filter-box {
+        display: flex;
+        flex-direction: column;
+        border-radius: 6px;
+        border: 1px solid #e0e0e0;
+        h6 {
+            font-size: 16px;
+            font-style: normal;
+            font-weight: bold;
+            line-height: normal;
+            letter-spacing: 0.16px;
+            width: 100%;
+            padding: 18px;
+            border-radius: 6px 6px 0px 0px;
+            border: 1px solid #e0e0e0;
+            background: #f2f2f2;
+        }
+        .review-filter-group {
+            font-size: 16px;
+            font-style: normal;
+            font-weight: 400;
+            line-height: normal;
+            letter-spacing: 0.32px;
+            svg {
+                color: #faaf00;
+                transform: translateY(-10%);
+                margin-left: 3px;
+            }
+            .Mui-selected {
+                color: #2f80ed;
+                background: rgba(47, 129, 237, 0.2);
+            }
+        }
+    }
+    .filter-options {
+        padding: 18px;
+        display: flex;
+        flex-direction: column;
+    }
+}

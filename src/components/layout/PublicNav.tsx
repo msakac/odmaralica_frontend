@@ -8,7 +8,7 @@ import { selectAuthentication } from 'app/store';
 import restrictions from 'routes/restrictions';
 import routes from 'routes/routes';
 import UserProfileAvatar from 'components/UserProfileAvatar';
-
+// TODO Zbrejkano na mobile dok se navigiram ne skrije se
 const PublicNav = () => {
   const { user } = useSelector(selectAuthentication);
   const roles = restrictions.renter;
