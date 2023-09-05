@@ -1,0 +1,137 @@
+.residence-overview {
+    display: flex;
+    margin-top: 40px;
+    gap: 20px;
+
+    @media screen and (max-width: 767px) {
+        flex-direction: column;
+    }
+
+    .overview {
+        &-content {
+            max-width: 868px;
+            width: 100%;
+            flex-shrink: 0;
+            @media screen and (max-width: 1280px) {
+                flex-shrink: 1;
+            }
+
+            .content-heading {
+                h1 {
+                    font-size: 32px;
+                    margin-bottom: 12px;
+                }
+
+                .residence-ratings {
+                    margin-bottom: 12px;
+                }
+
+                .residence-adress {
+                    display: flex;
+                    gap: 6px;
+
+                    .font-icon {
+                        color: #2F80ED;
+                    }
+
+                    p {
+                        margin: 0;
+                    }
+                }
+            }
+
+            .content-description {
+                margin-top: 30px;
+                background-color: #F4F4F4;
+                border-radius: 6px;
+
+                &-text {
+                    padding: 25px 30px 45px;
+                }
+
+                &-text, &-facilities {
+                    h2 {
+                        font-size: 18px;
+                        margin-bottom: 20px;
+                    }
+                }
+
+                hr {
+                    margin: 0;
+                    width: 100%;
+                }
+
+                &-facilities {
+                    padding: 25px 30px 40px;
+
+                    .facility {
+                        display: flex;
+                        align-items: center;
+                        gap: 12px;
+                        margin-bottom: 13px;
+
+                        p {
+                            margin: 0px;
+                        }
+
+                        .font-icon {
+                            color: #2F80ED;
+                        }
+                    }
+                }
+            }
+        }
+
+        &-aside {
+            min-width: 260px;
+            width: 100%;
+            .asside-owner {
+                margin-bottom: 30px;
+
+                h2 {
+                    font-size: 18px;
+                    margin-bottom: 20px;
+                }
+
+                &-item  {
+                    display: flex;
+                    align-items: center;
+                    gap: 8px;
+                    margin-bottom: 12px;
+
+                    &.description {
+                        align-items: baseline;
+                    }
+
+                    p {
+                        margin: 0px;
+                    }
+                }
+            }
+
+            .aside-explore {
+                h2 {
+                    font-size: 18px;
+                    margin-bottom: 20px;
+                }
+
+                .explore-item {
+                    display: flex;
+                    align-items: center;
+                    gap: 8px;
+                    margin-bottom: 12px;
+
+                    p {
+                        margin: 0px;
+                    }
+
+                    &-content {
+                        width: 100%;
+                        display: flex;
+                        justify-content: space-between;
+                    }
+                }
+            }
+        }
+    }
+}

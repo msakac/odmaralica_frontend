@@ -60,6 +60,13 @@ const residenceApi = api.injectEndpoints({
         method: 'GET',
       }),
     }),
+    // Get single aggregate residence
+    getSingleAggregateResidence: builder.query<IResponse<IResidenceAggregateDTO>, { id: string }>({
+      query: ({ id }) => ({
+        url: `residence/aggregate/${id}`,
+        method: 'GET',
+      }),
+    }),
   }),
 });
 
@@ -71,6 +78,7 @@ export const {
   useDeleteResidenceMutation,
   useFindResidenceQuery,
   useGetAggregateResidenceesQuery,
+  useGetSingleAggregateResidenceQuery,
 } = residenceApi;
 
 export default residenceApi;

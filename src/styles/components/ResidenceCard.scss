@@ -1,0 +1,115 @@
+/**
+    Residence
+**/
+.residence-container {
+    border: 1px solid #e0e0e0;
+    height: 240px;
+    border-radius: 8px;
+    padding: 20px;
+    display: flex;
+  
+    @media screen and (max-width: 767px) {
+      height: unset;
+      flex-direction: column;
+    }
+  }
+  
+  .residence-content-container {
+    width: 100%;
+    padding: 5px 0 5px 25px;
+    display: flex;
+  
+    @media (max-width: 767px) {
+      flex-direction: column;
+      padding-top: 16px;
+      padding-left: 0px;
+      position: relative;
+    }
+  }
+  
+  .residence-info-container {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: space-between;
+  }
+  
+  .residence-price-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: flex-end;
+    width: 100%;
+    text-align: end;
+  
+    p {
+      margin-bottom: 4px;
+    }
+  }
+  
+  .residence-image-container {
+    max-width: 285px;
+    @media (max-width: 767px) {
+      max-width: unset;
+      max-height: 300px;
+    }
+    img {
+      border-radius: 5px;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+  }
+  
+  .residence-name {
+    font-size: 1.375rem;
+    font-weight: 500;
+  }
+  
+  .residence-ratings {
+    display: flex;
+    gap: 7px;
+  }
+  
+  .residence-type {
+    font-size: 0.8125rem;
+    color: $gray-950;
+    font-weight: 500;
+    margin-bottom: 0;
+  }
+  
+  .residence-description {
+    font-size: 0.8125rem;
+    color: $gray-950;
+    font-weight: 300;
+    max-height: 36px;
+    overflow: hidden;
+  }
+  
+  .residence-price {
+    font-size: 20px;
+    font-weight: bold;
+    color: $black;
+  }
+  
+  .residence-units-count,
+  .residence-taxes {
+    font-size: 0.875rem;
+    @media (max-width: 767px) {
+      font-size: 12px;
+    }
+  }
+
+  .residence-btn {
+    @media screen and (max-width: 767px) {
+      position: absolute;
+      bottom: 0;
+    }
+  }
+
+  .average-review, .reviews {
+    font-size: 14px;
+    color: #4F4F4F;
+  }
+  

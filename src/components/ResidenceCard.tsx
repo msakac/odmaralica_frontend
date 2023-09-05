@@ -3,6 +3,8 @@ import axios from 'axios';
 import React, { useEffect } from 'react';
 import { IImageData } from 'types/IImageData';
 import { Rating } from '@mui/material';
+import routes from 'routes/routes';
+import { encryptData } from 'utils/urlSafety';
 import Loader from './common/Loader';
 
 export interface IResidenceCardProps {
@@ -70,7 +72,11 @@ const ResidenceCard = ({
             </div>
             <h4 className="residence-type">{residenceType}</h4>
             <p className="residence-description">{description}</p>
-            <a className="btn btn-primary residence-btn" href="www.google.com" aria-label="See availability">
+            <a
+              className="btn btn-primary residence-btn"
+              href={routes.Residence.absolutePath.replace(':id', encodeURIComponent(encryptData(id)))}
+              aria-label="See availability"
+            >
               See availability
             </a>
           </div>

@@ -57,7 +57,7 @@ const routes: IRoutes = {
     absolutePath: '/dashboard/renter-residences/edit/:id/accommodation-unit/:accommodationUnitId',
   },
   Explore: { relativePath: 'explore', absolutePath: '/explore' },
-  Residence: { relativePath: '/residence', absolutePath: '/residence' },
+  Residence: { relativePath: 'residence/:id', absolutePath: '/residence/:id' },
 };
 
 export default routes;
