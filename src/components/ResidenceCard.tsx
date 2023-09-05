@@ -17,6 +17,8 @@ export interface IResidenceCardProps {
   reviewsCount?: number;
   avgReview?: number;
   imageId?: string;
+  checkInDate?: string | '';
+  checkOutDate?: string | '';
 }
 
 const ResidenceCard = ({
@@ -29,6 +31,8 @@ const ResidenceCard = ({
   reviewsCount = 1200,
   avgReview = 4.5,
   imageId,
+  checkInDate,
+  checkOutDate,
 }: IResidenceCardProps) => {
   const [isFetchingImage, setIsFetchingImage] = React.useState(false);
   const [imageData, setImageData] = React.useState<IImageData>({} as IImageData);
@@ -52,6 +56,10 @@ const ResidenceCard = ({
     }
     getImages();
   }, [imageId]);
+  const url = `${routes.Residence.absolutePath.replace(
+    ':id',
+    encodeURIComponent(encryptData(id))
+  )}?checkIn=${encodeURIComponent(checkInDate!)}&checkOut=${encodeURIComponent(checkOutDate!)}`;
   return (
     <>
       <Loader show={isFetchingImage} />
@@ -72,11 +80,7 @@ const ResidenceCard = ({
             </div>
             <h4 className="residence-type">{residenceType}</h4>
             <p className="residence-description">{description}</p>
-            <a
-              className="btn btn-primary residence-btn"
-              href={routes.Residence.absolutePath.replace(':id', encodeURIComponent(encryptData(id)))}
-              aria-label="See availability"
-            >
+            <a className="btn btn-primary residence-btn" href={url} aria-label="See availability">
               See availability
             </a>
           </div>
