@@ -28,6 +28,7 @@ interface IRoutes {
   EditAccommodationUnit: IRoutePath;
   Explore: IRoutePath;
   Residence: IRoutePath;
+  PrivacyPolicy: IRoutePath;
 }
 
 const routes: IRoutes = {
@@ -58,6 +59,7 @@ const routes: IRoutes = {
   },
   Explore: { relativePath: 'explore', absolutePath: '/explore' },
   Residence: { relativePath: 'residence/:id', absolutePath: '/residence/:id' },
+  PrivacyPolicy: { relativePath: 'privacy-policy', absolutePath: '/privacy-policy' },
 };
 
 export default routes;

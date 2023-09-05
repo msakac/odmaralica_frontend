@@ -223,7 +223,7 @@ const Explore = () => {
           </ToggleButtonGroup>
           <div className="d-flex flex-column gap-4">
             {residenceCardsData?.map((residence: IResidenceCardProps) => (
-              <ResidenceCard {...residence} />
+              <ResidenceCard {...residence} checkInDate={checkIn} checkOutDate={checkOut} />
             ))}
             {residenceCardsData.length === 0 && (
               <div className="text-center my-5 no-result-wrapper">

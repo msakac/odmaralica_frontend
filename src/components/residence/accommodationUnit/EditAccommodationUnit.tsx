@@ -17,7 +17,7 @@ import IResponse from 'types/IResponse';
 import TabEditImages from 'components/residence/TabEditImages';
 import { IImageData } from 'types/IImageData';
 import AccommodationUnitForm from './AccommodationUnitForm';
-import PricePeriod from './PricePeriod';
+import PricePeriod from './TabPricePeriod';
 
 interface IEditAccommodationUnitProps {
   object: IAccommodationUnitGetDTO;

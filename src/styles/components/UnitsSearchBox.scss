@@ -1,0 +1,15 @@
+.units-search-outer-wrap {
+    border-radius: 6px;
+    padding: 20px;
+    background-color: #F4F4F4;
+    margin-bottom: 6px;
+
+    .units-search-inner-wrap {
+        @media screen and (max-width: 768px) {
+            gap: 20px;
+        }
+        .search-button {
+            height: 56px;
+        }
+    }
+}

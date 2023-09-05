@@ -24,6 +24,7 @@ import EditResidence from 'pages/EditResidence';
 import AdminResidences from 'pages/AdminResidences';
 import Explore from 'pages/Explore';
 import Residence from 'pages/Residence';
+import PrivacyPolicy from 'pages/PrivacyPolicy';
 import routes from './routes';
 import restrictions from './restrictions';
 import RequireAuth from './RequireAuth';
@@ -42,6 +43,7 @@ const Routing = () => {
         <Route path={routes.OAuth2RedirectHandler.relativePath} element={<OAuth2RedirectHandler />} />
         <Route path={routes.Explore.relativePath} element={<Explore />} />
         <Route path={routes.Residence.relativePath} element={<Residence />} />
+        <Route path={routes.PrivacyPolicy.relativePath} element={<PrivacyPolicy />} />
         <Route
           path={routes.Profile.relativePath}
           element={<RequireAuth element={<Profile />} restrictedTo={restrictions.user} />}

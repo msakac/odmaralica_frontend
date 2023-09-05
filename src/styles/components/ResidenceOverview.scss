@@ -47,6 +47,10 @@
 
                 &-text {
                     padding: 25px 30px 45px;
+                    @media screen and (max-width: 767px) {
+                        padding-left: 0px;
+                        padding-bottom: 6px;
+                    }
                 }
 
                 &-text, &-facilities {
@@ -63,6 +67,10 @@
 
                 &-facilities {
                     padding: 25px 30px 40px;
+                    @media screen and (max-width: 767px) {
+                        padding-left: 0px;
+                        padding-bottom: 0px;
+                    }
 
                     .facility {
                         display: flex;
@@ -72,6 +80,7 @@
 
                         p {
                             margin: 0px;
+                            text-align: justify;
                         }
 
                         .font-icon {

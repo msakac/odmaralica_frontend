@@ -1,0 +1,46 @@
+.accommodation-unit-card {
+    &-container {
+        max-width: 400px;
+        border-radius: 8px;
+        background-color: $white;
+        border: 1px solid #e0e0e0;
+
+        @media screen and (max-width: 767px) {
+            max-width: unset;
+            width: 100%;
+        }
+    }
+
+    &-image-container {
+        img {
+            height: 200px;
+            width: 100%;
+            object-fit: cover;
+            border-radius: 8px 8px 0 0;
+        }
+    }
+
+    &-content-container {
+        padding: 20px;
+
+        .accommodation-unit-card-name {
+            font-size: 18px;
+        }
+
+        .icon-container {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding-bottom: 10px;
+
+            p {
+                margin: 0;
+            }
+        }
+
+
+        .accommodation-btn {
+            width: 100%;
+        }
+    }
+}

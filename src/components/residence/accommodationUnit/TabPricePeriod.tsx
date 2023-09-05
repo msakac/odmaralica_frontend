@@ -25,7 +25,7 @@ interface IPricePeriodProps {
   actionMessageRef: RefObject<ActionMessagesRef>;
 }
 
-const PricePeriod = ({ accUnitId, actionMessageRef }: IPricePeriodProps) => {
+const TabPricePeriod = ({ accUnitId, actionMessageRef }: IPricePeriodProps) => {
   const pricePeriodEmpty: IPricePeriodCustom = {
     id: '',
     accommodationUnitId: accUnitId,
@@ -285,4 +285,4 @@ const PricePeriod = ({ accUnitId, actionMessageRef }: IPricePeriodProps) => {
   );
 };
 
-export default PricePeriod;
+export default TabPricePeriod;

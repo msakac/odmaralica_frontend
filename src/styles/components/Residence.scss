@@ -23,4 +23,14 @@
             border-bottom-right-radius: 10px;
         }
     }
+
+    .available-rooms-wrap {
+        margin-top: 40px;
+        .available-rooms-cards-wrap {
+            margin-top: 24px;
+            .card-wrap {
+                padding: 10px;
+            }
+        }
+    }
 }
