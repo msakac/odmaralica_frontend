@@ -1,3 +1,4 @@
+/* eslint-disable react/no-array-index-key */
 import React, { useState } from 'react';
 import { CarouselProvider, Slider, Slide, ButtonBack, ButtonNext } from 'pure-react-carousel';
 import 'pure-react-carousel/dist/react-carousel.es.css';
@@ -28,7 +29,7 @@ const Carousel = ({ images }: ICarouselProps) => {
         <Slider>
           {images.map((image: IImageData, index) => {
             return (
-              <Slide index={index} className={`slide ${image.id}`}>
+              <Slide index={index} key={index} className={`slide ${image.id}`}>
                 <img src={image.image} alt="home" />
               </Slide>
             );
@@ -60,7 +61,7 @@ const Carousel = ({ images }: ICarouselProps) => {
           <Slider>
             {images.map((image: IImageData, index) => {
               return (
-                <Slide index={index} className={`slide ${image.id}`}>
+                <Slide index={index} key={index} className={`slide ${image.id}`}>
                   <img src={image.image} alt="home" />
                 </Slide>
               );
@@ -80,7 +81,7 @@ const Carousel = ({ images }: ICarouselProps) => {
           <Slider>
             {images.map((image: IImageData, index) => {
               return (
-                <Slide index={index} className={`slide ${image.id}`}>
+                <Slide index={index} key={index} className={`slide ${image.id}`}>
                   <img src={image.image} alt="home" />
                 </Slide>
               );

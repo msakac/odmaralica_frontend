@@ -15,7 +15,7 @@ import React, { useEffect, useState } from 'react';
 import { IDropdown } from 'types/IDropdown.types';
 import { ICountryRegionCityResponseDTO, ICustomCityDTO, ICustomRegionDTO } from 'types/country.types';
 import { IResidenceType } from 'types/residence.types';
-import getCardData from 'utils/search/getResidenceCardData';
+import getResidenceCardData from 'utils/search/getResidenceCardData';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faFilter, faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
 import useDebounce from 'hooks/useDebounce';
@@ -108,7 +108,7 @@ const Explore = () => {
 
   // Used for filtering and searching
   const changeDataState = () => {
-    const cardData = getCardData(
+    const cardData = getResidenceCardData(
       checkIn,
       checkOut,
       residences?.data!,

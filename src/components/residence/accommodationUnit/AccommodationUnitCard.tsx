@@ -1,18 +1,29 @@
+/* eslint-disable no-console */
 import React, { useEffect } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faHouse, faUser, faBed } from '@fortawesome/free-solid-svg-icons';
+import { faHouse, faUser, faBed, faMoon, faCoins } from '@fortawesome/free-solid-svg-icons';
 import { ICustomAccommodationUnitDTO } from 'types/accommodationUnit.types';
 import { IImageData } from 'types/IImageData';
 import axios from 'axios';
+import generatePriceList, { PriceList } from 'utils/generatePriceList';
 import Loader from '../../common/Loader';
 
 type Props = {
   accommodationUnit: ICustomAccommodationUnitDTO;
+  checkIn: string;
+  checkOut: string;
 };
 
-const AccommodationUnitCard = ({ accommodationUnit }: Props) => {
+const AccommodationUnitCard = ({ accommodationUnit, checkIn, checkOut }: Props) => {
   const [isFetchingImage, setIsFetchingImage] = React.useState(false);
   const [imageData, setImageData] = React.useState<IImageData>({} as IImageData);
+  const [priceList, setPriceList] = React.useState<PriceList[]>([]);
+
+  useEffect(() => {
+    const generaterPriceList = generatePriceList(accommodationUnit.pricePeriods, checkIn, checkOut);
+    setPriceList(generaterPriceList);
+    // console.log(priceList);
+  }, [checkIn, checkOut]);
 
   useEffect(() => {
     async function getImages() {
@@ -47,18 +58,33 @@ const AccommodationUnitCard = ({ accommodationUnit }: Props) => {
         <div className="accommodation-unit-card-content-container">
           <h3 className="accommodation-unit-card-name">{accommodationUnit.name}</h3>
           <div className="icon-container">
-            <FontAwesomeIcon icon={faHouse} className="" size="sm" />
+            <FontAwesomeIcon icon={faHouse} size="sm" />
             <p>
               {accommodationUnit.unitSize} m<sup>2</sup>
             </p>
           </div>
           <div className="icon-container">
-            <FontAwesomeIcon icon={faUser} className="" size="sm" />
-            <p>Sleeps {accommodationUnit.numOfGuests}</p>
+            <FontAwesomeIcon icon={faUser} size="sm" />
+            <p>{accommodationUnit.numOfGuests} guests</p>
           </div>
           <div className="icon-container">
-            <FontAwesomeIcon icon={faBed} className="" size="sm" />
+            <FontAwesomeIcon icon={faBed} size="sm" />
             <p>{accommodationUnit.beds}</p>
+          </div>
+          <div className="reservation-info">
+            <div className="reservation-info-stays">
+              <FontAwesomeIcon icon={faMoon} size="lg" />
+              <h6>
+                {priceList.length} {`${priceList.length === 1 ? 'night' : 'nights'}`}
+              </h6>
+            </div>
+            <div className="reservation-info-price">
+              <FontAwesomeIcon icon={faCoins} size="lg" />
+              <h6>
+                {priceList.length ? priceList[0].currency : 'Render'}{' '}
+                {priceList.reduce((total, item) => total + item.price, 0)}
+              </h6>
+            </div>
           </div>
           <a className="btn btn-primary accommodation-btn" href="www.google.com" aria-label="See availability">
             Reserve suite

@@ -49,7 +49,7 @@ const SearchBox = ({
 
   const disableDaysBeforeCheckIn = (date: dayjs.Dayjs) => {
     const checkInDate = dayjs(checkIn);
-    return date.isBefore(checkInDate.startOf('day'));
+    return date.isBefore(checkInDate.startOf('day') || date.isSame(checkInDate.startOf('day')));
   };
 
   return (

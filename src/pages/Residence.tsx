@@ -17,6 +17,8 @@ import dayjs from 'dayjs';
 import UnitsSearchBox from 'components/residence/accommodationUnit/UnitsSearchBox';
 import { LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import { ICustomAccommodationUnitDTO } from 'types/accommodationUnit.types';
+import getAvailableUnitsData from 'utils/search/getAvailableUnitsData';
 
 const Residence = () => {
   // Residence id in URL
@@ -29,10 +31,23 @@ const Residence = () => {
   const queryParams = new URLSearchParams(location.search);
   const checkInDate = queryParams.get('checkIn') || dayjs().add(4, 'day').format('YYYY-MM-DD');
   const checkOutDate = queryParams.get('checkOut') || dayjs().add(11, 'day').format('YYYY-MM-DD');
+  const [availableUnits, setAvailableUnits] = useState<ICustomAccommodationUnitDTO[]>([]);
   const [checkIn, setCheckIn] = useState<string>(checkInDate);
   const [checkOut, setCheckOut] = useState<string>(checkOutDate);
+
+  const getAvailableUnits = () => {
+    const units = getAvailableUnitsData(residence?.data!, checkIn, checkOut);
+    setAvailableUnits(units);
+  };
+
+  useEffect(() => {
+    if (!residence) return;
+    getAvailableUnits();
+  }, [residence]);
+
   useEffect(() => {
     async function getImages() {
+      if (!residence?.data?.imageIds) return;
       setIsFetchingImages(true);
       try {
         const imageIds = residence?.data.imageIds;
@@ -58,10 +73,6 @@ const Residence = () => {
     getImages();
   }, [residence?.data.imageIds]);
 
-  const onSearch = () => {
-    console.log('search');
-  };
-
   return (
     <LocalizationProvider dateAdapter={AdapterDayjs}>
       <Loader show={isLoading || isFetching || isFetchingImages} />
@@ -79,12 +90,12 @@ const Residence = () => {
                   checkOut={checkOut}
                   setCheckIn={setCheckIn}
                   setCheckOut={setCheckOut}
-                  onSearch={onSearch}
+                  onSearch={getAvailableUnits}
                 />
               </Col>
-              {residence?.data.units.map((unit) => (
+              {availableUnits.map((unit) => (
                 <Col sm={6} md={4} key={unit.id} className="card-wrap">
-                  <AccommodationUnitCard accommodationUnit={unit} />
+                  <AccommodationUnitCard accommodationUnit={unit} checkIn={checkIn} checkOut={checkOut} />
                 </Col>
               ))}
             </Row>

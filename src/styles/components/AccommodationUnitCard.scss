@@ -38,9 +38,30 @@
             }
         }
 
-
         .accommodation-btn {
             width: 100%;
         }
+    }
+}
+
+.reservation-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 20px 0;
+
+    &-stays {
+        display: flex;
+        gap: 10px;
+    }
+
+    &-price {
+        display: flex;
+        gap: 10px;
+    }
+
+    h6 {
+        font-size: 20px;
+        color: #4f4f4f;
     }
 }

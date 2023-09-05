@@ -5,7 +5,7 @@ import { IResidenceAggregateDTO } from 'types/residence.types';
 import getDatesFromInOut from './getDatesFromInOut';
 import getMinimalPricePerNight from './getMinimalPricePerNight';
 
-function getCardData(
+function getResidenceCardData(
   checkIn: string,
   checkOut: string,
   residences: IResidenceAggregateDTO[],
@@ -92,4 +92,4 @@ function getCardData(
   });
   return cardData;
 }
-export default getCardData;
+export default getResidenceCardData;

@@ -1,26 +1,5 @@
 import { ICustomPricePeriodDTO } from 'types/ICustomPricePeriodDTO';
 
-export function generatePriceList(pricePeriods: any[]) {
-  const priceList: any[] = [];
-
-  pricePeriods.forEach((period) => {
-    const startDate = new Date(period.startAt);
-    const endDate = new Date(period.endAt);
-    const price = parseFloat(period.amount.amount);
-    const { currency } = period.amount;
-
-    const currentDate = new Date(startDate);
-
-    while (currentDate <= endDate) {
-      const dateStr = currentDate.toISOString().split('T')[0]; // Format as "YYYY-MM-DD"
-      priceList.push({ date: dateStr, price, currency });
-      currentDate.setDate(currentDate.getDate() + 1); // Move to the next day
-    }
-  });
-
-  return priceList;
-}
-
 export function calculateTotalPrice(pricePeriods: ICustomPricePeriodDTO[], checkIn: string, checkOut: string) {
   let totalPrice = 0;
 
@@ -49,3 +28,4 @@ export function calculateTotalPrice(pricePeriods: ICustomPricePeriodDTO[], check
 
   return totalPrice;
 }
+export default calculateTotalPrice;
