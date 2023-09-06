@@ -14,6 +14,10 @@ const PublicNav = () => {
   const roles = restrictions.renter;
   const location = useLocation();
   const navigationClassName = location.pathname !== '/' ? 'navigation-wrapper-not-homepage' : '';
+  const isActiveLink = (path: string) => {
+    return location.pathname === `/${path}` ? 'active-link' : '';
+  };
+
   return (
     <div className={`navigation-wrapper ${navigationClassName}`}>
       <Navbar sticky="top" expand="lg" variant="light" bg="white" className="navigation justify-content-between">
@@ -25,16 +29,32 @@ const PublicNav = () => {
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse className="justify-content-center flex-grow-0 navbar-items-container" id="basic-navbar-nav">
             <Nav className="me-auto text-dark gap-1 gap-lg-4">
-              <Nav.Link as={Link} to={routes.Home.relativePath} className="text-center">
+              <Nav.Link
+                as={Link}
+                to={routes.Home.relativePath}
+                className={`text-center ${isActiveLink(routes.Home.relativePath)}`}
+              >
                 Home
               </Nav.Link>
-              <Nav.Link as={Link} to={routes.Explore.relativePath} className="text-center">
+              <Nav.Link
+                as={Link}
+                to={routes.Explore.relativePath}
+                className={`text-center ${isActiveLink(routes.Explore.relativePath)}`}
+              >
                 Explore
               </Nav.Link>
-              <Nav.Link as={Link} to={routes.Home.relativePath} className="text-center">
+              <Nav.Link
+                as={Link}
+                to={routes.Home.relativePath}
+                className={`text-center ${isActiveLink(routes.Home.relativePath)}`}
+              >
                 About
               </Nav.Link>
-              <Nav.Link as={Link} to={routes.Home.relativePath} className="text-center">
+              <Nav.Link
+                as={Link}
+                to={routes.Home.relativePath}
+                className={`text-center ${isActiveLink(routes.Home.relativePath)}`}
+              >
                 Contact
               </Nav.Link>
               {user && roles.includes(user.role.role) && (

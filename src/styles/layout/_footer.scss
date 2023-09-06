@@ -2,119 +2,98 @@
  * = Footers
  */
 
-.footer{
+ .footer{
     position: relative;
-    margin-top: -180px;
-    /* negative value of footer height */
-    height: 180px;
+    height: auto;
     clear: both;
+    margin-top: -261px;
+    @media screen and (max-width: 991px) {
+        margin-top: -772px;
+    }
 
-    .footer-content-wrap {
+    @at-root {
+        %custom-title {
+            margin-left: 10px;
+            font-size: 18px;
+            font-weight: 600;
+        }
+    }
+
+    &-content-wrap {
         max-width: 1340px;
         width: 100%;
         padding: 0 50px;
-    }
-    .footer-row {
-        margin: 0 !important;
-        div {
-            padding: 0 !important;
-        }
-    }
-    ul{
-        margin-bottom: 0;
-        padding: 0;
-        list-style: none;
 
-        li{
-            display: inline-block;
-
-            a {
-                text-decoration: none;
-                position: relative;
-                display: block;
-                color: $gray-700;
-
-                &:hover {
-                    color: $primary;
-                }
-            }
-
-            .btn {
-                margin: 0;
-            }
+        @media screen and (min-width: 992px) {
+            padding-bottom: 60px;
         }
 
-        &.links-horizontal{
-            &:first-child a{
-                padding-left: 0;
-            }
+        .footer-row {
+            .content-item-container {
+                .info-content {
+                    .font-icon {
+                        color: #2F80ED;
+                    }
 
-            &:last-child a{
-                padding-right: 0;
-            }
-
-        }
-
-        &.links-vertical{
-            li{
-                display: block;
-                margin-left: -5px;
-                margin-right: -5px;
-
-                a{
-                    padding: 5px;
-
-                    &:hover{
-                        color: inherit !important;
+                    p {
+                        @extend %custom-title;
                     }
                 }
+
+                .title {
+                    @extend %custom-title;
+                }
+
+                .desc {
+                    font-size: 14px;
+                    padding-left: 36px;
+                    max-width: 215px;
+
+                    @media screen and (max-width: 991px) {
+                        padding-left: 0px;
+                    }
+                }
+
+                ul {
+                    padding: 0;
+                    list-style: none;
+
+                    a {
+                        cursor: pointer;
+                        color: #4F4F4F;
+
+                        &:hover {
+                            color: #2F80ED;
+                        }
+                    }
+                }
+
+
+                @media screen and (max-width: 991px) {
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+                    text-align: center;
+                }
             }
         }
+    }
 
-        &.icon-box{
-            i{
-                line-height: 1.7
+    &-bottom {
+        height: 40px;
+        background-color: #EBEBEB;
+
+        &-inner {
+            max-width: 875px;
+            height: 100%;
+            margin: auto;
+            display: flex;
+            justify-content: end;
+            align-items: center;
+
+            @media screen and (max-width: 991px) {
+                justify-content: center;
             }
         }
-    }
-
-    .social-buttons{
-        a,
-        .btn{
-            margin-top: 5px;
-            margin-bottom: 5px;
-        }
-    }
-
-    .footer-brand{
-        font-size: $font-size-lg;
-        font-weight: $font-weight-bold;
-        
-        img.common {
-            height: 40px;
-        }
-    
-        img {
-            height: 40px;
-            width: 40px;
-        }
-        &:hover,
-        &:focus{
-            color: $black;
-        }
-    }
-    .footer-language-link{
-        font-size:$font-size-sm;
-        i{
-            font-size: 0.75rem;
-        }
-    }
-    .copyright{
-        font-size: $font-size-sm;
-    }
-
-    .pull-center{
-        display: inline-block;
-        float: none;
     }
 }

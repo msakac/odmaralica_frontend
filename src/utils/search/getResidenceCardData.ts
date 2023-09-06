@@ -2,6 +2,7 @@
 /* eslint-disable no-unused-vars */
 import { IResidenceCardProps } from 'components/ResidenceCard';
 import { IResidenceAggregateDTO } from 'types/residence.types';
+import generatePriceList from 'utils/generatePriceList';
 import getDatesFromInOut from './getDatesFromInOut';
 import getMinimalPricePerNight from './getMinimalPricePerNight';
 
@@ -31,9 +32,9 @@ function getResidenceCardData(
   let cardData: IResidenceCardProps[] = [];
   const dates: string[] = getDatesFromInOut(checkIn!, checkOut!);
 
-  let unitsCount = 0;
-  let price = { minimalPrice: 0, currency: '' };
   residences?.forEach((residence: IResidenceAggregateDTO) => {
+    let unitsCount = 0;
+    let price = { minimalPrice: 0, currency: '' };
     // Filter by facilities
     if (facilitiesFilter.wifi && !residence.isWifiFree) return;
     if (facilitiesFilter.parking && !residence.isParkingFree) return;
@@ -55,10 +56,15 @@ function getResidenceCardData(
 
     // Filter by availability
     residence.units.forEach((unit) => {
+      console.log('TU SAM');
       const unitIsAvailable = dates.every((date) => unit.availableDates.includes(date));
       if (!unitIsAvailable) return;
       unitsCount += 1;
-      price = getMinimalPricePerNight(unit.pricePeriods, checkIn!, checkOut!);
+      const priceList = generatePriceList(unit.pricePeriods, checkIn, checkOut);
+      const minimalPrice = priceList.reduce((min, current) => {
+        return current.price < min.price ? current : min;
+      }, priceList[0]);
+      price = { minimalPrice: minimalPrice.price, currency: minimalPrice.currency };
     });
 
     // Filter by budget

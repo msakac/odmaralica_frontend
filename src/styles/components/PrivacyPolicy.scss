@@ -1,0 +1,16 @@
+.privacy-policy {
+    &-heading {
+        text-align: center;
+        margin: 30px;
+        font-size: 40px;
+    }
+
+    &-container {
+        .privacy-policy-item {
+            padding: 10px 0;
+            h2 {
+                font-size: 20px;
+            }
+        }
+    }
+}

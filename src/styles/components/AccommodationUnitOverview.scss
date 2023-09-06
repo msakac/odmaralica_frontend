@@ -1,4 +1,4 @@
-.residence-overview {
+.unit-overview{
     display: flex;
     margin-top: 40px;
     gap: 20px;
@@ -19,19 +19,30 @@
             .content-heading {
                 h1 {
                     font-size: 32px;
-                    margin-bottom: 12px;
+                    margin-bottom: 24px;
+                }
+                .content-heading-description {
+                    @media screen and (max-width: 767px) {
+                        padding-left: 25px;
+                    }
                 }
 
                 .residence-ratings {
                     margin-bottom: 12px;
                 }
 
-                .residence-adress {
+                .attribute {
                     display: flex;
+                    flex-direction: column;
+                    justify-content: center;
+                    align-items: center;
+                    @media screen and (max-width: 767px) {
+                        align-items: start;
+                    }
                     gap: 6px;
 
                     .font-icon {
-                        color: #2F80ED;
+                        color: #2f80ed;
                     }
 
                     p {
@@ -42,23 +53,24 @@
 
             .content-description {
                 margin-top: 30px;
-                background-color: #F4F4F4;
+                background-color: #f4f4f4;
                 border-radius: 6px;
 
                 @media screen and (max-width: 767px) {
                     padding-left: 25px;
+                    margin-top: 0;
                 }
 
                 &-text {
                     padding: 25px 30px 45px;
                     @media screen and (max-width: 767px) {
+                        padding-left: 0px;
                         padding-bottom: 6px;
-                        padding-left: 0;
-                        
                     }
                 }
 
-                &-text, &-facilities {
+                &-text,
+                &-facilities {
                     h2 {
                         font-size: 18px;
                         margin-bottom: 20px;
@@ -73,31 +85,17 @@
                 &-facilities {
                     padding: 25px 30px 40px;
                     @media screen and (max-width: 767px) {
-                        padding-left: 0;
-                        padding-bottom: 20px;
-                    }
-
-                    .facility {
-                        display: flex;
-                        align-items: center;
-                        gap: 12px;
-                        margin-bottom: 13px;
-
-                        p {
-                            margin: 0px;
-                            text-align: justify;
-                        }
-
-                        .font-icon {
-                            color: #2F80ED;
-                        }
+                        padding-left: 0px;
+                        padding-bottom: 0px;
                     }
                 }
             }
         }
-
         &-aside {
             min-width: 260px;
+            padding: 15px;
+            background-color: rgba(47, 128, 237, 0.13);
+            border-radius: 10px;
             width: 100%;
             @media screen and (max-width: 767px) {
                 padding-left: 25px;
@@ -110,7 +108,7 @@
                     margin-bottom: 20px;
                 }
 
-                &-item  {
+                &-item {
                     display: flex;
                     align-items: center;
                     gap: 8px;
@@ -147,8 +145,36 @@
                         display: flex;
                         justify-content: space-between;
                     }
+                    .total {
+                        border-top: 1px solid black;
+                        padding-top: 12px;
+                    }
                 }
             }
         }
     }
+}
+
+
+.facility {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 13px;
+
+    p {
+        margin: 0px;
+        text-align: justify;
+    }
+
+    .font-icon {
+        color: #2f80ed;
+    }
+    .font-icon-orange {
+        color: #ff8400;
+    }
+}
+.complete-btn {
+    background-color: #ff8400 !important;
+    border-color: #ff8400 !important;
 }

@@ -8,6 +8,9 @@
             background: #ff8400;
             height: 60px;
             width: 40px;
+            @media screen and (max-width: 767px) {
+                transform: translateY(-50%);
+            }
 
             &::before {
                 border-width: 0 3px 3px 0;
@@ -16,11 +19,32 @@
         .button-next {
             border-top-left-radius: 10px;
             border-bottom-left-radius: 10px;
-        } 
+        }
 
         .button-back {
             border-top-right-radius: 10px;
             border-bottom-right-radius: 10px;
+        }
+    }
+
+    .residence-tabs {
+        box-shadow: 0px 1px 0px 0px #e0e0e0;
+        .MuiButtonBase-root {
+            text-transform: initial;
+            margin-top: 40px;
+            font-size: 16px;
+            font-style: normal;
+            font-weight: 400;
+            line-height: normal;
+            letter-spacing: 0.32px;
+            font-weight: bold;
+            color: #4f4f4f;
+        }
+        .Mui-selected {
+            color: #2f80ed !important;
+        }
+        .MuiTabs-indicator {
+            background-color: #2f80ed !important;
         }
     }
 
@@ -31,6 +55,18 @@
             .card-wrap {
                 padding: 10px;
             }
+        }
+    }
+
+    .no-result-wrapper {
+        img {
+            max-width: 50%;
+            @media (max-width: 768px) {
+                max-width: 75%;
+            }
+        }
+        h4 {
+            color: #4f4f4f;
         }
     }
 }

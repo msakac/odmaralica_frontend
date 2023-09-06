@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable no-shadow */
 import { DatePicker } from '@mui/x-date-pickers';
 import dayjs from 'dayjs';
@@ -6,13 +7,11 @@ import { Button, Col, Row } from 'react-bootstrap';
 
 export interface ISearchBoxProps {
   checkIn: string;
-  setCheckIn: React.Dispatch<React.SetStateAction<string>>;
   checkOut: string;
-  setCheckOut: React.Dispatch<React.SetStateAction<string>>;
-  onSearch: () => void;
+  onDateChange: (checkIn: string, checkOut: string) => void;
 }
 
-const UnitsSearchBox = ({ checkIn, setCheckIn, setCheckOut, checkOut, onSearch }: ISearchBoxProps) => {
+const UnitsSearchBox = ({ checkIn, checkOut, onDateChange }: ISearchBoxProps) => {
   const disableDaysBeforeCheckIn = (date: dayjs.Dayjs) => {
     const checkInDate = dayjs(checkIn);
     return date.isBefore(checkInDate.startOf('day')) || date.isSame(checkInDate.startOf('day'));
@@ -21,17 +20,17 @@ const UnitsSearchBox = ({ checkIn, setCheckIn, setCheckOut, checkOut, onSearch }
   return (
     <div className="mt-3 units-search-outer-wrap d-flex flex-column">
       <Row className="units-search-inner-wrap">
-        <Col sm={12} md={4}>
+        <Col md={6}>
           <DatePicker
             label="Check-in"
             className="w-100"
             disableHighlightToday
             disablePast
             value={dayjs(checkIn)}
-            onChange={(e) => setCheckIn(dayjs(e!).format('YYYY-MM-DD'))}
+            onChange={(e) => onDateChange(dayjs(e!).format('YYYY-MM-DD'), checkOut)}
           />
         </Col>
-        <Col sm={12} md={4}>
+        <Col md={6}>
           <DatePicker
             label="Check-out"
             className="w-100"
@@ -39,13 +38,8 @@ const UnitsSearchBox = ({ checkIn, setCheckIn, setCheckOut, checkOut, onSearch }
             disableHighlightToday
             disablePast
             value={dayjs(checkOut)}
-            onChange={(e) => setCheckOut(dayjs(e!).format('YYYY-MM-DD'))}
+            onChange={(e) => onDateChange(checkIn, dayjs(e!).format('YYYY-MM-DD'))}
           />
-        </Col>
-        <Col sm={12} md={4}>
-          <Button variant="primary" type="submit" className="w-100 search-button" onClick={onSearch}>
-            Check Availability
-          </Button>
         </Col>
       </Row>
     </div>

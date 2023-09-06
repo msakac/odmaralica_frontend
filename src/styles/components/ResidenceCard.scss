@@ -18,12 +18,14 @@
     width: 100%;
     padding: 5px 0 5px 25px;
     display: flex;
+    min-width: 400px;
   
     @media (max-width: 767px) {
       flex-direction: column;
       padding-top: 16px;
       padding-left: 0px;
       position: relative;
+      min-width: unset;
     }
   }
   
@@ -74,14 +76,14 @@
   
   .residence-type {
     font-size: 0.8125rem;
-    color: $gray-950;
+    color: #4F4F4F;
     font-weight: 500;
     margin-bottom: 0;
   }
   
   .residence-description {
     font-size: 0.8125rem;
-    color: $gray-950;
+    color: #4F4F4F;
     font-weight: 300;
     max-height: 36px;
     overflow: hidden;
@@ -90,7 +92,7 @@
   .residence-price {
     font-size: 20px;
     font-weight: bold;
-    color: $black;
+    color: black;
   }
   
   .residence-units-count,

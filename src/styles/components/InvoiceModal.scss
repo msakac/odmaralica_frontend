@@ -1,0 +1,60 @@
+.overview-aside {
+    min-width: 260px;
+    padding: 15px;
+    border-radius: 10px;
+    width: 100%;
+    @media screen and (max-width: 767px) {
+        padding-left: 25px;
+    }
+    .asside-owner {
+        margin-bottom: 30px;
+
+        h2 {
+            font-size: 18px;
+            margin-bottom: 20px;
+        }
+
+        &-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 12px;
+
+            &.description {
+                align-items: baseline;
+            }
+
+            p {
+                margin: 0px;
+            }
+        }
+    }
+
+    .aside-explore {
+        h2 {
+            font-size: 18px;
+            margin-bottom: 20px;
+        }
+
+        .explore-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 12px;
+
+            p {
+                margin: 0px;
+            }
+
+            &-content {
+                width: 100%;
+                display: flex;
+                justify-content: space-between;
+            }
+            .total {
+                border-top: 1px solid black;
+                padding-top: 12px;
+            }
+        }
+    }
+}

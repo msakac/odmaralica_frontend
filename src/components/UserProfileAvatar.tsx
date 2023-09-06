@@ -32,7 +32,7 @@ const UserProfileAvatar = ({ name, surname, avatarSrc }: UserProfileAvatarProps)
         <Dropdown.Item href={routes.Profile.absolutePath}>
           <FontAwesomeIcon icon={faUserCircle} className="me-2" /> My Profile
         </Dropdown.Item>
-        <Dropdown.Item href="#my-trips">
+        <Dropdown.Item href={routes.MyReservations.absolutePath}>
           <FontAwesomeIcon icon={faPlane} className="me-2" /> My Reservations
         </Dropdown.Item>
         <Dropdown.Item onClick={logOut}>

@@ -25,6 +25,7 @@ import AdminResidences from 'pages/AdminResidences';
 import Explore from 'pages/Explore';
 import Residence from 'pages/Residence';
 import PrivacyPolicy from 'pages/PrivacyPolicy';
+import MyReservations from 'pages/MyReservations';
 import routes from './routes';
 import restrictions from './restrictions';
 import RequireAuth from './RequireAuth';
@@ -47,6 +48,10 @@ const Routing = () => {
         <Route
           path={routes.Profile.relativePath}
           element={<RequireAuth element={<Profile />} restrictedTo={restrictions.user} />}
+        />
+        <Route
+          path={routes.MyReservations.relativePath}
+          element={<RequireAuth element={<MyReservations />} restrictedTo={restrictions.user} />}
         />
       </Route>
       <Route element={<SidebarLayout />}>

@@ -67,6 +67,10 @@ const Login = () => {
     navigate(previousLocationState?.from.pathname || '/', { replace: true });
   };
 
+  useEffect(() => {
+    window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
+  }, []);
+
   async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
 

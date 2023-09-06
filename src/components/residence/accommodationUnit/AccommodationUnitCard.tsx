@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable no-console */
 import React, { useEffect } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -6,15 +7,18 @@ import { ICustomAccommodationUnitDTO } from 'types/accommodationUnit.types';
 import { IImageData } from 'types/IImageData';
 import axios from 'axios';
 import generatePriceList, { PriceList } from 'utils/generatePriceList';
+import { Button } from 'react-bootstrap';
+import { IResidenceAggregateDTO } from 'types/residence.types';
 import Loader from '../../common/Loader';
 
 type Props = {
   accommodationUnit: ICustomAccommodationUnitDTO;
   checkIn: string;
   checkOut: string;
+  handleClick: (accUnitId: string) => void;
 };
 
-const AccommodationUnitCard = ({ accommodationUnit, checkIn, checkOut }: Props) => {
+const AccommodationUnitCard = ({ accommodationUnit, checkIn, checkOut, handleClick }: Props) => {
   const [isFetchingImage, setIsFetchingImage] = React.useState(false);
   const [imageData, setImageData] = React.useState<IImageData>({} as IImageData);
   const [priceList, setPriceList] = React.useState<PriceList[]>([]);
@@ -86,9 +90,13 @@ const AccommodationUnitCard = ({ accommodationUnit, checkIn, checkOut }: Props) 
               </h6>
             </div>
           </div>
-          <a className="btn btn-primary accommodation-btn" href="www.google.com" aria-label="See availability">
-            Reserve suite
-          </a>
+          <Button
+            className="btn btn-primary accommodation-btn"
+            onClick={() => handleClick(accommodationUnit.id)}
+            aria-label="Reserve unit"
+          >
+            Reserve unit
+          </Button>
         </div>
       </div>
     </>

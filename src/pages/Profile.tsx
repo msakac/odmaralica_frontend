@@ -57,10 +57,10 @@ const Profile = () => {
       .unwrap()
       .then((dataUpdate) => {
         setIsFetchingImage(true);
-        if (fileList && user?.image?.id) {
+        if (fileList) {
           deleteImageFromUser().then(() => {
             addImage().then(() => {
-              fetchImage({ q: `user.id=${user.id}` })
+              fetchImage({ q: `user.id=${user!.id}` })
                 .unwrap()
                 .then((data) => {
                   const imageUrl = `http://localhost:8080/image/${data.data[0]}`;

@@ -8,6 +8,7 @@ interface IDeleteModalMessageProps {
   doAction: () => void;
   headerMsg?: string;
   bodyMsg?: string;
+  buttonText?: string;
 }
 
 const DeleteModalMessage = ({
@@ -17,6 +18,7 @@ const DeleteModalMessage = ({
   doAction,
   headerMsg = '',
   bodyMsg = '',
+  buttonText = 'Delete',
 }: IDeleteModalMessageProps) => {
   let message;
   const header = headerMsg || `You are about to delete row ID ${id}`;
@@ -47,7 +49,7 @@ const DeleteModalMessage = ({
           Close
         </Button>
         <Button variant="danger" onClick={doAction}>
-          Delete
+          {buttonText}
         </Button>
       </Modal.Footer>
     </Modal>

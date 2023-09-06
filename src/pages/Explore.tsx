@@ -217,13 +217,15 @@ const Explore = () => {
             aria-label="Residence type"
           >
             <ToggleButton value="all">All</ToggleButton>
-            {residenceTypes?.data.map((rt: IResidenceType) => (
-              <ToggleButton value={rt.id}>{rt.name}</ToggleButton>
+            {residenceTypes?.data.map((rt: IResidenceType, index) => (
+              <ToggleButton value={rt.id} key={index}>
+                {rt.name}
+              </ToggleButton>
             ))}
           </ToggleButtonGroup>
           <div className="d-flex flex-column gap-4">
             {residenceCardsData?.map((residence: IResidenceCardProps) => (
-              <ResidenceCard {...residence} checkInDate={checkIn} checkOutDate={checkOut} />
+              <ResidenceCard {...residence} checkInDate={checkIn} checkOutDate={checkOut} key={residence.id} />
             ))}
             {residenceCardsData.length === 0 && (
               <div className="text-center my-5 no-result-wrapper">
