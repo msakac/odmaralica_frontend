@@ -94,7 +94,7 @@ const ReservationCard = ({ reservation, refetch }: IReservationCardProps) => {
 
   async function cancelReservation() {
     const { accommodationUnit, user, cancelled, ...rest } = reservation;
-    await cancelModal({ ...rest, cancelled: true, userId: userAuth!.id, accommodationUnitId: accommodationUnit.id })
+    await cancelModal({ ...rest, cancelled: true, userEmail: userAuth!.email, accommodationUnitId: accommodationUnit.id })
       .unwrap()
       .then((dataUpdate) => {
         const message = `[${dataUpdate.status}] Updated row with ID: ${dataUpdate.data.id}`;
