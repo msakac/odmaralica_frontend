@@ -116,7 +116,8 @@ const Explore = () => {
       type,
       budgetFilter,
       searchByName,
-      facilitiesFilter
+      facilitiesFilter,
+      parseInt(reviewFilter, 10)
     );
     setResidenceCardsData(cardData);
     setTitleText(getTitleText(cardData.length));
@@ -125,7 +126,7 @@ const Explore = () => {
   // Change data when state changes
   useEffect(() => {
     changeDataState();
-  }, [residences, type, budgetFilter, searchByName, facilitiesFilter]);
+  }, [residences, type, budgetFilter, searchByName, facilitiesFilter, reviewFilter]);
 
   // Change data when location and dates are submited
   const searchData = () => {

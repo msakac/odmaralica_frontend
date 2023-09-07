@@ -26,13 +26,15 @@ function getResidenceCardData(
     wifi: boolean;
     parking: boolean;
     airconditioning: boolean;
-  }
+  },
+  reviewFilter: number
 ) {
   // eslint-disable-next-line prefer-const
   let cardData: IResidenceCardProps[] = [];
   const dates: string[] = getDatesFromInOut(checkIn!, checkOut!);
 
   residences?.forEach((residence: IResidenceAggregateDTO) => {
+    console.log('RESIDENCE', residence);
     let unitsCount = 0;
     let price = { minimalPrice: 0, currency: '' };
     // Filter by facilities
@@ -56,7 +58,6 @@ function getResidenceCardData(
 
     // Filter by availability
     residence.units.forEach((unit) => {
-      console.log('TU SAM');
       const unitIsAvailable = dates.every((date) => unit.availableDates.includes(date));
       if (!unitIsAvailable) return;
       unitsCount += 1;
@@ -64,7 +65,9 @@ function getResidenceCardData(
       const minimalPrice = priceList.reduce((min, current) => {
         return current.price < min.price ? current : min;
       }, priceList[0]);
-      price = { minimalPrice: minimalPrice.price, currency: minimalPrice.currency };
+      if (price.minimalPrice === 0 || minimalPrice.price < price.minimalPrice) {
+        price = { minimalPrice: minimalPrice.price, currency: minimalPrice.currency };
+      }
     });
 
     // Filter by budget
@@ -82,6 +85,10 @@ function getResidenceCardData(
     }
     if (!isInBudget) return;
 
+    // Filter by average review
+    const avgReview = residence.reviews.reduce((acc, review) => acc + review.grade, 0) / residence.reviews.length || 0;
+
+    if (reviewFilter && avgReview < reviewFilter) return;
     if (price && unitsCount) {
       cardData.push({
         id: residence.id,
@@ -90,9 +97,9 @@ function getResidenceCardData(
         description: residence.description,
         unitsCount: `${unitsCount.toString()} ${unitsCount > 1 ? ' units' : ' unit'}`,
         price: `from ${price.minimalPrice.toString()} ${price.currency}`,
-        reviewsCount: 666,
-        avgReview: 4.5,
         imageId: residence.imageIds[0],
+        reviewsCount: residence.reviews.length || 0,
+        avgReview,
       });
     }
   });

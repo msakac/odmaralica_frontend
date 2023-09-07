@@ -155,7 +155,7 @@ const Regions = () => {
                   >
                     <FontAwesomeIcon icon={faTimesCircle} size="2xl" />
                   </Button>
-                  <h5 className="mb-4">{action === Action.Create ? 'Add New Country' : `Update Row ID: ${dataId}`}</h5>
+                  <h5 className="mb-4">{action === Action.Create ? 'Add New Region' : `Update Row ID: ${dataId}`}</h5>
                   <Form onSubmit={action === Action.Create ? addRow : updateRow}>
                     <Row className="gap-4">
                       <Row>

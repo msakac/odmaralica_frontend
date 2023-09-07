@@ -1,6 +1,7 @@
 /* eslint-disable no-console */
 /* eslint-disable func-names */
 /* eslint-disable react/no-array-index-key */
+// TODO: dati mogucnost moderatoru i adminu da odaberju iznajmljivaca
 import React, { useEffect, useRef, useState } from 'react';
 import { faCircleXmark } from '@fortawesome/free-solid-svg-icons';
 import { Button, Card, Col, Form, Row, Image } from 'react-bootstrap';

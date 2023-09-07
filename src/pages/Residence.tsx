@@ -22,12 +22,13 @@ import { ICustomAccommodationUnitDTO } from 'types/accommodationUnit.types';
 import getAvailableUnitsData from 'utils/search/getAvailableUnitsData';
 import { Tab, Tabs } from '@mui/material';
 import AccommodationUnitOverview from 'components/residence/accommodationUnit/AccommodationUnitOverview';
+import ResidenceReview from 'components/ResidenceReview';
 import NoResultImage from '../assets/img/illustrations/noResults.svg';
 
 const Residence = () => {
   const { id: encryptedId } = useParams();
   const id = decodeURIComponent(decryptData(encryptedId!));
-  const { data: residence, isLoading, isFetching } = useGetSingleAggregateResidenceQuery({ id });
+  const { data: residence, isLoading, isFetching, refetch } = useGetSingleAggregateResidenceQuery({ id });
   const [isFetchingImages, setIsFetchingImages] = useState<boolean>(false);
   const [residenceImageData, setResidenceImageData] = useState<IImageData[]>([]);
   const [unitImageData, setUnitImageData] = useState<IImageData[]>([]);
@@ -121,6 +122,7 @@ const Residence = () => {
             {currentAccUnit && <Tab value="accommodation_unit" label={currentAccUnit.name} />}
           </Tabs>
           {currentTab === 'overview' && <ResidenceOverview residence={residence?.data!} />}
+          {currentTab === 'reviews' && <ResidenceReview residence={residence?.data} refetch={refetch} />}
           {currentTab === 'accommodation_unit' && (
             <AccommodationUnitOverview
               accommodationUnit={currentAccUnit}

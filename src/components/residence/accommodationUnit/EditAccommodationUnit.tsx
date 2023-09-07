@@ -18,6 +18,7 @@ import TabEditImages from 'components/residence/TabEditImages';
 import { IImageData } from 'types/IImageData';
 import AccommodationUnitForm from './AccommodationUnitForm';
 import PricePeriod from './TabPricePeriod';
+import TabReservations from './TabReservations';
 
 interface IEditAccommodationUnitProps {
   object: IAccommodationUnitGetDTO;
@@ -147,7 +148,11 @@ const EditAccommodationUnit = ({ object, actionMessagesRef, refetch }: IEditAcco
               {currentTab === 'acc_unit_price_period' && (
                 <PricePeriod accUnitId={object.id} actionMessageRef={actionMessagesRef} />
               )}
-              {currentTab === 'acc_unit_reservations' && <div>Reservations</div>}
+              {currentTab === 'acc_unit_reservations' && (
+                <div>
+                  <TabReservations accommodationUnit={object} />
+                </div>
+              )}
             </Row>
           </Row>
         </Card.Body>

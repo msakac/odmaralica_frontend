@@ -25,6 +25,7 @@ import TabEditResidenceAddress from 'components/residence/TabEditResidenceAddres
 import EditAccommodationUnit from 'components/residence/accommodationUnit/EditAccommodationUnit';
 import { IAccommodationUnitGetDTO } from 'types/accommodationUnit.types';
 import { IImageData } from 'types/IImageData';
+import TabReviews from 'components/residence/TabReviews';
 import AccommodationUnits from '../components/residence/accommodationUnit/TabAccommodationUnits';
 
 const initialResidenceData: IResidencePutDTO = {
@@ -349,8 +350,8 @@ const EditResidence = () => {
                   onEditAccUnitClick={handleEditAccUnitClick}
                 />
               )}
-              {currentTab === 'reviews' && <div>Reviews</div>}
-              {/* refetch for acc units, accUnitId, residenceId, treba mi messageRef */}
+              {currentTab === 'reviews' && <TabReviews residenceId={id} />}
+
               {currentAccUnit && (
                 <EditAccommodationUnit
                   actionMessagesRef={actionMessagesRef}

@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
 import React from 'react';
-import { faPenToSquare, faTrash, faUpload } from '@fortawesome/free-solid-svg-icons';
+import { faBan, faPenToSquare, faTrash, faUpload } from '@fortawesome/free-solid-svg-icons';
 import { GridColDef } from '@mui/x-data-grid';
 import { Button } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -19,6 +19,10 @@ import parseFormattedDate from 'utils/parseFormatedDate';
 import compareDates from 'utils/compareDates';
 import compareNumbers from 'utils/compareNumbers';
 import { IPricePeriod } from 'types/pricePeriod.types';
+import { IReservationGetDTO } from 'types/reservation.types';
+import dayjs from 'dayjs';
+import getReservationStatus from 'utils/getReservationStatus';
+import getStatusClassName from 'utils/getStatusClassName';
 
 /* Country */
 export const getCountryColumns = (
@@ -65,7 +69,6 @@ export const getLogRows = (data: ILogGetDTO[]) =>
       activityType: log.activityType.name,
       logMessage: log.logMessage,
       createdAt: formatDate(log.createdAt),
-      timestamp: formatDateToTimestamp(log.createdAt),
       httpMethod: log.httpMethod,
       endpoint: log.endpoint,
       statusCode: log.statusCode,
@@ -349,3 +352,48 @@ export const getPricePeriodRows = (data: IPricePeriod[]) =>
       currency: p.amount.currency,
     };
   }) || [];
+
+/* Reservation */
+/* Log */
+export const getReservationRows = (data: IReservationGetDTO[]) =>
+  data?.map((r: IReservationGetDTO) => {
+    return {
+      id: r.id,
+      user: `${r.user.name} ${r.user.surname}`,
+      startAt: dayjs(r.startAt).format('DD.MM.YYYY'),
+      endAt: dayjs(r.endAt).format('DD.MM.YYYY'),
+      note: r.note,
+      status: getReservationStatus(r),
+      createdAt: dayjs(r.createdAt).format('DD.MM.YYYY'),
+    };
+  }) || [];
+
+export const getReservationColumns = (onCancelClick: (id: string) => void): GridColDef[] => {
+  return [
+    { field: 'id', headerName: 'ID', width: 50 },
+    { field: 'user', headerName: 'Guest', width: 150 },
+    { field: 'startAt', headerName: 'Check-In', width: 120, sortComparator: compareDates },
+    { field: 'endAt', headerName: 'Check-Out', width: 120, sortComparator: compareDates },
+    { field: 'note', headerName: 'Note', width: 150 },
+    { field: 'status', headerName: 'Status', width: 150, cellClassName: (params) => getStatusClassName(params.value) },
+    { field: 'createdAt', headerName: 'Created at', width: 150, sortComparator: compareDates },
+    {
+      field: 'actions',
+      headerName: 'Cancel',
+      width: 120,
+      renderCell: (params) => {
+        const { status } = params.row;
+
+        // Conditionally render the button based on the status
+        if (status === 'Upcoming') {
+          return (
+            <Button variant="danger" className="mx-3" onClick={() => onCancelClick(params.row.id)}>
+              <FontAwesomeIcon icon={faBan} />
+            </Button>
+          );
+        }
+        return null;
+      },
+    },
+  ];
+};

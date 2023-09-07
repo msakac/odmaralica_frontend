@@ -1,3 +1,4 @@
+/* eslint-disable no-unsafe-optional-chaining */
 import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Rating } from '@mui/material';
@@ -21,16 +22,18 @@ type IResidenceOverviewProps = {
 };
 const ResidenceOverview = ({ residence }: IResidenceOverviewProps) => {
   const address = `${residence?.address.street}, ${residence?.address.city.name} ${residence?.address.city.zip}, ${residence?.address.city.region.country.name}`;
-
+  const avgReview = residence?.reviews.length
+    ? residence?.reviews.reduce((acc, review) => acc + review.grade, 0) / residence?.reviews.length
+    : 0;
   return (
     <div className="residence-overview">
       <div className="overview-content">
         <div className="content-heading">
           <h1>{residence?.name}</h1>
           <div className="residence-ratings">
-            <Rating name="read-only" value={4.5} readOnly precision={0.5} size="small" />
-            <span className="average-review">4.5</span>
-            <span className="reviews">(666 Reviews)</span>
+            <Rating name="read-only" value={avgReview} readOnly precision={0.5} size="small" />
+            <span className="average-review">{avgReview}</span>
+            <span className="reviews">({residence?.reviews.length || 0} reviews)</span>
           </div>
           <div className="residence-adress">
             <FontAwesomeIcon icon={faLocationDot} className="font-icon" size="sm" />

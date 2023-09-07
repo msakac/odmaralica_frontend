@@ -8,7 +8,7 @@ import { IReservationGetDTO } from 'types/reservation.types';
 import ReservationCard from 'components/ReservationCard';
 import { Image } from 'react-bootstrap';
 import NoResultImage from '../assets/img/illustrations/noResults.svg';
-
+// TODO: disable cancel button if reservation is in past
 const MyReservations = () => {
   const { user } = useSelector(selectAuthentication);
   const { data: reservations, isLoading, isFetching, refetch } = useFindReservationsQuery({ q: `user.id=${user!.id}` });

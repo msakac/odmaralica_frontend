@@ -1,7 +1,7 @@
 import React from 'react';
 import { Navbar, Nav, Button } from 'react-bootstrap';
 import { faRightToBracket, faUmbrellaBeach } from '@fortawesome/free-solid-svg-icons';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useSelector } from 'react-redux';
 import { selectAuthentication } from 'app/store';
@@ -13,6 +13,7 @@ const PublicNav = () => {
   const { user } = useSelector(selectAuthentication);
   const roles = restrictions.renter;
   const location = useLocation();
+  const navigate = useNavigate();
   const navigationClassName = location.pathname !== '/' ? 'navigation-wrapper-not-homepage' : '';
   const isActiveLink = (path: string) => {
     return location.pathname === `/${path}` ? 'active-link' : '';
@@ -68,13 +69,17 @@ const PublicNav = () => {
             {!user ? (
               <>
                 <Button
-                  href={routes.Register.relativePath}
                   variant="outline-primary"
                   className="me-2 link-primary register-button d-none d-lg-inline-block"
+                  onClick={() => navigate(routes.Register.relativePath)}
                 >
                   Register
                 </Button>
-                <Button href={routes.Login.relativePath} variant="primary" className="text-white sign-in-button">
+                <Button
+                  variant="primary"
+                  className="text-white sign-in-button"
+                  onClick={() => navigate(routes.Login.relativePath)}
+                >
                   <FontAwesomeIcon icon={faRightToBracket} className="me-2" size="lg" />
                   Sign In
                 </Button>

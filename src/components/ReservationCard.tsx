@@ -60,6 +60,8 @@ const ReservationCard = ({ reservation, refetch }: IReservationCardProps) => {
     isFetching,
   } = useGetSingleAggregateResidenceQuery({ id: reservation.accommodationUnit.residence.id });
 
+  const isPast = dayjs().isAfter(dayjs(reservation.endAt));
+
   useEffect(() => {
     const accUnit = residence?.data.units.find((acc) => acc.id === reservation.accommodationUnit.id);
     if (accUnit === undefined) return;
@@ -140,10 +142,14 @@ const ReservationCard = ({ reservation, refetch }: IReservationCardProps) => {
             <p className="reservation-units-count">Check out: {dayjs(reservation.endAt).format('DD.MM.YYYY')}</p>
             <p className="reservation-price">{totalPrice}</p>
             <b>
-              <p className="reservation-taxes">{reservation.cancelled ? 'Cancelled' : 'Not Cancelled'}</p>
+              {isPast ? (
+                <p className="reservation-taxes text-success">Finished</p>
+              ) : (
+                <p className="reservation-taxes text-primary">{reservation.cancelled ? 'Cancelled' : 'Not Cancelled'}</p>
+              )}
             </b>
             <div className="d-flex gap-2 flex-column flex-md-row">
-              {!reservation.cancelled && (
+              {!reservation.cancelled && !isPast && (
                 <Button variant="danger" className="px-4" onClick={() => setShowCancelModal(true)}>
                   Cancel
                 </Button>

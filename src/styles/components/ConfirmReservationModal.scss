@@ -3,6 +3,8 @@
     padding: 0;
     .modal-image {
         mask-image: linear-gradient(to bottom, rgb(0, 0, 0) 10%, transparent 100%);
+        height: 300px;
+        width: 100%;
     }
     .dates {
         color: #007bff;

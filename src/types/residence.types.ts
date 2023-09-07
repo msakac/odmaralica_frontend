@@ -1,6 +1,7 @@
 /* eslint-disable import/no-cycle */
 import { ICustomAccommodationUnitDTO } from './accommodationUnit.types';
 import { ICustomAddressDTO } from './address.types';
+import { ICustomReviewGetDTO } from './review.types';
 import { IUser, IUserGetDTO } from './users.types';
 
 export interface IResidenceType {
@@ -82,4 +83,5 @@ export interface IResidenceAggregateDTO {
   imageIds: string[];
   address: ICustomAddressDTO;
   units: ICustomAccommodationUnitDTO[];
+  reviews: ICustomReviewGetDTO[];
 }

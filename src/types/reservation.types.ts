@@ -34,7 +34,7 @@ export interface IReservationGetDTO {
 
 export interface IReservationPutDTO {
   id: string;
-  userId: string;
+  userEmail: string;
   accommodationUnitId: string;
   startAt: string;
   endAt: string;
