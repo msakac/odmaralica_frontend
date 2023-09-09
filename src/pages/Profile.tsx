@@ -1,3 +1,5 @@
+/* eslint-disable no-shadow */
+/* eslint-disable no-console */
 /* eslint-disable func-names */
 import { faAt, faKey, faPhone, faCamera } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -19,6 +21,11 @@ import Input from 'components/common/Input';
 import routes from 'routes/routes';
 import dayjs from 'dayjs';
 import { useFindReservationsQuery } from 'api/reservation.api';
+import {
+  useCreatePrivacyRequestMutation,
+  useFindPrivacyRequestsQuery,
+  useUpdatePrivacyRequestMutation,
+} from 'api/privacyRequest.api';
 /* Workflow - sliku ako korisnik oce promijeniti, preview je na avataru. Dok saljem update profile prvo sliku 
 postavljam zatim saljem sve ostalo i opet dohvacam korisnikove podatake da ih spremim v slice */
 
@@ -34,6 +41,13 @@ const Profile = () => {
   /* Api calls */
   const [update, { isLoading: isLoadingPut }] = useUpdateUserMutation();
   const { user, accessToken, refreshToken } = useSelector(selectAuthentication);
+  const {
+    data: privacyRequestData,
+    isLoading: isLoadingPrivacyRequest,
+    isFetching: isFetchingPrivacyRequest,
+    refetch: refetchPrivacyRequest,
+  } = useFindPrivacyRequestsQuery({ q: `user.id=${user!.id}` });
+  const [createPrivacyRequest, { isLoading: isLoadingReservationPost }] = useCreatePrivacyRequestMutation();
   const { data: reservations, isLoading, isFetching } = useFindReservationsQuery({ q: `user.id=${user!.id}` });
   const [uploadImage] = useUploadImageMutation();
   const [deleteImage] = useDeleteImageMutation();
@@ -43,11 +57,14 @@ const Profile = () => {
   const [fileList, setFileList] = useState<FileList | null>(null);
   const [userData, setUserData] = useState<IUser>({ ...user!, password: '' });
   const [error, setError] = useState<string>('');
+  const [errorPrivacy, setErrorPrivacy] = useState<string>('');
   const dispatch = useDispatch();
   const [isFetchingImages, setIsFetchingImage] = useState<boolean>(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [reason, setReason] = useState<string>('');
   const [upcomingReservations, setUpcomingReservations] = useState<number>(0);
+  const [privacyReqPut, { isLoading: isLoadingPutPrivacyRequest }] = useUpdatePrivacyRequestMutation();
+  const [dataDeletionExist, setDataDeletionExist] = useState<boolean>(false);
 
   useEffect(() => {
     const upcoming = reservations?.data.filter(
@@ -56,6 +73,16 @@ const Profile = () => {
     );
     setUpcomingReservations((upcoming && upcoming!.length) || 0);
   }, [reservations]);
+
+  useEffect(() => {
+    // map through privacy requests and check if any of them is not revoked
+    const notRevoked = privacyRequestData?.data.filter((request) => !request.revoked);
+    if (notRevoked && notRevoked.length > 0) {
+      setDataDeletionExist(true);
+    } else {
+      setDataDeletionExist(false);
+    }
+  }, [privacyRequestData]);
 
   async function addImage() {
     const promises = [];
@@ -86,7 +113,7 @@ const Profile = () => {
               fetchImage({ q: `user.id=${user!.id}` })
                 .unwrap()
                 .then((data) => {
-                  const imageUrl = `http://192.168.1.11:8080/image/${data.data[0]}`;
+                  const imageUrl = `http://localhost:8080/image/${data.data[0]}`;
                   axios.get(imageUrl, { responseType: 'arraybuffer' }).then((response) => {
                     const base64Image = btoa(
                       new Uint8Array(response.data).reduce((dta, byte) => dta + String.fromCharCode(byte), '')
@@ -140,6 +167,40 @@ const Profile = () => {
       });
   }
 
+  async function createDataDeletionRequest() {
+    await createPrivacyRequest({
+      userId: user!.id,
+      reason,
+      accepted: false,
+      revoked: false,
+    })
+      .then(() => {
+        refetchPrivacyRequest();
+        setReason('');
+      })
+      .catch((error) => {
+        setErrorPrivacy(error.data.message);
+      });
+  }
+
+  async function revokeDataDeletion(id: string) {
+    const data = privacyRequestData?.data.find((request) => request.id === id);
+    await privacyReqPut({
+      id: data!.id,
+      createdAt: data!.createdAt,
+      reason: data!.reason,
+      accepted: data!.accepted,
+      revoked: true,
+      userId: user!.id,
+    })
+      .then(() => {
+        refetchPrivacyRequest();
+      })
+      .catch((error) => {
+        setErrorPrivacy(error.data.message);
+      });
+  }
+
   const handleImageSelection = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { files } = event.target;
     setFileList(files);
@@ -154,7 +215,18 @@ const Profile = () => {
 
   return (
     <div className="pt-4">
-      <Loader show={isLoadingPut || isFetchingImages || isLoading || isFetching} />
+      <Loader
+        show={
+          isLoadingPut ||
+          isFetchingImages ||
+          isLoading ||
+          isFetching ||
+          isLoadingPrivacyRequest ||
+          isFetchingPrivacyRequest ||
+          isLoadingReservationPost ||
+          isLoadingPutPrivacyRequest
+        }
+      />
       <Animate>
         <Card className="bg-white shadow-lg mb-4 profile-card mx-auto">
           <Card.Header>
@@ -311,41 +383,77 @@ const Profile = () => {
                 </Row>
               )}
               <hr />
-              <Col sm={12} className="text-center my-3">
-                <h6>Delete my data</h6>
-              </Col>
-              <Col sm={12} className="d-flex flex-row gap-2 mb-3 align-items-center text-center">
-                <Input type="multiline" label="Reason for data deletion" value={reason} setValue={setReason} />
-              </Col>
+              {!dataDeletionExist && (
+                <div>
+                  <Col sm={12} className="text-center my-3">
+                    {errorPrivacy && <Alert variant="danger">{errorPrivacy}</Alert>}
+                    <h6>Delete my data</h6>
+                  </Col>
+                  <Col sm={12} className="d-flex flex-row gap-2 mb-3 align-items-center text-center">
+                    <Input type="multiline" label="Reason for data deletion" value={reason} setValue={setReason} />
+                  </Col>
 
-              {reason && (
-                <Row className="gap-2">
-                  <Col sm={12} md={12} className="deletion-message">
-                    <p>Data deletion process:</p>
-                    <ul>
-                      <li>
-                        Data deletion is <span className="text-danger">not possible</span> if user has active or upcoming
-                        reservations. Those reservations need to be cancelled.
-                      </li>
-                      <li>
-                        Once you create data deletion request moderator will review your request and if valid, accept data
-                        deletion.
-                      </li>
-                      <li>
-                        Data deletion includes removing all of private information from user account including all reviews
-                        made on any residence. Account is not deleted as according to Privacy Policy.
-                      </li>
-                      <li>After data deletion is accepted, user will no longer be able to login to the application.</li>
-                    </ul>
-                    <p className="text-danger">You have: {upcomingReservations} active or upcoming reservations! </p>
-                  </Col>
-                  <Col sm={12} md={6} className="d-flex flex-row gap-2 align-items-center mb-3 m-auto ">
-                    <Button variant="danger" className="w-100" disabled={upcomingReservations > 0}>
-                      Create Deletion Request
-                    </Button>
-                  </Col>
-                </Row>
+                  {reason && (
+                    <Row className="gap-2">
+                      <Col sm={12} md={12} className="deletion-message">
+                        <p>Data deletion process:</p>
+                        <ul>
+                          <li>
+                            Data deletion is <span className="text-danger">not possible</span> if user has active or upcoming
+                            reservations. Those reservations need to be cancelled.
+                          </li>
+                          <li>
+                            Once you create data deletion request moderator will review your request and if valid, accept
+                            data deletion.
+                          </li>
+                          <li>
+                            Data deletion includes removing all of private information from user account including all
+                            reviews made on any residence. Account is not deleted as according to Privacy Policy.
+                          </li>
+                          <li>After data deletion is accepted, user will no longer be able to login to the application.</li>
+                        </ul>
+                        <p className="text-danger">You have: {upcomingReservations} active or upcoming reservations! </p>
+                      </Col>
+                      <Col sm={12} md={6} className="d-flex flex-row gap-2 align-items-center mb-3 m-auto ">
+                        <Button
+                          variant="danger"
+                          className="w-100"
+                          disabled={upcomingReservations > 0}
+                          onClick={createDataDeletionRequest}
+                        >
+                          Create Deletion Request
+                        </Button>
+                      </Col>
+                    </Row>
+                  )}
+                </div>
               )}
+              <Row className="text-center my-3">
+                <h6>Data deletions requests</h6>
+                {privacyRequestData?.data.length === 0 && <p>You have no data deletion requests!</p>}
+                {privacyRequestData &&
+                  privacyRequestData.data.map((request) => (
+                    <Col xs={12} md={4} key={request.id}>
+                      <Card className="d-flex flex-column align-items-start p-2 border-4 h-100">
+                        <p>
+                          Create date:{' '}
+                          <span className="text-primary">{dayjs(request.createdAt).format('DD.MM.YYYY HH:mm:ss')}</span>
+                        </p>
+                        <p className="text-start">
+                          Reason: <span className="text-primary">{request.reason}</span>
+                        </p>
+                        <p>
+                          Revoked: <span className="text-primary">{request.revoked ? 'Yes' : 'No'}</span>
+                        </p>
+                        {!request.revoked && (
+                          <Button variant="success" className="w-100" onClick={() => revokeDataDeletion(request.id)}>
+                            Revoke
+                          </Button>
+                        )}
+                      </Card>
+                    </Col>
+                  ))}
+              </Row>
             </Row>
           </Card.Body>
         </Card>

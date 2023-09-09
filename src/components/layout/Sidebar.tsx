@@ -11,6 +11,8 @@ import {
   faHouseChimneyUser,
   faCirclePlus,
   faHouseLock,
+  faUserGear,
+  faUserSecret,
 } from '@fortawesome/free-solid-svg-icons';
 import React, { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
@@ -70,22 +72,28 @@ const Sidebar = () => {
               icon={faCirclePlus}
             />
           </CollapsibleNavItem>
-
-          <NavItem
-            title="Log History"
-            link={routes.Logs.absolutePath}
-            pathname={location.pathname}
-            icon={faClipboard}
-            restrictedTo={restrictions.admin}
-          />
-          <NavItem
+          <CollapsibleNavItem
             title="Users"
-            link={routes.Users.absolutePath}
             pathname={location.pathname}
-            icon={faUsers}
-            restrictedTo={restrictions.admin}
-          />
-
+            eventKey="dashboard-users"
+            icon={faUserGear}
+            restrictedTo={restrictions.moderator}
+          >
+            <NavItem
+              title="Users List"
+              link={routes.Users.absolutePath}
+              pathname={location.pathname}
+              icon={faUsers}
+              restrictedTo={restrictions.admin}
+            />
+            <NavItem
+              title="Privacy Requests"
+              link={routes.PrivacyRequest.absolutePath}
+              pathname={location.pathname}
+              icon={faUserSecret}
+              restrictedTo={restrictions.moderator}
+            />
+          </CollapsibleNavItem>
           <CollapsibleNavItem
             title="Location"
             pathname={location.pathname}
@@ -102,6 +110,13 @@ const Sidebar = () => {
             <NavItem title="Regions" link={routes.Regions.absolutePath} pathname={location.pathname} icon={faLandmark} />
             <NavItem title="Cities" link={routes.Cities.absolutePath} pathname={location.pathname} icon={faCity} />
           </CollapsibleNavItem>
+          <NavItem
+            title="Log History"
+            link={routes.Logs.absolutePath}
+            pathname={location.pathname}
+            icon={faClipboard}
+            restrictedTo={restrictions.admin}
+          />
         </Nav>
       </Collapse>
     </div>

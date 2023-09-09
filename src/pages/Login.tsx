@@ -84,7 +84,7 @@ const Login = () => {
             if (data.data.length === 0) {
               setStorageAndNavigate(payload, {} as IImageData);
             } else {
-              const imageUrl = `http://192.168.1.11:8080/image/${data.data[0]}`;
+              const imageUrl = `http://localhost:8080/image/${data.data[0]}`;
               setIsFetchingImage(true);
               axios.get(imageUrl, { responseType: 'arraybuffer' }).then((response) => {
                 const base64Image = btoa(
@@ -177,7 +177,7 @@ const Login = () => {
                   <Button
                     variant="outline-primary"
                     type="submit"
-                    href="http://192.168.1.11:8080/oauth2/authorize/google?redirect_uri=http://localhost:3000/oauth2/redirect"
+                    href="http://localhost:8080/oauth2/authorize/google?redirect_uri=http://localhost:3000/oauth2/redirect"
                     className="w-100 d-flex align-items-center justify-content-center"
                   >
                     <Image rounded src={Google} className="img-fluid" style={{ maxHeight: '2.5vh' }} />

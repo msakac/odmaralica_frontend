@@ -61,7 +61,7 @@ const ActivateAccount = () => {
                     </>
                   )}
 
-                  <Button variant="primary" className="animate-hover" onClick={() => navigate(routes.Login.relativePath)}>
+                  <Button variant="primary" className="animate-hover" onClick={() => navigate(routes.Login.absolutePath)}>
                     <FontAwesomeIcon icon={faChevronLeft} className="animate-left-3 me-3 ms-2" />
                     Sign in
                   </Button>

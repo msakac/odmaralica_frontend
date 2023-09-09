@@ -26,6 +26,7 @@ import Explore from 'pages/Explore';
 import Residence from 'pages/Residence';
 import PrivacyPolicy from 'pages/PrivacyPolicy';
 import MyReservations from 'pages/MyReservations';
+import PrivacyRequest from 'pages/PrivacyRequest';
 import routes from './routes';
 import restrictions from './restrictions';
 import RequireAuth from './RequireAuth';
@@ -80,6 +81,10 @@ const Routing = () => {
           <Route
             path={routes.AdminResidences.relativePath}
             element={<RequireAuth element={<AdminResidences />} restrictedTo={restrictions.moderator} />}
+          />
+          <Route
+            path={routes.PrivacyRequest.relativePath}
+            element={<RequireAuth element={<PrivacyRequest />} restrictedTo={restrictions.moderator} />}
           />
           <Route
             path={routes.RenterResidences.relativePath}

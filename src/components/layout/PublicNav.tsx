@@ -78,7 +78,7 @@ const PublicNav = () => {
                 <Button
                   variant="primary"
                   className="text-white sign-in-button"
-                  onClick={() => navigate(routes.Login.relativePath)}
+                  onClick={() => navigate(routes.Login.absolutePath)}
                 >
                   <FontAwesomeIcon icon={faRightToBracket} className="me-2" size="lg" />
                   Sign In

@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
 import React from 'react';
-import { faBan, faPenToSquare, faTrash, faUpload } from '@fortawesome/free-solid-svg-icons';
+import { faBan, faPenToSquare, faTrash, faUpload, faUserSlash } from '@fortawesome/free-solid-svg-icons';
 import { GridColDef } from '@mui/x-data-grid';
 import { Button } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -23,6 +23,7 @@ import { IReservationGetDTO } from 'types/reservation.types';
 import dayjs from 'dayjs';
 import getReservationStatus from 'utils/getReservationStatus';
 import getStatusClassName from 'utils/getStatusClassName';
+import { IPrivacyRequestGetDTO } from 'types/privacyRequest.types';
 
 /* Country */
 export const getCountryColumns = (
@@ -354,7 +355,6 @@ export const getPricePeriodRows = (data: IPricePeriod[]) =>
   }) || [];
 
 /* Reservation */
-/* Log */
 export const getReservationRows = (data: IReservationGetDTO[]) =>
   data?.map((r: IReservationGetDTO) => {
     return {
@@ -389,6 +389,50 @@ export const getReservationColumns = (onCancelClick: (id: string) => void): Grid
           return (
             <Button variant="danger" className="mx-3" onClick={() => onCancelClick(params.row.id)}>
               <FontAwesomeIcon icon={faBan} />
+            </Button>
+          );
+        }
+        return null;
+      },
+    },
+  ];
+};
+
+/* Reservation */
+export const getPrivacyRequestRows = (data: IPrivacyRequestGetDTO[]) =>
+  data?.map((r: IPrivacyRequestGetDTO) => {
+    return {
+      id: r.id,
+      user: `${r.user.name} ${r.user.surname}`,
+      reason: r.reason,
+      revoked: r.revoked ? 'Yes' : 'No',
+      accepted: r.accepted ? 'Yes' : 'No',
+      acceptedBy: r.acceptedBy ? `${r.acceptedBy.name} ${r.acceptedBy.surname}` : '',
+      createdAt: dayjs(r.createdAt).format('DD.MM.YYYY'),
+    };
+  }) || [];
+
+export const getPrivacyRequestColumns = (onCancelClick: (id: string) => void): GridColDef[] => {
+  return [
+    { field: 'id', headerName: 'ID', width: 50 },
+    { field: 'user', headerName: 'User', width: 150 },
+    { field: 'reason', headerName: 'Reason', width: 200 },
+    { field: 'revoked', headerName: 'Revoked', width: 100 },
+    { field: 'accepted', headerName: 'Accepted', width: 100 },
+    { field: 'acceptedBy', headerName: 'Accepted By', width: 150 },
+    { field: 'createdAt', headerName: 'Created at', width: 150, sortComparator: compareDates },
+    {
+      field: 'actions',
+      headerName: 'Accept',
+      width: 120,
+      renderCell: (params) => {
+        const { accepted, revoked } = params.row;
+
+        // Conditionally render the button based on the status
+        if (accepted === 'No' && revoked === 'No') {
+          return (
+            <Button variant="danger" className="mx-3" onClick={() => onCancelClick(params.row.id)}>
+              <FontAwesomeIcon icon={faUserSlash} />
             </Button>
           );
         }

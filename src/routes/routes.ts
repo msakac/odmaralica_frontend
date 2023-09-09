@@ -30,6 +30,7 @@ interface IRoutes {
   Residence: IRoutePath;
   PrivacyPolicy: IRoutePath;
   MyReservations: IRoutePath;
+  PrivacyRequest: IRoutePath;
 }
 
 const routes: IRoutes = {
@@ -62,6 +63,7 @@ const routes: IRoutes = {
   Residence: { relativePath: 'residence/:id', absolutePath: '/residence/:id' },
   PrivacyPolicy: { relativePath: 'privacy-policy', absolutePath: '/privacy-policy' },
   MyReservations: { relativePath: 'my-reservations', absolutePath: '/my-reservations' },
+  PrivacyRequest: { relativePath: 'privacy-request', absolutePath: '/dashboard/privacy-request' },
 };
 
 export default routes;
