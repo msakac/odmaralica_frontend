@@ -51,10 +51,12 @@ const AccommodationUnitOverview = ({
   const navigate = useNavigate();
 
   const handleOnCompleteReservation = () => {
-    if (user) {
+    if (!user) {
+      navigate(routes.Login.absolutePath);
+    } else if (user?.policyAccepted) {
       setShowModal(true);
     } else {
-      navigate(routes.Login.absolutePath);
+      navigate(routes.PrivacyPolicy.absolutePath, { state: { privacyPolicyNotice: true } });
     }
   };
 

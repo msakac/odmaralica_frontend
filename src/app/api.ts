@@ -12,7 +12,7 @@ const resetAuth = (): void => {
 };
 
 const baseQuery = fetchBaseQuery({
-  baseUrl: 'http://localhost:8080/',
+  baseUrl: 'http://192.168.1.11:8080/', // tu je pisalo 192.168.1.11:8080 ve sam del privatnu ipv4 adresu
   prepareHeaders: (headers) => {
     const token = sessionStorage.getItem('accessToken') || localStorage.getItem('accessToken');
     if (token) {

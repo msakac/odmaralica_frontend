@@ -1,6 +1,6 @@
 import api from 'app/api';
 import IResponse from 'types/IResponse';
-import { ILogGetDTO } from 'types/log.types';
+import { ILogEncryptedGetDTO, ILogGetDTO } from 'types/log.types';
 
 const logApi = api.injectEndpoints({
   endpoints: (builder) => ({
@@ -10,8 +10,14 @@ const logApi = api.injectEndpoints({
         method: 'GET',
       }),
     }),
+    getEncryptedLogs: builder.query<IResponse<ILogEncryptedGetDTO[]>, null>({
+      query: () => ({
+        url: 'log/encrypted',
+        method: 'GET',
+      }),
+    }),
   }),
 });
 
-export const { useGetLogsQuery } = logApi;
+export const { useGetLogsQuery, useGetEncryptedLogsQuery } = logApi;
 export default logApi;

@@ -2,6 +2,7 @@ import React from 'react';
 import { Row, Col, Card } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUmbrellaBeach } from '@fortawesome/free-solid-svg-icons';
+import routes from 'routes/routes';
 
 const Footer = () => {
   return (
@@ -59,7 +60,7 @@ const Footer = () => {
             <p className="m-0 title">Terms and Policies</p>
             <ul className="d-flex flex-column mt-3 gap-2">
               <li>
-                <Card.Link>Privacy Policy</Card.Link>
+                <Card.Link href={routes.PrivacyPolicy.absolutePath}>Privacy Policy</Card.Link>
               </li>
               <li>
                 <Card.Link>Terms of use</Card.Link>

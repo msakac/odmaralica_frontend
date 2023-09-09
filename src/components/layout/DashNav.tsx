@@ -45,6 +45,7 @@ const DashNav = ({ setSearchTerm }: DashNavProps) => {
               name={(user && user.name) || ''}
               surname={(user && user.surname) || ''}
               avatarSrc={user?.image?.image || ''}
+              role={user?.role.role || ''}
             />
           </div>
         </Container>

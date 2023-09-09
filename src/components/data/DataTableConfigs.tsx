@@ -5,7 +5,7 @@ import { GridColDef } from '@mui/x-data-grid';
 import { Button } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { ICountry } from 'types/country.types';
-import { ILogGetDTO } from 'types/log.types';
+import { ILogEncryptedGetDTO, ILogGetDTO } from 'types/log.types';
 import { formatDate } from 'utils';
 import { IUser } from 'types/users.types';
 import { ICity } from 'types/city.types';
@@ -61,12 +61,12 @@ export const getCountryRows = (data: ICountry[]) =>
   }) || [];
 
 /* Log */
-export const getLogRows = (data: ILogGetDTO[]) =>
-  data?.map((log: ILogGetDTO) => {
+export const getLogRows = (data: ILogEncryptedGetDTO[]) =>
+  data?.map((log: ILogEncryptedGetDTO) => {
     return {
       id: log.id,
-      user: (log.user && log.user.email) || '',
-      activityType: log.activityType.name,
+      user: log.user,
+      activityType: log.activityType,
       logMessage: log.logMessage,
       createdAt: formatDate(log.createdAt),
       httpMethod: log.httpMethod,

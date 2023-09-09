@@ -42,7 +42,7 @@ const ResidenceCard = ({
       if (!imageId) return;
       setIsFetchingImage(true);
       try {
-        const imageUrl = `http://localhost:8080/image/${imageId}`;
+        const imageUrl = `http://192.168.1.11:8080/image/${imageId}`;
         const response = await axios.get(imageUrl, { responseType: 'arraybuffer' });
 
         // Convert the image data to a base64 URL

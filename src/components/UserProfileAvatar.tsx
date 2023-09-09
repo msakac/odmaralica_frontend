@@ -12,9 +12,10 @@ type UserProfileAvatarProps = {
   name: string;
   surname: string;
   avatarSrc?: string;
+  role: string;
 };
 
-const UserProfileAvatar = ({ name, surname, avatarSrc }: UserProfileAvatarProps) => {
+const UserProfileAvatar = ({ name, surname, avatarSrc, role }: UserProfileAvatarProps) => {
   const navigate = useNavigate();
   const dispatcher = useDispatch();
   const logOut = () => {
@@ -28,7 +29,15 @@ const UserProfileAvatar = ({ name, surname, avatarSrc }: UserProfileAvatarProps)
         <FontAwesomeIcon icon={faChevronDown} className="ms-2" />
       </Dropdown.Toggle>
       <Dropdown.Menu className="dropdown-menu">
-        <div className="username">{`${name} ${surname}`}</div>
+        <div
+          className={`username ${role === 'renter' ? 'text-warning' : ''} ${role === 'moderator' ? 'text-primary' : ''} ${
+            role === 'admin' ? 'text-danger' : ''
+          }`}
+        >
+          {`${name} ${surname}`}
+          <br />
+          {role !== 'user' && `(${role})`}
+        </div>
         <Dropdown.Item href={routes.Profile.absolutePath}>
           <FontAwesomeIcon icon={faUserCircle} className="me-2" /> My Profile
         </Dropdown.Item>

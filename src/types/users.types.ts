@@ -9,6 +9,7 @@ export interface IUser {
   password: string;
   role: IRole;
   activated: boolean;
+  policyAccepted?: boolean;
   description?: string;
   phoneNumber?: string;
 }
@@ -28,6 +29,7 @@ export interface IAuthenticatedUserDTO {
   email: string;
   role: IRole;
   activated: boolean;
+  policyAccepted?: boolean;
   description?: string;
   phoneNumber?: string;
   image?: IImageData;

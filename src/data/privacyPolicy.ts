@@ -1,35 +1,80 @@
 const privacyPolicy = [
   {
-    title: 'Collection and use of information',
-    description:
-      'Instar Center d.o.o. values ​​and protects your privacy. In the process of realizing the requested service and for providing notifications and information related to your purchase or other service, we will only use the information that you voluntarily give us. We undertake not to sell, transfer or give this information to a third party in a way that is not specified in this statement.',
+    title: 'Privacy Policy for Odmaralica',
+    description: `
+      <p><strong>Last Updated: 09.09.2023.</strong></p>
+      <p>This Privacy Policy describes how Odmaralica ("we," "us," or "our") collects, uses, and protects the personal information of users ("you" or "user") of our web application. We are committed to protecting your privacy and ensuring the security of your personal data.</p>
+    `,
   },
   {
-    title: 'Collection and use of information',
-    description: `Instar Center d.o.o. values and protects your privacy. In the process of realizing the requested service and for providing notifications and information related to your purchase or other service, we will only use the information that you voluntarily give us. We undertake not to sell, transfer or give this information to a third party in a way that is not specified in this statement.`,
-  },
-  {
-    title: 'Log files',
-    description: `We use IP addresses to analyze trends, maintain the website, track user movements and gather broader demographic data. IP addresses are not linked to any personal data that can be used to identify an individual.`,
-  },
-  {
-    title: 'Purpose of data collection',
-    description: `Product sales and service – to process your sales, configure and service your product
-Instar Center d.o.o. will collect personal data, sales and service information and customer history information when you purchase, service or repair a product purchased from us, including warranty and verification requests, and will use it to provide you with the services you have requested and notify you of questions related to your product and the fulfillment of the concluded contract.
-Providing personal data for the purpose of fulfilling the concluded contract is a contractual obligation, and if you do not provide it, it may affect the correct execution of the contract or even make it impossible.
+    title: '1. Information We Collect',
+    description: `
+      <p><strong>1.1 User Registration Data</strong></p>
+      <ul>
+        <li>When you register on Odmaralica, we collect the following information:</li>
+        <li>First name</li>
+        <li>Last name</li>
+        <li>Email address</li>
+        <li>Phone number (optional)</li>
+        <li>Description (optional)</li>
+      </ul>
 
-`,
+      <p><strong>1.2 Server Log Data</strong></p>
+      <p>For security purposes, when you use our services, we log your IP address along with your email address. This log data is encrypted using AES encryption and can only be accessed and decrypted by our system administrator under specific circumstances, such as security concerns, attacks on the web application, or debugging.</p>
+    `,
   },
   {
-    title: 'Security',
-    description: `Ova web stranica poduzima apsolutno sve dostupne mjere kako bi zaštitila podatke o korisniku. Unošenje povjerljivih podataka putem ove web stranice zaštićeno je on-line i off-line. Ako se u našem formularu za registraciju od korisnika zahtijevaju povjerljivi podaci (poput osobnih podataka) ti su podaci šifrirani i zaštićeni sigurnosnim protokolom (SSL). Tijekom boravka na zaštićenoj stranici ikona lokota na dnu Internet pretraživača poput Internet Explorera, Netscape Navigatora ili drugih internet browsera je zaključana, za razliku od otključane ili otvorene ikone prilikom uobičajenog pretraživanja naših stranica. Osim korištenja SSL šifriranja kako bismo zaštitili podatke o korisnicima na webu, činimo sve što je u našoj mogućnosti kako bismo iste podatke zaštitili i off-line. Pristup svim podacima o našim korisnicima, ne samo gore spomenutim povjerljivim podacima, je ograničen. Pristup povjerljivim podacima imaju samo zaposlenici kojima su isti potrebni kako bi obavili određenu uslugu.
-Za sva dodatna pitanja o sigurnosti na našoj web stranici možete poslati e-mail na: zastitaosobnihpodataka@instar-informatika.hr.`,
+    title: '2. Purpose of Data Collection',
+    description: `
+      <p>We collect and process your personal data for the following purposes:</p>
+      <ul>
+        <li>To provide you with access to our booking services.</li>
+        <li>To improve our platform and services.</li>
+        <li>To ensure the security of our web application.</li>
+        <li>To communicate with you and provide support.</li>
+      </ul>
+    `,
   },
   {
-    title: 'What data we collect',
-    description: `Personal data: name, surname, address, contact number, email address, date of birth, ID number, OIB
-    Photos and videos: when using video surveillance
-    Sales and service information: information about the purchase, including the customer's user identity, contract number and information about warranty, complaints, delivery, support and services, including complaints and requests`,
+    title: '3. User Consent and Control',
+    description: `
+      <p><strong>3.1 Acceptance of Privacy Policy</strong></p>
+      <p>In order to make a reservation, you must accept our Privacy Policy. By accepting the policy, you consent to the collection and processing of your personal data as described herein.</p>
+
+      <p><strong>3.2 Revoking Consent</strong></p>
+      <p>You have the right to revoke your consent for data processing at any time, under the following conditions:</p>
+      <ul>
+        <li>You may revoke your consent for data processing if you have no upcoming or active reservations.</li>
+        <li>To revoke your consent, please visit localhost:3000/revoke-privacy-policy-consent.</li>
+      </ul>
+    `,
+  },
+  {
+    title: '4. Data Deletion',
+    description: `
+      <p>You can request the deletion of your personal data by sending a request to localhost:3000/delete-my-account. However, please note the following conditions:</p>
+      <ul>
+        <li>Your data can only be deleted if you have no active or upcoming reservations.</li>
+        <li>If you have active reservations, you must cancel them yourself before requesting data deletion.</li>
+      </ul>
+    `,
+  },
+  {
+    title: '5. Cookies and Tracking',
+    description: `<p>We do not use cookies or tracking technologies on our web application.</p>`,
+  },
+  {
+    title: '6. Data Security',
+    description: `
+      <p>We implement industry-standard security measures, including encryption and access controls, to protect your personal data. Only authorized personnel can access and view this data.</p>
+    `,
+  },
+  {
+    title: '7. Contact Information',
+    description: `
+      <p>If you have any questions or concerns about this Privacy Policy or your personal data, please contact us at:</p>
+      <p>Email: odmaralica@gmail.com</p>
+    `,
   },
 ];
 

@@ -13,7 +13,7 @@ export interface ILoginOpenAuthRequestDTO {
 }
 
 /* Register */
-export type IRegisterRequestDTO = Omit<IUser, 'id' | 'activated' | 'role'>;
+export type IRegisterRequestDTO = Omit<IUser, 'id' | 'activated' | 'role' | 'policyAccepted'>;
 export interface IRegisterResponseDTO {
   user: IUserGetDTO;
 }
