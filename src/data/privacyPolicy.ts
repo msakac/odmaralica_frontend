@@ -45,14 +45,14 @@ const privacyPolicy = [
       <p>You have the right to revoke your consent for data processing at any time, under the following conditions:</p>
       <ul>
         <li>You may revoke your consent for data processing if you have no upcoming or active reservations.</li>
-        <li>To revoke your consent, please visit localhost:3000/revoke-privacy-policy-consent.</li>
+        <li>To revoke your consent, please visit Privacy Policy or My Profile page where you can revoke your consent.</li>
       </ul>
     `,
   },
   {
     title: '4. Data Deletion',
     description: `
-      <p>You can request the deletion of your personal data by sending a request to localhost:3000/delete-my-account. However, please note the following conditions:</p>
+      <p>You can request the deletion of your personal data by making a request on My Profile page. However, please note the following conditions:</p>
       <ul>
         <li>Your data can only be deleted if you have no active or upcoming reservations.</li>
         <li>If you have active reservations, you must cancel them yourself before requesting data deletion.</li>

@@ -1,3 +1,4 @@
+/* eslint-disable import/no-cycle */
 import { ICity } from './city.types';
 import { IResidence, IResidenceGetDTO } from './residence.types';
 
@@ -13,7 +14,7 @@ export interface IAddressGetDTO {
   id: string;
   residence: IResidenceGetDTO;
   street: string;
-  city: ICity; // ne trebam DTO jer je identičan
+  city: ICity;
   additional: string;
 }
 
