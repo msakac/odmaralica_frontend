@@ -27,6 +27,7 @@ import Residence from 'pages/Residence';
 import PrivacyPolicy from 'pages/PrivacyPolicy';
 import MyReservations from 'pages/MyReservations';
 import PrivacyRequest from 'pages/PrivacyRequest';
+import SessionExpired from 'pages/SessionExpired';
 import routes from './routes';
 import restrictions from './restrictions';
 import RequireAuth from './RequireAuth';
@@ -46,6 +47,7 @@ const Routing = () => {
         <Route path={routes.Explore.relativePath} element={<Explore />} />
         <Route path={routes.Residence.relativePath} element={<Residence />} />
         <Route path={routes.PrivacyPolicy.relativePath} element={<PrivacyPolicy />} />
+        <Route path={routes.SessionExpired.relativePath} element={<SessionExpired />} />
         <Route
           path={routes.Profile.relativePath}
           element={<RequireAuth element={<Profile />} restrictedTo={restrictions.user} />}

@@ -59,7 +59,7 @@ const authApi = apiWithAuthTags.injectEndpoints({
     }),
     refreshTokens: builder.mutation<IResponse<ILoginResponseDTO>, IRefreshTokenRequest>({
       query: (body) => ({
-        url: 'auth/refresh-tokens',
+        url: 'auth/refresh-token',
         method: 'POST',
         body,
       }),

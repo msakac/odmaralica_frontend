@@ -1,7 +1,9 @@
+/* eslint-disable import/no-cycle */
 import { BaseQueryFn, createApi, FetchArgs, fetchBaseQuery, FetchBaseQueryError } from '@reduxjs/toolkit/query/react';
 import { Mutex } from 'async-mutex';
+import IResponse from 'types/IResponse';
 import { ILoginResponseDTO } from 'types/auth.types';
-
+// Assuming you're using React Router v6
 const mutex = new Mutex();
 
 const resetAuth = (): void => {
@@ -9,6 +11,7 @@ const resetAuth = (): void => {
   localStorage.removeItem('refreshToken');
   sessionStorage.removeItem('accessToken');
   sessionStorage.removeItem('refreshToken');
+  window?.location.replace('/session-expired');
 };
 
 const baseQuery = fetchBaseQuery({
@@ -31,7 +34,6 @@ const baseQueryWithReauth: BaseQueryFn<string | FetchArgs, unknown, FetchBaseQue
   let result = await baseQuery(args, api, extraOptions);
   // TODO zbog toga kaj u backendu vraca UserGetDTO ako user nije logirani, baca mi exception u frontu jer nema role
   if (result.error && result.error.status === 401) {
-    console.log('oh no, we are not authenticated');
     if (!mutex.isLocked()) {
       const release = await mutex.acquire();
       try {
@@ -42,7 +44,7 @@ const baseQueryWithReauth: BaseQueryFn<string | FetchArgs, unknown, FetchBaseQue
           // try to get a new token
           const refreshResult = await baseQuery(
             {
-              url: 'auth/refresh-tokens',
+              url: 'auth/refresh-token',
               method: 'POST',
               body: { refreshToken },
             },
@@ -50,13 +52,13 @@ const baseQueryWithReauth: BaseQueryFn<string | FetchArgs, unknown, FetchBaseQue
             extraOptions
           );
           if (refreshResult.data) {
-            const userWithTokens = refreshResult.data as ILoginResponseDTO;
+            const userWithTokens = refreshResult.data as IResponse<ILoginResponseDTO>;
             if (rememberMe === 'true') {
-              localStorage.setItem('accessToken', userWithTokens.accessToken);
-              localStorage.setItem('refreshToken', userWithTokens.refreshToken);
+              localStorage.setItem('accessToken', userWithTokens.data.accessToken);
+              localStorage.setItem('refreshToken', userWithTokens.data.refreshToken);
             } else {
-              sessionStorage.setItem('accessToken', userWithTokens.accessToken);
-              sessionStorage.setItem('refreshToken', userWithTokens.refreshToken);
+              sessionStorage.setItem('accessToken', userWithTokens.data.accessToken);
+              sessionStorage.setItem('refreshToken', userWithTokens.data.refreshToken);
             }
           } else {
             resetAuth();

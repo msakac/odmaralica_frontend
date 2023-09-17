@@ -31,6 +31,7 @@ interface IRoutes {
   PrivacyPolicy: IRoutePath;
   MyReservations: IRoutePath;
   PrivacyRequest: IRoutePath;
+  SessionExpired: IRoutePath;
 }
 
 const routes: IRoutes = {
@@ -64,6 +65,7 @@ const routes: IRoutes = {
   PrivacyPolicy: { relativePath: 'privacy-policy', absolutePath: '/privacy-policy' },
   MyReservations: { relativePath: 'my-reservations', absolutePath: '/my-reservations' },
   PrivacyRequest: { relativePath: 'privacy-request', absolutePath: '/dashboard/privacy-request' },
+  SessionExpired: { relativePath: 'session-expired', absolutePath: '/session-expired' },
 };
 
 export default routes;
