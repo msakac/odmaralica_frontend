@@ -4,11 +4,10 @@ import { Button, Modal, Image, Row, Col } from 'react-bootstrap';
 
 import { ICustomAccommodationUnitDTO } from 'types/accommodationUnit.types';
 import { IResidenceAggregateDTO } from 'types/residence.types';
-import { useFindPrivacyRequestsQuery } from 'api/privacyRequest.api';
-import { useSelector } from 'react-redux';
-import { selectAuthentication } from 'app/store';
+import { useFindPrivacyRequestsQuery, useLazyFindPrivacyRequestsQuery } from 'api/privacyRequest.api';
 import { useNavigate } from 'react-router-dom';
 import routes from 'routes/routes';
+import { IAuthenticatedUserDTO } from 'types/users.types';
 import Input from './common/Input';
 import Loader from './common/Loader';
 
@@ -22,6 +21,7 @@ interface IConfirmReservationModalProps {
   accommodationUnit: ICustomAccommodationUnitDTO;
   residence: IResidenceAggregateDTO;
   image: string;
+  user: IAuthenticatedUserDTO;
 }
 
 const ConfirmReservationModal = ({
@@ -34,9 +34,9 @@ const ConfirmReservationModal = ({
   residence,
   accommodationUnit,
   image,
+  user,
 }: IConfirmReservationModalProps) => {
   const [note, setNote] = useState<string>('');
-  const { user } = useSelector(selectAuthentication);
   const [dataDeletionExist, setDataDeletionExist] = useState<boolean>(false);
   const {
     data: privacyRequestData,

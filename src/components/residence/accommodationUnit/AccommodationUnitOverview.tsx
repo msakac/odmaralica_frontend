@@ -203,17 +203,20 @@ const AccommodationUnitOverview = ({
           </Button>
         </div>
       </div>
-      <ConfirmReservationModal
-        showModal={showModal}
-        hideModal={setShowModal}
-        checkIn={checkIn}
-        checkOut={checkOut}
-        totalPrice={`${currency} ${totalPrice}`}
-        residence={residence!}
-        accommodationUnit={accommodationUnit!}
-        doAction={addReservation}
-        image={image}
-      />
+      {user && (
+        <ConfirmReservationModal
+          showModal={showModal}
+          hideModal={setShowModal}
+          checkIn={checkIn}
+          checkOut={checkOut}
+          totalPrice={`${currency} ${totalPrice}`}
+          residence={residence!}
+          accommodationUnit={accommodationUnit!}
+          doAction={addReservation}
+          user={user}
+          image={image}
+        />
+      )}
     </>
   );
 };

@@ -72,6 +72,7 @@ export const {
   useUpdatePrivacyRequestMutation,
   useDeletePrivacyRequestMutation,
   useFindPrivacyRequestsQuery,
+  useLazyFindPrivacyRequestsQuery,
   useUpdateAcceptPrivacyRequestMutation,
 } = privacyRequestApi;
 

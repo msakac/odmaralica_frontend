@@ -62,7 +62,6 @@ const ImageUploader = () => {
   async function addImages() {
     try {
       for (let i = 0; i < fileList!.length; i += 1) {
-        console.log(i);
         const file = fileList![i];
         const imageDataPost = new FormData();
         imageDataPost.append('imageFile', file);
@@ -72,7 +71,6 @@ const ImageUploader = () => {
 
         // eslint-disable-next-line no-await-in-loop
         await uploadImage(imageDataPost).unwrap();
-        console.log(`Uploaded image ${i + 1}`);
       }
     } catch (error) {
       console.log(error);
@@ -88,7 +86,7 @@ const ImageUploader = () => {
     // };
     try {
       const imagePromises = imageIds.map(async (imageId) => {
-        const imageUrl = `http://localhost:8080:8080/image/${imageId}`;
+        const imageUrl = `http://localhost:8080/image/${imageId}`;
         const response = await axios.get(imageUrl, { responseType: 'arraybuffer' });
 
         // Convert the image data to a base64 URL

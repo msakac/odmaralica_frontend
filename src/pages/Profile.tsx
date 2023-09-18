@@ -120,7 +120,7 @@ const Profile = () => {
               fetchImage({ q: `user.id=${user!.id}` })
                 .unwrap()
                 .then((data) => {
-                  const imageUrl = `http://localhost:8080:8080/image/${data.data[0]}`;
+                  const imageUrl = `http://localhost:8080/image/${data.data[0]}`;
                   axios.get(imageUrl, { responseType: 'arraybuffer' }).then((response) => {
                     const base64Image = btoa(
                       new Uint8Array(response.data).reduce((dta, byte) => dta + String.fromCharCode(byte), '')

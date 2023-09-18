@@ -34,7 +34,6 @@ function getResidenceCardData(
   const dates: string[] = getDatesFromInOut(checkIn!, checkOut!);
 
   residences?.forEach((residence: IResidenceAggregateDTO) => {
-    console.log('RESIDENCE', residence);
     let unitsCount = 0;
     let price = { minimalPrice: 0, currency: '' };
     // Filter by facilities
