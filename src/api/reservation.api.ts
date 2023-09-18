@@ -64,6 +64,7 @@ export const {
   useUpdateReservationMutation,
   useDeleteReservationMutation,
   useFindReservationsQuery,
+  useLazyFindReservationsQuery,
 } = reservationApi;
 
 export default reservationApi;

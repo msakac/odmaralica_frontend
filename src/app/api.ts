@@ -15,7 +15,7 @@ const resetAuth = (): void => {
 };
 
 const baseQuery = fetchBaseQuery({
-  baseUrl: 'http://localhost:8080/', // tu je pisalo localhost:8080 ve sam del privatnu ipv4 adresu
+  baseUrl: 'http://localhost:8080:8080/', // tu je pisalo localhost:8080:8080 ve sam del privatnu ipv4 adresu
   prepareHeaders: (headers) => {
     const token = sessionStorage.getItem('accessToken') || localStorage.getItem('accessToken');
     if (token) {

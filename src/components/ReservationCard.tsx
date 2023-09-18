@@ -77,7 +77,7 @@ const ReservationCard = ({ reservation, refetch }: IReservationCardProps) => {
       if (!imageIds) return;
       setIsFetchingImage(true);
       try {
-        const imageUrl = `http://localhost:8080/image/${imageIds.data[0]}`;
+        const imageUrl = `http://localhost:8080:8080/image/${imageIds.data[0]}`;
         const response = await axios.get(imageUrl, { responseType: 'arraybuffer' });
 
         // Convert the image data to a base64 URL

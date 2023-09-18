@@ -26,6 +26,7 @@ import {
   useFindPrivacyRequestsQuery,
   useUpdatePrivacyRequestMutation,
 } from 'api/privacyRequest.api';
+import { useLocation } from 'react-router-dom';
 /* Workflow - sliku ako korisnik oce promijeniti, preview je na avataru. Dok saljem update profile prvo sliku 
 postavljam zatim saljem sve ostalo i opet dohvacam korisnikove podatake da ih spremim v slice */
 
@@ -65,6 +66,8 @@ const Profile = () => {
   const [upcomingReservations, setUpcomingReservations] = useState<number>(0);
   const [privacyReqPut, { isLoading: isLoadingPutPrivacyRequest }] = useUpdatePrivacyRequestMutation();
   const [dataDeletionExist, setDataDeletionExist] = useState<boolean>(false);
+  const location = useLocation();
+  const { dataDeletionNotice } = location.state || false;
 
   useEffect(() => {
     const upcoming = reservations?.data.filter(
@@ -83,6 +86,10 @@ const Profile = () => {
       setDataDeletionExist(false);
     }
   }, [privacyRequestData]);
+
+  useEffect(() => {
+    window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
+  }, []);
 
   async function addImage() {
     const promises = [];
@@ -113,7 +120,7 @@ const Profile = () => {
               fetchImage({ q: `user.id=${user!.id}` })
                 .unwrap()
                 .then((data) => {
-                  const imageUrl = `http://localhost:8080/image/${data.data[0]}`;
+                  const imageUrl = `http://localhost:8080:8080/image/${data.data[0]}`;
                   axios.get(imageUrl, { responseType: 'arraybuffer' }).then((response) => {
                     const base64Image = btoa(
                       new Uint8Array(response.data).reduce((dta, byte) => dta + String.fromCharCode(byte), '')
@@ -244,6 +251,11 @@ const Profile = () => {
               ref={fileInputRef}
               onChange={handleImageSelection}
             />
+            {dataDeletionNotice && dataDeletionExist && (
+              <Alert variant="warning" className="mt-5">
+                You have to <span style={{ fontWeight: 'bold' }}>revoke data deletion request </span>to create a reservation!
+              </Alert>
+            )}
           </Card.Header>
           <Card.Body className="p-4">
             {error && <Alert variant="danger">{error}</Alert>}

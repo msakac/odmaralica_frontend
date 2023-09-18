@@ -1,21 +1,19 @@
 import ResidenceCard from 'components/ResidenceCard';
 import Animate from 'components/common/Animate';
-import React from 'react';
-// import { useGetCountriesQuery } from 'modules/address/country.api';
-// import { Loader, Animate } from 'modules/common/components';
-// import { ICountry } from 'modules/address/address.types';
+import React, { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import routes from 'routes/routes';
 
 const Home = () => {
-  // const { data, isLoading, isFetching } = useGetCountriesQuery(null);
-  // console.log(data);
+  const navigate = useNavigate();
+  useEffect(() => {
+    navigate(routes.Explore.absolutePath);
+  }, []);
   return (
-    <>
-      {/* <Loader show={isLoading || isFetching} /> */}
-      <Animate>
-        <div className="d-flex justify-content-center align-items-center">Homepage</div>
-        <ResidenceCard />
-      </Animate>
-    </>
+    <Animate>
+      <div className="d-flex justify-content-center align-items-center">Homepage</div>
+      <ResidenceCard />
+    </Animate>
   );
 };
 

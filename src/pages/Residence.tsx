@@ -76,7 +76,7 @@ const Residence = () => {
       try {
         const imageIds = currentAccUnit ? currentAccUnit?.imagesIds : residence?.data.imageIds;
         const imagePromises = imageIds!.map(async (imageId) => {
-          const imageUrl = `http://localhost:8080/image/${imageId}`;
+          const imageUrl = `http://localhost:8080:8080/image/${imageId}`;
           const response = await axios.get(imageUrl, { responseType: 'arraybuffer' });
 
           // Convert the image data to a base64 URL

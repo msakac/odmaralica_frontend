@@ -32,28 +32,28 @@ const PublicNav = () => {
             <Nav className="me-auto text-dark gap-1 gap-lg-4">
               <Nav.Link
                 as={Link}
-                to={routes.Home.relativePath}
+                to={routes.Explore.relativePath}
                 className={`text-center ${isActiveLink(routes.Home.relativePath)}`}
               >
                 Home
               </Nav.Link>
               <Nav.Link
                 as={Link}
-                to={routes.Explore.relativePath}
+                to={routes.Explore.absolutePath}
                 className={`text-center ${isActiveLink(routes.Explore.relativePath)}`}
               >
                 Explore
               </Nav.Link>
               <Nav.Link
                 as={Link}
-                to={routes.Home.relativePath}
+                to={routes.PrivacyPolicy.relativePath}
                 className={`text-center ${isActiveLink(routes.Home.relativePath)}`}
               >
-                About
+                Privacy Policy
               </Nav.Link>
               <Nav.Link
                 as={Link}
-                to={routes.Home.relativePath}
+                to={routes.PrivacyPolicy.absolutePath}
                 className={`text-center ${isActiveLink(routes.Home.relativePath)}`}
               >
                 Contact

@@ -21,11 +21,14 @@ const Logs = () => {
   const { searchText } = useSearhText();
   /* Searched data from API */
   const [searchedData, setSearchedData] = useState<ILogEncryptedGetDTO[]>([]);
+  const [decryptDataList, setDecryptDataList] = useState<ILogEncryptedGetDTO[]>([]);
   const [decryptKey, setDecryptKey] = useState<string>('');
   const actionMessagesRef = useRef<ActionMessagesRef>(null);
 
   useEffect(() => {
-    const filteredData = data?.data.filter(
+    const localData = decryptDataList.length > 0 ? decryptDataList : data?.data;
+    if (!localData) return;
+    const filteredData = localData.filter(
       (log: ILogEncryptedGetDTO) =>
         log.activityType.toLowerCase().includes(searchText) ||
         log.user.toLowerCase().includes(searchText) ||
@@ -46,6 +49,9 @@ const Logs = () => {
       actionMessagesRef.current!.createMessage('Error while decrypting data', MessageType.Error);
       return;
     }
+    actionMessagesRef.current!.createMessage('Successfully decrypted data', MessageType.Ok);
+    setDecryptDataList(decryptedList as ILogEncryptedGetDTO[]);
+    setDecryptKey('');
     setSearchedData(decryptedList as ILogEncryptedGetDTO[]);
   };
 

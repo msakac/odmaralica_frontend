@@ -11,12 +11,13 @@ import { selectAuthentication } from 'app/store';
 import { useLocation } from 'react-router-dom';
 import { useUpdateUserMutation } from 'api/users.api';
 import Loader from 'components/common/Loader';
-import { useFindReservationsQuery } from 'api/reservation.api';
+import { useLazyFindReservationsQuery } from 'api/reservation.api';
 import dayjs from 'dayjs';
 
 const PrivacyPolicy = () => {
   const { user, accessToken, refreshToken } = useSelector(selectAuthentication);
-  const { data: reservations, isLoading, isFetching } = useFindReservationsQuery({ q: `user.id=${user!.id}` });
+  const [fetchUserReservations, reservations] = useLazyFindReservationsQuery();
+  // const { data: reservations, isLoading, isFetching } = useFindReservationsQuery({ q: `user.id=${user!.id}` });
   const [update, { isLoading: isLoadingPut }] = useUpdateUserMutation();
   const [checked, setChecked] = useState(user?.policyAccepted || false);
   const location = useLocation();
@@ -24,8 +25,13 @@ const PrivacyPolicy = () => {
   const dispatch = useDispatch();
   const [upcomingReservations, setUpcomingReservations] = useState<number>(0);
 
+  if (user && !reservations) {
+    fetchUserReservations({ q: `user.id=${user!.id}` });
+  }
+
   useEffect(() => {
-    const upcoming = reservations?.data.filter(
+    if (!reservations?.data) return;
+    const upcoming = reservations?.data.data.filter(
       (reservation) =>
         (dayjs(reservation.startAt).isAfter(dayjs()) || dayjs(reservation.endAt).isAfter(dayjs())) && !reservation.cancelled
     );
@@ -56,10 +62,10 @@ const PrivacyPolicy = () => {
 
   return (
     <div className="privacy-policy">
-      <Loader show={isLoadingPut || isLoading || isFetching} />
+      <Loader show={isLoadingPut || reservations.isLoading || reservations.isFetching} />
       <h1 className="privacy-policy-heading">Privacy Policy</h1>
       <div className="privacy-policy-container">
-        {privacyPolicyNotice && (
+        {privacyPolicyNotice && !user?.policyAccepted && (
           <Alert variant="warning">You have to accept Privacy Policy before making a reservation!</Alert>
         )}
         {privacyPolicy.map((policy, index) => (
@@ -74,14 +80,14 @@ const PrivacyPolicy = () => {
           <Col xs={12} md={6} className="text-center">
             <CustomCheckbox label="I agree to the Privacy Policy" value={checked} setValue={setChecked} />
           </Col>
-          {checked && !user?.policyAccepted && (
+          {checked && !user.policyAccepted && (
             <Col xs={12} md={4}>
               <Button variant="warning" type="submit" className="w-100" onClick={acceptPrivacyPolicy}>
                 Save my Consent
               </Button>
             </Col>
           )}
-          {!checked && user?.policyAccepted && (
+          {!checked && user.policyAccepted && (
             <Row className="gap-2 justify-content-center ">
               <Col xs={12} className="text-center">
                 <p className="text-danger">You have: {upcomingReservations} active or upcoming reservations! </p>
