@@ -73,7 +73,6 @@ const AdminResidences = () => {
       distanceStore,
     } = residence!;
     const owner = users?.data.find((u) => u.email === residence!.owner.email);
-    console.log(owner);
     const updatedResidence = {
       id,
       name,
@@ -89,7 +88,6 @@ const AdminResidences = () => {
       ownerId: owner!.id,
       isPublished: !residence?.isPublished,
     };
-    console.log(updatedResidence);
     await updateResidence(updatedResidence)
       .unwrap()
       .then((dataUpdate) => {

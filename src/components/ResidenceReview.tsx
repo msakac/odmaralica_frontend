@@ -41,7 +41,6 @@ const ResidenceReview = ({ residence, refetch }: IResidenceOverviewProps) => {
 
   useEffect(() => {
     if (user) {
-      console.log(user.id);
       checkUser({ userId: user.id, residenceId: residence?.id! });
     }
   }, [user]);

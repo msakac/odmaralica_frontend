@@ -26,7 +26,6 @@ const AccommodationUnitCard = ({ accommodationUnit, checkIn, checkOut, handleCli
   useEffect(() => {
     const generaterPriceList = generatePriceList(accommodationUnit.pricePeriods, checkIn, checkOut);
     setPriceList(generaterPriceList);
-    // console.log(priceList);
   }, [checkIn, checkOut]);
 
   useEffect(() => {

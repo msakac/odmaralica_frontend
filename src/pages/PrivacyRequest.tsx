@@ -43,7 +43,6 @@ const PrivacyRequest = () => {
   };
 
   async function acceptRequest() {
-    console.log(dataId);
     await acceptPrivacyRequest({ id: dataId })
       .unwrap()
       .then((data) => {

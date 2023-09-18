@@ -10,10 +10,8 @@ function getAvailableUnitsData(residence: IResidenceAggregateDTO, checkIn: strin
   // eslint-disable-next-line prefer-const
   let availableUnits: ICustomAccommodationUnitDTO[] = [];
   const dates: string[] = getDatesFromInOut(checkIn!, checkOut!);
-  console.log(dates);
   // Filter by availability
   residence.units.forEach((unit) => {
-    console.log(unit);
     const unitIsAvailable = dates.every((date) => unit.availableDates.includes(date));
     if (!unitIsAvailable) return;
     availableUnits.push(unit);

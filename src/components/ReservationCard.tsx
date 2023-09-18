@@ -67,7 +67,6 @@ const ReservationCard = ({ reservation, refetch }: IReservationCardProps) => {
     if (accUnit === undefined) return;
     const generatedPriceList = generatePriceList(accUnit?.pricePeriods!, reservation.startAt, reservation.endAt);
     setPriceList(generatedPriceList);
-    console.log(generatedPriceList);
     const price = generatedPriceList.reduce((acc, curr) => acc + curr.price, 0);
     setTotalPrice(`${generatedPriceList[0].currency} ${price}`);
   }, [residence]);

@@ -57,7 +57,6 @@ const Login = () => {
       sessionStorage.setItem('accessToken', payload.data.accessToken);
       sessionStorage.setItem('refreshToken', payload.data.refreshToken);
     }
-    console.log(payload.data.user);
     dispatch(
       loginUser({
         user: { ...payload.data.user, image },
